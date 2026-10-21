@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Verzweigungen in Python</title>
+  <meta name="description" content="Interaktive Lernseite zu if, else, elif und match in Python – mit klickbaren Struktogrammen.">
+  <meta name="theme-color" content="#2563c9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563c9'/%3E%3Cpath d='M4 8h24L16 22z' fill='none' stroke='white' stroke-width='2.5' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Python · Kontrollstrukturen</p>
+      <h1>Verzweigungen in Python</h1>
+      <p class="lead">Wie ein Programm Entscheidungen trifft: <code>if</code>, <code>else</code>, <code>elif</code> und <code>match</code> – Schritt für Schritt mit Struktogrammen.</p>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <div class="wrap toc-inner">
+    <a href="#start">Start</a>
+    <a href="#bedingungen">Bedingungen</a>
+    <a href="#einseitig">Einseitig</a>
+    <a href="#zweiseitig">Zweiseitig</a>
+    <a href="#verschachtelt">Verschachtelt</a>
+    <a href="#match">match</a>
+    <a href="#elif">elif</a>
+    <a href="#fehler">Typische Fehler</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- 1 Kontrollstrukturen -->
+  <section id="start" class="section">
+    <h2><span class="num">1</span> Kontrollstrukturen</h2>
+    <p>Bisher liefen unsere Programme einfach <strong>von oben nach unten</strong> durch – Zeile für Zeile. Im echten Leben hängt aber vieles von Bedingungen ab: <em>Wenn</em> es regnet, nehme ich einen Schirm mit. Damit Programme so etwas können, gibt es <strong>Kontrollstrukturen</strong>.</p>
+
+    <div class="tree" role="img" aria-label="Übersicht der Kontrollstrukturen: Sequenz, Verzweigung und Schleife">
+      <div class="tree-root">Kontrollstrukturen</div>
+      <div class="tree-branches">
+        <div class="tree-branch">
+          <div class="tree-node">Anweisungsfolge<small>Sequenz</small></div>
+        </div>
+        <div class="tree-branch is-focus">
+          <div class="tree-node">Verzweigung<small>Selektion – dieses Thema</small></div>
+          <ul>
+            <li><a href="#einseitig">Einseitige Verzweigung</a></li>
+            <li><a href="#zweiseitig">Zweiseitige Verzweigung</a></li>
+            <li><a href="#match">Mehrfachauswahl</a></li>
+          </ul>
+        </div>
+        <div class="tree-branch is-muted">
+          <div class="tree-node">Schleife<small>Iteration – kommt später</small></div>
+          <ul>
+            <li>Kopfgesteuerte Schleife</li>
+            <li>Fußgesteuerte Schleife</li>
+            <li>Zählschleife</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="howto">
+      <h3>So benutzt du diese Seite</h3>
+      <ol>
+        <li><strong>Tippe auf ein Feld im Struktogramm</strong> – die passenden Codezeilen werden <mark class="sw sw-sel">gelb</mark> markiert und erklärt.</li>
+        <li><strong>Tippe auf eine Codezeile</strong> – das passende Feld im Struktogramm leuchtet auf.</li>
+        <li><strong>Drücke „Ausführen“</strong> – das Programm läuft Schritt für Schritt, der durchlaufene Weg wird <mark class="sw sw-run">grün</mark>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 2 Bedingungen -->
+  <section id="bedingungen" class="section">
+    <h2><span class="num">2</span> Bedingungen</h2>
+    <p>Bei einer Verzweigung hängt der weitere Ablauf von einer <strong>Bedingung</strong> ab. Eine Bedingung ist eine Frage, die der Computer nur mit <code>True</code> (wahr) oder <code>False</code> (falsch) beantworten kann. Dafür nutzt man <strong>Vergleichsoperatoren</strong>:</p>
+
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Operator</th><th>Bedeutung</th><th>Beispiel</th><th>Ergebnis</th></tr></thead>
+        <tbody>
+          <tr><td><code>==</code></td><td>gleich</td><td><code>5 == 5</code></td><td class="t">True</td></tr>
+          <tr><td><code>!=</code></td><td>ungleich</td><td><code>5 != 3</code></td><td class="t">True</td></tr>
+          <tr><td><code>&gt;</code></td><td>größer als</td><td><code>3 &gt; 7</code></td><td class="f">False</td></tr>
+          <tr><td><code>&lt;</code></td><td>kleiner als</td><td><code>3 &lt; 7</code></td><td class="t">True</td></tr>
+          <tr><td><code>&gt;=</code></td><td>größer oder gleich</td><td><code>7 &gt;= 7</code></td><td class="t">True</td></tr>
+          <tr><td><code>&lt;=</code></td><td>kleiner oder gleich</td><td><code>8 &lt;= 7</code></td><td class="f">False</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <strong>Achtung:</strong> <code>=</code> und <code>==</code> sind nicht dasselbe! <code>x = 5</code> <em>speichert</em> 5 in x. <code>x == 5</code> <em>fragt</em>, ob x gleich 5 ist.
+    </div>
+
+    <div class="card tester" id="tester">
+      <h3>Probier's aus: Bedingungs-Tester</h3>
+      <div class="tester-row">
+        <input type="number" id="t-a" value="7" aria-label="Linker Wert">
+        <select id="t-op" aria-label="Operator">
+          <option>==</option><option>!=</option><option selected>&gt;</option><option>&lt;</option><option>&gt;=</option><option>&lt;=</option>
+        </select>
+        <input type="number" id="t-b" value="5" aria-label="Rechter Wert">
+        <span class="arrow">→</span>
+        <output id="t-out" class="bool">True</output>
+      </div>
+    </div>
+
+    <h3>Bedingungen verknüpfen: <code>and</code>, <code>or</code>, <code>not</code></h3>
+    <p>Mehrere Bedingungen kann man mit <strong>logischen Operatoren</strong> verbinden:</p>
+    <ul class="plain">
+      <li><code>and</code> – nur wahr, wenn <strong>beide</strong> Bedingungen wahr sind.</li>
+      <li><code>or</code> – wahr, wenn <strong>mindestens eine</strong> Bedingung wahr ist.</li>
+      <li><code>not</code> – dreht das Ergebnis um: aus <code>True</code> wird <code>False</code> und umgekehrt.</li>
+    </ul>
+
+    <div class="card logic" id="logic">
+      <h3>Tippe auf A oder B, um den Wert zu ändern</h3>
+      <div class="logic-toggles">
+        <button type="button" class="bool-btn" data-var="A" aria-pressed="true">A = <b>True</b></button>
+        <button type="button" class="bool-btn" data-var="B" aria-pressed="false">B = <b>False</b></button>
+      </div>
+      <div class="logic-results">
+        <div><code>A and B</code><output class="bool" data-expr="and"></output></div>
+        <div><code>A or B</code><output class="bool" data-expr="or"></output></div>
+        <div><code>not A</code><output class="bool" data-expr="not"></output></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2.1 Einseitig -->
+  <section id="einseitig" class="section">
+    <h2><span class="num">2.1</span> Einseitige Verzweigung</h2>
+    <p>Es wird <strong>eine Bedingung</strong> geprüft. Ist sie wahr, wird ein Block ausgeführt. Ist sie falsch, passiert <strong>nichts</strong> – das Programm macht einfach nach der Verzweigung weiter. Im Struktogramm steht dafür im Falsch-Zweig das Zeichen <strong>∅</strong> (leer).</p>
+    <div class="syntax">
+      <div class="syntax-label">Syntax</div>
+<pre class="py">
+if Bedingung:
+    Anweisung1
+    Anweisung2
+</pre>
+    </div>
+    <p><strong>Beispiel:</strong> Das Programm fragt nach der Temperatur. Nur wenn es wärmer als 25 °C ist, gibt es einen Hinweis aus.</p>
+    <div class="example" data-example="einseitig"></div>
+  </section>
+
+  <!-- 2.2 Zweiseitig -->
+  <section id="zweiseitig" class="section">
+    <h2><span class="num">2.2</span> Zweiseitige Verzweigung</h2>
+    <p>Jetzt gibt es eine <strong>Alternative</strong>: Ist die Bedingung falsch, wird der <code>else</code>-Block ausgeführt. Es wird also <strong>immer genau einer</strong> der beiden Zweige ausgeführt – nie beide, nie keiner.</p>
+    <div class="syntax">
+      <div class="syntax-label">Syntax</div>
+<pre class="py">
+if Bedingung:
+    Anweisung1
+else:
+    Anweisung2
+</pre>
+    </div>
+    <p><strong>Beispiel:</strong> Ein Laden hat von 8 bis 18 Uhr geöffnet. Die Bedingung verknüpft zwei Vergleiche mit <code>and</code> – die Uhrzeit muss <em>beide</em> erfüllen.</p>
+    <div class="example" data-example="zweiseitig"></div>
+  </section>
+
+  <!-- 2.3 Verschachtelt -->
+  <section id="verschachtelt" class="section">
+    <h2><span class="num">2.3</span> Verschachtelte Verzweigung</h2>
+    <p>Manchmal muss man nach einer Entscheidung <strong>noch eine weitere Frage</strong> stellen. Dann steht eine Verzweigung <em>innerhalb</em> einer anderen. Im Code erkennst du das an der <strong>doppelten Einrückung</strong>, im Struktogramm an dem kleineren Dreieck im Wahr- oder Falsch-Zweig.</p>
+    <p><strong>Beispiel:</strong> Was soll ich anziehen? Zuerst wird gefragt, ob es regnet – danach je nach Antwort, wie warm es ist.</p>
+    <div class="example" data-example="verschachtelt"></div>
+    <div class="callout">
+      <strong>Wichtig:</strong> Es wird immer nur <em>ein</em> Weg durch das Struktogramm genommen. Ist die äußere Bedingung wahr, wird der gesamte Falsch-Zweig (rechte Hälfte) übersprungen – auch die innere Bedingung dort wird gar nicht geprüft.
+    </div>
+  </section>
+
+  <!-- 2.4 match -->
+  <section id="match" class="section">
+    <h2><span class="num">2.4</span> Mehrfachauswahl mit <code>match</code></h2>
+    <p>Wenn eine Variable mit <strong>vielen möglichen Werten</strong> verglichen werden soll, ist eine <strong>Fallunterscheidung</strong> übersichtlicher. In anderen Sprachen heißt das <code>switch-case</code>, in Python (ab Version 3.10) <code>match</code>.</p>
+    <div class="syntax">
+      <div class="syntax-label">Syntax</div>
+<pre class="py">
+match Variable:
+    case Wert1:
+        Anweisung1
+    case Wert2:
+        Anweisung2
+    case _:
+        Anweisung3
+</pre>
+    </div>
+    <ul class="plain">
+      <li>Die Fälle werden <strong>von oben nach unten</strong> verglichen. Beim ersten Treffer wird der Block ausgeführt – danach geht es <strong>nach</strong> der match-Anweisung weiter.</li>
+      <li><code>case _</code> ist der „Sonst“-Fall – wie <code>else</code>. Er greift, wenn kein anderer Fall passt.</li>
+      <li>Verglichen werden können z. B. ganze Zahlen, Kommazahlen, Texte und Wahrheitswerte.</li>
+    </ul>
+
+    <p><strong>Beispiel 1:</strong> Eine Fußgänger-Ampel. Teste auch einmal eine Farbe wie „blau“ oder „Rot“ mit großem R!</p>
+    <div class="example" data-example="ampel"></div>
+
+    <h3>Mehrere Werte in einem Fall: der Operator <code>|</code></h3>
+    <p>Mit <code>|</code> (gesprochen „oder“) kann man mehrere Werte zu <strong>einem</strong> Fall zusammenfassen.</p>
+    <p><strong>Beispiel 2:</strong> Ist heute Wochenende oder Schultag?</p>
+    <div class="example" data-example="wochentag"></div>
+
+    <h3>Zusatzbedingung mit <code>if</code> im case</h3>
+    <p>Hinter einem <code>case</code> kann zusätzlich eine Bedingung mit <code>if</code> stehen. Der Fall greift dann nur, wenn der Wert passt <strong>und</strong> die Bedingung wahr ist:</p>
+<pre class="py block">
+note = 4
+hausaufgaben = True
+
+match note:
+    case 1 | 2 | 3 | 4 if hausaufgaben == True:
+        print("Bestanden")
+    case 1 | 2 | 3 | 4 if hausaufgaben == False:
+        print("Nicht bestanden – Hausaufgaben fehlen")
+    case 5 | 6:
+        print("Nicht bestanden")
+</pre>
+  </section>
+
+  <!-- 2.5 elif -->
+  <section id="elif" class="section">
+    <h2><span class="num">2.5</span> Mehrfachauswahl mit <code>elif</code></h2>
+    <p><code>elif</code> ist die Abkürzung für <strong>„else if“</strong> – „sonst, wenn …“. Eine <code>elif</code>-Bedingung wird nur geprüft, wenn alle Bedingungen <em>davor</em> falsch waren. Anders als <code>else</code> braucht <code>elif</code> immer eine eigene Bedingung.</p>
+    <div class="syntax">
+      <div class="syntax-label">Syntax</div>
+<pre class="py">
+if Bedingung1:
+    Anweisung1
+elif Bedingung2:
+    Anweisung2
+else:
+    Anweisung3
+</pre>
+    </div>
+    <p><strong>Beispiel:</strong> Die Temperatur wird in Bereiche eingeteilt. Im Struktogramm sieht man gut: Jedes <code>elif</code> ist eine neue Verzweigung im Falsch-Zweig der vorherigen – wie eine Treppe.</p>
+    <div class="example" data-example="elif"></div>
+    <div class="callout">
+      <strong>Die Reihenfolge zählt!</strong> Gib einmal 10 °C ein: 10 ist kleiner als 15 <em>und</em> kleiner als 25. Trotzdem erscheint nur „kühl“, denn nach dem ersten Treffer werden alle weiteren Zweige übersprungen.
+    </div>
+    <div class="callout tip">
+      <strong>match oder elif?</strong> <code>match</code> eignet sich, wenn du eine Variable mit <em>festen Werten</em> vergleichst (z. B. „rot“, „gelb“, „grün“). Für <em>Bereiche</em> wie „kleiner als 15“ nimmst du <code>if</code> / <code>elif</code>.
+    </div>
+  </section>
+
+  <!-- Fehler -->
+  <section id="fehler" class="section">
+    <h2><span class="num">!</span> Typische Anfängerfehler</h2>
+    <div class="errors">
+      <div class="err-card">
+        <h3>Doppelpunkt vergessen</h3>
+<pre class="py bad">if alter >= 18</pre>
+<pre class="py good">if alter >= 18:</pre>
+        <p>Hinter <code>if</code>, <code>elif</code>, <code>else</code>, <code>match</code> und <code>case</code> steht immer ein Doppelpunkt.</p>
+      </div>
+      <div class="err-card">
+        <h3>Falsch eingerückt</h3>
+<pre class="py bad">if alter >= 18:
+print("Volljährig")</pre>
+<pre class="py good">if alter >= 18:
+    print("Volljährig")</pre>
+        <p>Alles, was zum Zweig gehört, wird um <strong>4 Leerzeichen</strong> eingerückt. Die Einrückung entscheidet, was zum <code>if</code> gehört!</p>
+      </div>
+      <div class="err-card">
+        <h3><code>=</code> statt <code>==</code></h3>
+<pre class="py bad">if farbe = "rot":</pre>
+<pre class="py good">if farbe == "rot":</pre>
+        <p>Für einen Vergleich braucht man zwei Gleichheitszeichen.</p>
+      </div>
+      <div class="err-card">
+        <h3>Text statt Zahl vergleichen</h3>
+<pre class="py bad">alter = input("Alter? ")
+if alter >= 18:</pre>
+<pre class="py good">alter = int(input("Alter? "))
+if alter >= 18:</pre>
+        <p><code>input()</code> liefert immer einen Text. Mit <code>int()</code> wird daraus eine Zahl, mit der man rechnen und vergleichen kann.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <h2><span class="num">?</span> Teste dich selbst</h2>
+    <p>Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung.</p>
+    <div id="quiz-list" class="quiz"></div>
+    <p id="quiz-score" class="quiz-score" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Lernseite „07 Verzweigungen“ · Python · LF 12.1</p>
+    <p class="small">Hinweis: <code>match</code> funktioniert erst ab Python 3.10. Die Programme auf dieser Seite werden im Browser simuliert.</p>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
