@@ -31,8 +31,8 @@
     <a href="#einseitig">Einseitig</a>
     <a href="#zweiseitig">Zweiseitig</a>
     <a href="#verschachtelt">Verschachtelt</a>
-    <a href="#match">match</a>
     <a href="#elif">elif</a>
+    <a href="#match">match</a>
     <a href="#fehler">Typische Fehler</a>
     <a href="#quiz">Quiz</a>
   </div>
@@ -56,7 +56,7 @@
           <ul>
             <li><a href="#einseitig">Einseitige Verzweigung</a></li>
             <li><a href="#zweiseitig">Zweiseitige Verzweigung</a></li>
-            <li><a href="#match">Mehrfachauswahl</a></li>
+            <li><a href="#elif">Mehrfachauswahl</a></li>
           </ul>
         </div>
         <div class="tree-branch is-muted">
@@ -182,9 +182,31 @@ else:
     </div>
   </section>
 
-  <!-- 2.4 match -->
+  <!-- 2.4 elif -->
+  <section id="elif" class="section">
+    <h2><span class="num">2.4</span> Mehrfachauswahl mit <code>elif</code></h2>
+    <p><code>elif</code> ist die Abkürzung für <strong>„else if“</strong> – „sonst, wenn …“. Eine <code>elif</code>-Bedingung wird nur geprüft, wenn alle Bedingungen <em>davor</em> falsch waren. Anders als <code>else</code> braucht <code>elif</code> immer eine eigene Bedingung.</p>
+    <div class="syntax">
+      <div class="syntax-label">Syntax</div>
+<pre class="py">
+if Bedingung1:
+    Anweisung1
+elif Bedingung2:
+    Anweisung2
+else:
+    Anweisung3
+</pre>
+    </div>
+    <p><strong>Beispiel:</strong> Die Temperatur wird in Bereiche eingeteilt. Im Struktogramm sieht man gut: Jedes <code>elif</code> ist eine neue Verzweigung im Falsch-Zweig der vorherigen – wie eine Treppe.</p>
+    <div class="example" data-example="elif"></div>
+    <div class="callout">
+      <strong>Die Reihenfolge zählt!</strong> Gib einmal 10 °C ein: 10 ist kleiner als 15 <em>und</em> kleiner als 25. Trotzdem erscheint nur „kühl“, denn nach dem ersten Treffer werden alle weiteren Zweige übersprungen.
+    </div>
+  </section>
+
+  <!-- 2.5 match -->
   <section id="match" class="section">
-    <h2><span class="num">2.4</span> Mehrfachauswahl mit <code>match</code></h2>
+    <h2><span class="num">2.5</span> Mehrfachauswahl mit <code>match</code></h2>
     <p>Wenn eine Variable mit <strong>vielen möglichen Werten</strong> verglichen werden soll, ist eine <strong>Fallunterscheidung</strong> übersichtlicher. In anderen Sprachen heißt das <code>switch-case</code>, in Python (ab Version 3.10) <code>match</code>.</p>
     <div class="syntax">
       <div class="syntax-label">Syntax</div>
@@ -226,28 +248,6 @@ match note:
     case 5 | 6:
         print("Nicht bestanden")
 </pre>
-  </section>
-
-  <!-- 2.5 elif -->
-  <section id="elif" class="section">
-    <h2><span class="num">2.5</span> Mehrfachauswahl mit <code>elif</code></h2>
-    <p><code>elif</code> ist die Abkürzung für <strong>„else if“</strong> – „sonst, wenn …“. Eine <code>elif</code>-Bedingung wird nur geprüft, wenn alle Bedingungen <em>davor</em> falsch waren. Anders als <code>else</code> braucht <code>elif</code> immer eine eigene Bedingung.</p>
-    <div class="syntax">
-      <div class="syntax-label">Syntax</div>
-<pre class="py">
-if Bedingung1:
-    Anweisung1
-elif Bedingung2:
-    Anweisung2
-else:
-    Anweisung3
-</pre>
-    </div>
-    <p><strong>Beispiel:</strong> Die Temperatur wird in Bereiche eingeteilt. Im Struktogramm sieht man gut: Jedes <code>elif</code> ist eine neue Verzweigung im Falsch-Zweig der vorherigen – wie eine Treppe.</p>
-    <div class="example" data-example="elif"></div>
-    <div class="callout">
-      <strong>Die Reihenfolge zählt!</strong> Gib einmal 10 °C ein: 10 ist kleiner als 15 <em>und</em> kleiner als 25. Trotzdem erscheint nur „kühl“, denn nach dem ersten Treffer werden alle weiteren Zweige übersprungen.
-    </div>
     <div class="callout tip">
       <strong>match oder elif?</strong> <code>match</code> eignet sich, wenn du eine Variable mit <em>festen Werten</em> vergleichst (z. B. „rot“, „gelb“, „grün“). Für <em>Bereiche</em> wie „kleiner als 15“ nimmst du <code>if</code> / <code>elif</code>.
     </div>

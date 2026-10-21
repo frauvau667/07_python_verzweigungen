@@ -642,3 +642,41 @@ pre.code {
 .q-opts { grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); }
 .errors { grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr)); }
 .err-card { min-width: 0; }
+
+/* ==========================================================
+   Ein- und Ausklappen
+   ========================================================== */
+.chapter-controls { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: flex-end; padding-top: 1.2rem; }
+
+.section.is-collapsible { padding: 0; }
+.section.is-collapsible h2 { margin: 0; }
+.chapter-toggle {
+  font: inherit; color: inherit;
+  display: flex; align-items: center; gap: .6rem;
+  width: 100%;
+  text-align: left;
+  background: none; border: 0;
+  padding: 1.1rem .2rem;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.chapter-toggle:hover { background: var(--accent-soft); }
+.chapter-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.chapter-toggle .chev {
+  margin-left: auto;
+  display: grid; place-items: center;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent);
+  flex: none;
+  transition: transform .25s;
+}
+.section.is-open .chapter-toggle .chev { transform: rotate(45deg); }
+@media (prefers-reduced-motion: reduce) { .chapter-toggle .chev { transition: none; } }
+.section-body { padding: .4rem 0 1.6rem; }
+
+
+.chapter-toggle .num { flex: none; }
+.chapter-toggle .ct-title { flex: 1; min-width: 0; }

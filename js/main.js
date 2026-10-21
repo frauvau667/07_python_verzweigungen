@@ -887,6 +887,79 @@ else:
   }
 
   /* ---------- Start ---------- */
+  /* ==========================================================
+     Ein- und Ausklappen der Kapitel
+     Jedes Kapitel ist zunächst zugeklappt (Klick auf die Überschrift öffnet es).
+     ========================================================== */
+  function setExpanded(btn, panel, open) {
+    btn.setAttribute('aria-expanded', String(open));
+    panel.hidden = !open;
+  }
+
+  function initCollapsible() {
+    const sections = Array.from(document.querySelectorAll('main section.section'));
+    sections.forEach((sec) => {
+      const h2 = sec.querySelector('h2');
+      if (!h2) return;
+
+      // Kapitelinhalt in einen Container verschieben
+      const body = el('div', 'section-body');
+      body.id = sec.id + '-inhalt';
+      while (h2.nextSibling) body.appendChild(h2.nextSibling);
+
+      // Überschrift wird zum Schalter
+      const btn = el('button', 'chapter-toggle');
+      btn.type = 'button';
+      btn.setAttribute('aria-controls', body.id);
+      const num = h2.querySelector('.num');
+      if (num) btn.appendChild(num);
+      const title = el('span', 'ct-title');
+      while (h2.firstChild) title.appendChild(h2.firstChild);
+      btn.appendChild(title);
+      btn.appendChild(el('span', 'chev', '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg>'));
+      h2.appendChild(btn);
+      sec.appendChild(body);
+      sec.classList.add('is-collapsible');
+
+      const toggle = (open) => {
+        setExpanded(btn, body, open);
+        sec.classList.toggle('is-open', open);
+      };
+      sec._toggle = toggle;
+      btn.addEventListener('click', () => toggle(body.hidden));
+      toggle(false);
+    });
+
+    // Alle öffnen / schließen
+    const main = document.querySelector('main');
+    const bar = el('div', 'chapter-controls');
+    const openAll = el('button', 'btn small', '+ Alle Kapitel öffnen');
+    const closeAll = el('button', 'btn small', '− Alle Kapitel schließen');
+    openAll.type = closeAll.type = 'button';
+    openAll.addEventListener('click', () => sections.forEach((s) => s._toggle && s._toggle(true)));
+    closeAll.addEventListener('click', () => sections.forEach((s) => s._toggle && s._toggle(false)));
+    bar.append(openAll, closeAll);
+    main.insertBefore(bar, main.firstChild);
+
+    // Links auf ein Kapitel öffnen es automatisch
+    const openFor = (hash) => {
+      if (!hash || hash.length < 2) return;
+      const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      const sec = target && target.closest('section.section');
+      if (sec && sec._toggle) sec._toggle(true);
+    };
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[href^="#"]');
+      if (a) openFor(a.getAttribute('href'));
+    });
+    window.addEventListener('hashchange', () => openFor(location.hash));
+    if (location.hash) {
+      openFor(location.hash);
+      const t = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (t) t.scrollIntoView();
+    }
+  }
+
   function init() {
     initTheme();
     highlightStatic();
@@ -894,6 +967,7 @@ else:
     initTester();
     initLogic();
     initQuiz();
+    initCollapsible();
     initNav();
   }
 
