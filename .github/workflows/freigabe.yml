@@ -1,0 +1,53 @@
+# Veröffentlicht nur die Ordner, die in freigabe.txt stehen.
+# Läuft automatisch bei jeder Änderung im Repository.
+name: Freigegebene Seiten veröffentlichen
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Freigegebene Ordner zusammenstellen
+        run: |
+          mkdir _site
+          touch _site/.nojekyll
+          while IFS= read -r line || [ -n "$line" ]; do
+            name="$(printf '%s' "$line" | sed 's/#.*//' | tr -d '[:space:]')"
+            [ -z "$name" ] && continue
+            case "$name" in
+              *[!a-z0-9_-]*) echo "::warning::Ungültiger Eintrag '$name' wird ignoriert"; continue ;;
+            esac
+            if [ -d "$name" ]; then
+              cp -r "$name" "_site/$name"
+              echo "freigegeben: $name"
+            else
+              echo "::warning::Ordner '$name' gibt es nicht"
+            fi
+          done < freigabe.txt
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
