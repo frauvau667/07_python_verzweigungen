@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schleifen in Python</title>
+  <meta name="description" content="Interaktive Lernseite zu while- und for-Schleifen, range, break und continue in Python – mit klickbaren Struktogrammen.">
+  <meta name="theme-color" content="#2563c9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563c9'/%3E%3Cpath d='M22 11a8 8 0 1 0 1 7' fill='none' stroke='white' stroke-width='2.6' stroke-linecap='round'/%3E%3Cpath d='M23 6v6h-6' fill='none' stroke='white' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Python · Kontrollstrukturen</p>
+      <h1>Schleifen in Python</h1>
+      <p class="lead">Wie ein Programm Dinge wiederholt: <code>while</code>, <code>for</code>, <code>range()</code>, <code>break</code> und <code>continue</code> – Schritt für Schritt mit Struktogrammen.</p>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <div class="wrap toc-inner">
+    <a href="#start">Start</a>
+    <a href="#kopf">Kopfgesteuert</a>
+    <a href="#fuss">Fußgesteuert</a>
+    <a href="#zaehl">Zählschleife</a>
+    <a href="#break-continue">break &amp; continue</a>
+    <a href="#fehler">Typische Fehler</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- Start -->
+  <section id="start" class="section">
+    <h2><span class="num">i</span> Warum Schleifen?</h2>
+    <p>Schleifen sorgen dafür, dass derselbe Code <strong>mehrmals ausgeführt</strong> wird, ohne dass man ihn kopieren muss. Stell dir vor, du sollst die Zahlen von 1 bis 1000 ausgeben – ohne Schleife bräuchtest du 1000 Zeilen.</p>
+
+    <div class="compare">
+      <div>
+        <div class="syntax-label">Ohne Schleife</div>
+<pre class="py">
+print(1)
+print(2)
+print(3)
+print(4)
+print(5)
+# … und so weiter
+</pre>
+      </div>
+      <div>
+        <div class="syntax-label">Mit Schleife</div>
+<pre class="py">
+for i in range(1, 6):
+    print(i)
+</pre>
+        <p class="small muted-text">Zwei Zeilen – egal ob bis 5 oder bis 1000.</p>
+      </div>
+    </div>
+
+    <div class="tree" role="img" aria-label="Übersicht der Kontrollstrukturen: Sequenz, Verzweigung und Schleife">
+      <div class="tree-root">Kontrollstrukturen</div>
+      <div class="tree-branches">
+        <div class="tree-branch is-muted">
+          <div class="tree-node">Anweisungsfolge<small>Sequenz</small></div>
+        </div>
+        <div class="tree-branch is-muted">
+          <div class="tree-node">Verzweigung<small>Selektion</small></div>
+          <ul>
+            <li>Einseitige Verzweigung</li>
+            <li>Zweiseitige Verzweigung</li>
+            <li>Mehrfachauswahl</li>
+          </ul>
+        </div>
+        <div class="tree-branch is-focus">
+          <div class="tree-node">Schleife<small>Iteration – dieses Thema</small></div>
+          <ul>
+            <li><a href="#kopf">Kopfgesteuerte Schleife</a></li>
+            <li><a href="#fuss">Fußgesteuerte Schleife</a></li>
+            <li><a href="#zaehl">Zählschleife</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3>Welche Schleife nehme ich wann?</h3>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Schleife</th><th>In Python</th><th>Wann?</th></tr></thead>
+        <tbody>
+          <tr><td>Kopfgesteuert</td><td><code>while Bedingung:</code></td><td>Man weiß vorher <strong>nicht</strong>, wie oft wiederholt wird. Kann auch 0-mal laufen.</td></tr>
+          <tr><td>Fußgesteuert</td><td><code>while True:</code> + <code>break</code></td><td>Der Block soll <strong>mindestens einmal</strong> laufen.</td></tr>
+          <tr><td>Zählschleife</td><td><code>for i in range(…):</code></td><td>Die Anzahl der Wiederholungen steht <strong>vorher fest</strong>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="howto">
+      <h3>So benutzt du diese Seite</h3>
+      <ol>
+        <li><strong>Tippe auf ein Feld im Struktogramm</strong> – die passenden Codezeilen werden <mark class="sw sw-sel">gelb</mark> markiert und erklärt.</li>
+        <li><strong>Tippe auf eine Codezeile</strong> – das passende Feld im Struktogramm leuchtet auf.</li>
+        <li><strong>Drücke „Ausführen“</strong> – das Programm läuft, der durchlaufene Weg wird <mark class="sw sw-run">grün</mark>. Mit <strong>„Schritt“</strong> gehst du selbst Schritt für Schritt weiter und siehst bei <strong>Variablen</strong>, wie sich die Werte ändern.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 1 Kopfgesteuert -->
+  <section id="kopf" class="section">
+    <h2><span class="num">1</span> Kopfgesteuerte Schleife</h2>
+    <p>Bei einer kopfgesteuerten Schleife steht die <strong>Bedingung am Anfang</strong> (im „Kopf“). Vor jedem Durchlauf wird geprüft: Ist die Bedingung wahr? Dann wird der eingerückte Block ausgeführt und es geht zurück zum Kopf. Ist sie falsch, endet die Schleife.</p>
+    <div class="syntax">
+      <div class="syntax-label">Syntax</div>
+<pre class="py">
+while Bedingung:
+    Anweisung1
+    Anweisung2
+</pre>
+    </div>
+    <p>Im Struktogramm erkennst du die Schleife an der <strong>Klammer links</strong>: Alles, was rechts daneben steht, wird wiederholt.</p>
+    <p><strong>Beispiel:</strong> Ein Programm fixt Bug für Bug. Probiere auch einmal <strong>0</strong> als Startwert (der Traum jedes Entwicklers): Dann ist die Bedingung schon beim ersten Prüfen falsch und die Schleife läuft <em>kein einziges Mal</em>.</p>
+    <div class="example" data-example="countdown"></div>
+
+    <div class="callout tip">
+      <strong>Kurzschreibweise:</strong> <code>bugs = bugs - 1</code> kann man auch als <code>bugs -= 1</code> schreiben. Genauso ist <code>i += 1</code> dasselbe wie <code>i = i + 1</code>.
+    </div>
+
+    <h3>Achtung: Endlosschleife!</h3>
+    <p>Damit die Schleife irgendwann endet, muss sich im Schleifenblock etwas ändern, das die Bedingung beeinflusst – hier die Variable <code>bugs</code>. Vergisst man das, bleibt die Bedingung für immer wahr: Das Programm hört nie auf. Probier's aus – die Lernseite bricht nach ein paar Durchläufen für dich ab.</p>
+    <div class="example" data-example="endlos"></div>
+      <aside class="ntk" data-title="Gewollte Endlosschleifen">
+<p>Endlosschleifen sind nicht immer ein Fehler. Viele Programme laufen absichtlich in einer <strong>Hauptschleife</strong>, bis man sie beendet:</p>
+      <ul>
+        <li><strong>Spiele</strong> wiederholen in ihrer „Game Loop“ 60-mal pro Sekunde: Eingaben lesen, Spielwelt berechnen, Bild zeichnen.</li>
+        <li><strong>Webserver</strong> warten in einer Schleife auf die nächste Anfrage – rund um die Uhr.</li>
+        <li><strong>Betriebssysteme</strong> und Maschinensteuerungen (SPS) arbeiten ebenfalls in einer Endlosschleife.</li>
+      </ul>
+      <p class="joke">Warum kommt der Informatiker nicht mehr aus der Dusche? Auf der Shampooflasche steht: „Auftragen. Ausspülen. Wiederholen.“</p>
+    </aside>
+  </section>
+
+  <!-- 2 Fußgesteuert -->
+  <section id="fuss" class="section">
+    <h2><span class="num">2</span> Fußgesteuerte Schleife</h2>
+    <p>Bei einer fußgesteuerten Schleife steht die Bedingung <strong>am Ende</strong> (im „Fuß“). Deshalb wird der Block <strong>mindestens einmal</strong> ausgeführt – erst danach wird geprüft, ob es weitergeht.</p>
+    <p>Python hat dafür keinen eigenen Befehl. Man baut sie mit <code>while True:</code> (eine Schleife, die eigentlich endlos laufen würde) und beendet sie mit <code>break</code>, sobald die Abbruchbedingung erfüllt ist.</p>
+    <div class="syntax">
+      <div class="syntax-label">Syntax</div>
+<pre class="py">
+while True:
+    Anweisung1
+    Anweisung2
+    if Abbruchbedingung:
+        break
+</pre>
+    </div>
+    <p><strong>Beispiel:</strong> Es wird so lange gewürfelt, bis eine 6 fällt. Man muss mindestens einmal würfeln – ein typischer Fall für eine fußgesteuerte Schleife. Jeder Durchlauf ist zufällig, also probiere es mehrmals!</p>
+    <div class="example" data-example="wuerfel"></div>
+    <div class="callout">
+      <strong>Achte auf die Bedingung:</strong> Im Struktogramm steht im Fuß, <em>wie lange</em> wiederholt wird: „solange wurf ≠ 6“. Im Python-Code steht dagegen, <em>wann abgebrochen</em> wird: <code>if wurf == 6: break</code>. Das ist genau das Gegenteil!
+    </div>
+    <div class="callout warn">
+      <strong>Hinweis:</strong> <code>while True</code> mit <code>break</code> ist fehleranfällig – wird <code>break</code> nie erreicht, entsteht eine Endlosschleife. Nutze diese Form nur, wenn der Block wirklich mindestens einmal laufen muss.
+    </div>
+  </section>
+
+  <!-- 3 Zählschleife -->
+  <section id="zaehl" class="section">
+    <h2><span class="num">3</span> Zählschleife</h2>
+    <p>Bei einer Zählschleife steht <strong>von Anfang an fest</strong>, wie oft wiederholt wird. Die <strong>Laufvariable</strong> (meist <code>i</code>, <code>j</code> oder <code>k</code>) bekommt nacheinander alle Werte, die <code>range()</code> erzeugt. Um das Hochzählen muss man sich – anders als bei <code>while</code> – nicht selbst kümmern.</p>
+    <div class="syntax">
+      <div class="syntax-label">Syntax – drei Möglichkeiten</div>
+<pre class="py">
+for i in range(stop):
+for i in range(start, stop):
+for i in range(start, stop, step):
+</pre>
+    </div>
+    <ul class="plain">
+      <li>Ohne <strong>start</strong> beginnt die Schleife bei <strong>0</strong>.</li>
+      <li>Der <strong>stop</strong>-Wert ist <strong>nicht mehr dabei</strong> (exklusiv): <code>range(1, 5)</code> liefert 1, 2, 3, 4.</li>
+      <li><strong>step</strong> ist die Schrittweite (Standard: 1). Sie darf auch negativ sein – dann wird rückwärts gezählt.</li>
+    </ul>
+
+    <div class="card range-lab" id="range-lab">
+      <h3>range-Labor: Welche Zahlen bekommt i?</h3>
+      <div class="presets" role="group" aria-label="Beispiele">
+        <button type="button" class="btn small" data-preset=",4,">range(4)</button>
+        <button type="button" class="btn small" data-preset="1,5,">range(1, 5)</button>
+        <button type="button" class="btn small" data-preset="1,10,2">range(1, 10, 2)</button>
+        <button type="button" class="btn small" data-preset="10,0,-1">range(10, 0, -1)</button>
+      </div>
+      <div class="range-row">
+        <div class="field"><label for="r-start">start</label><input id="r-start" type="text" inputmode="numeric" placeholder="leer = 0"></div>
+        <div class="field"><label for="r-stop">stop</label><input id="r-stop" type="text" inputmode="numeric" value="5"></div>
+        <div class="field"><label for="r-step">step</label><input id="r-step" type="text" inputmode="numeric" placeholder="leer = 1"></div>
+      </div>
+      <pre class="py range-code" id="r-code"></pre>
+      <div class="chips" id="r-chips" aria-live="polite"></div>
+      <p class="range-note" id="r-note"></p>
+    </div>
+
+    <p><strong>Beispiel:</strong> Eine Einmaleins-Reihe ausgeben. Beachte: Damit die 10 noch dabei ist, muss <code>range(1, 11)</code> stehen.</p>
+    <div class="example" data-example="einmaleins"></div>
+      <aside class="ntk" data-title="Passwörter knacken mit einer Schleife">
+<p>Eine vierstellige PIN hat genau 10 000 Möglichkeiten. Ein Computer probiert sie in Sekundenbruchteilen alle durch – das nennt man <strong>Brute-Force-Angriff</strong>:</p>
+      <pre class="py">
+for pin in range(10000):
+    if pin == geheime_pin:
+        print(f"Gefunden: {pin}")
+        break
+</pre>
+      <p>Deshalb sperren Bankkarten und Smartphones nach wenigen Fehlversuchen. Bei Passwörtern hilft nur Länge: Acht Kleinbuchstaben ergeben 26<sup>8</sup> ≈ 209 Milliarden Möglichkeiten – das klingt viel, schnelle Grafikkarten schaffen bei schlecht geschützten Passwortdateien aber Milliarden Versuche pro Sekunde. Mit 12 Zeichen aus Groß- und Kleinbuchstaben, Ziffern und Sonderzeichen sind es über 10<sup>23</sup> Kombinationen.</p>
+    </aside>
+  </section>
+
+  <!-- 4 break / continue -->
+  <section id="break-continue" class="section">
+    <h2><span class="num">4</span> <code>break</code> und <code>continue</code></h2>
+    <p>Mit zwei Befehlen kann man den Ablauf einer Schleife von innen steuern:</p>
+    <ul class="plain">
+      <li><code>continue</code> bricht nur den <strong>aktuellen Durchlauf</strong> ab und springt sofort zum nächsten.</li>
+      <li><code>break</code> beendet die <strong>ganze Schleife</strong> sofort.</li>
+    </ul>
+
+    <h3><code>continue</code> – diesen Durchlauf überspringen</h3>
+    <p><strong>Beispiel:</strong> In manchen Hotels gibt es kein 13. Stockwerk. Der Aufzug hält in den Stockwerken 10 bis 15 – die 13 wird mit <code>continue</code> übersprungen.</p>
+    <div class="example" data-example="aufzug"></div>
+
+    <h3><code>break</code> – die Schleife verlassen</h3>
+    <p><strong>Beispiel:</strong> Ein Programm sucht den Bug und prüft dazu die Zeilen 0 bis 4. Sobald es ihn gefunden hat, hört es mit <code>break</code> auf.</p>
+    <p>Neu ist hier das <code>else</code> <strong>nach der Schleife</strong>: Es wird nur ausgeführt, wenn die Schleife <strong>ganz normal zu Ende</strong> gelaufen ist – also <em>ohne</em> <code>break</code>. Probiere eine Fehlerzeile zwischen 0 und 4 und eine größere, z. B. 7.</p>
+    <div class="example" data-example="geheim"></div>
+    <div class="callout tip">
+      <strong>Merke:</strong> Das <code>else</code> einer Schleife bedeutet „wenn nicht abgebrochen wurde“. Es funktioniert bei <code>for</code> und bei <code>while</code>. Wird die Schleife mit <code>break</code> verlassen, wird der <code>else</code>-Block übersprungen.
+    </div>
+  </section>
+
+  <!-- Fehler -->
+  <section id="fehler" class="section">
+    <h2><span class="num">!</span> Typische Anfängerfehler</h2>
+    <div class="errors">
+      <div class="err-card">
+        <h3>Hochzählen vergessen</h3>
+<pre class="py bad">i = 0
+while i < 5:
+    print(i)</pre>
+<pre class="py good">i = 0
+while i < 5:
+    print(i)
+    i += 1</pre>
+        <p>Ohne <code>i += 1</code> bleibt <code>i</code> immer 0 – die Bedingung ist immer wahr: <strong>Endlosschleife</strong>.</p>
+      </div>
+      <div class="err-card">
+        <h3>stop-Wert vergessen</h3>
+<pre class="py bad"># soll 1 bis 10 ausgeben
+for i in range(1, 10):
+    print(i)</pre>
+<pre class="py good">for i in range(1, 11):
+    print(i)</pre>
+        <p>Der stop-Wert ist <strong>nicht</strong> dabei. Für 1 bis 10 braucht man <code>range(1, 11)</code>.</p>
+      </div>
+      <div class="err-card">
+        <h3>Falsch eingerückt</h3>
+<pre class="py bad">for i in range(3):
+    print(i)
+    print("Fertig")</pre>
+<pre class="py good">for i in range(3):
+    print(i)
+print("Fertig")</pre>
+        <p>Was eingerückt ist, wird <strong>wiederholt</strong>. „Fertig“ soll nur einmal nach der Schleife kommen – also nicht einrücken.</p>
+      </div>
+      <div class="err-card">
+        <h3>Doppelpunkt vergessen</h3>
+<pre class="py bad">while zahl > 0</pre>
+<pre class="py good">while zahl > 0:</pre>
+        <p>Hinter <code>while</code>, <code>for</code> und dem Schleifen-<code>else</code> steht immer ein Doppelpunkt.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <h2><span class="num">?</span> Teste dich selbst</h2>
+    <p>Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung.</p>
+    <div id="quiz-list" class="quiz"></div>
+    <p id="quiz-score" class="quiz-score" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Lernseite „09 Schleifen“ · Python · LF 12.1</p>
+    <p class="small">Hinweis: Die Programme auf dieser Seite werden im Browser simuliert.</p>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+<script src="js/extras.js" defer></script>
+</body>
+</html>

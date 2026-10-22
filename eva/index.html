@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Das EVA-Prinzip</title>
+  <meta name="description" content="Interaktive Lernseite zum EVA-Prinzip (Eingabe – Verarbeitung – Ausgabe), zu Sequenzen, input() und print() in Python.">
+  <meta name="theme-color" content="#2563c9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563c9'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='bold' font-size='11' fill='white' text-anchor='middle'%3EEVA%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Python · Grundlagen</p>
+      <h1>Das EVA-Prinzip</h1>
+      <p class="lead">Eingabe – Verarbeitung – Ausgabe: Wie Programme Schritt für Schritt ablaufen, wie man mit <code>input()</code> Werte einliest und mit <code>print()</code> Ergebnisse ausgibt.</p>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <div class="wrap toc-inner">
+    <a href="#eva-prinzip">EVA-Prinzip</a>
+    <a href="#sequenz">Sequenzen</a>
+    <a href="#eingabe">Eingabe</a>
+    <a href="#ausgabe">Ausgabe</a>
+    <a href="#fehler">Typische Fehler</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- 1 EVA -->
+  <section id="eva-prinzip" class="section">
+    <h2><span class="num">1</span> Eingabe – Verarbeitung – Ausgabe</h2>
+    <p>Die meisten Programme folgen in ihrem groben Ablauf dem <strong>EVA-Prinzip</strong>: Der Benutzer macht eine <strong>Eingabe</strong>, das Programm <strong>verarbeitet</strong> sie, und anschließend wird dem Benutzer das Ergebnis <strong>ausgegeben</strong>.</p>
+    <p>Ein Taschenrechner arbeitet so: Du tippst <em>3 + 4</em> ein (Eingabe), er rechnet (Verarbeitung) und zeigt <em>7</em> an (Ausgabe).</p>
+
+    <div class="card" id="eva-tool">
+      <h3>Tippe auf E, V oder A</h3>
+      <div class="eva" role="group" aria-label="EVA-Prinzip">
+        <button type="button" class="eva-box eva-E" data-tag="E" aria-pressed="false"><b>E</b><span>Eingabe</span></button>
+        <span class="eva-arrow" aria-hidden="true">➜</span>
+        <button type="button" class="eva-box eva-V" data-tag="V" aria-pressed="false"><b>V</b><span>Verarbeitung</span></button>
+        <span class="eva-arrow" aria-hidden="true">➜</span>
+        <button type="button" class="eva-box eva-A" data-tag="A" aria-pressed="false"><b>A</b><span>Ausgabe</span></button>
+      </div>
+      <pre class="code code-tagged" id="eva-code"><code class="code-inner"></code></pre>
+      <div class="info" id="eva-info" aria-live="polite"><p>Jede Zeile des Programms gehört zu einem Teil des EVA-Prinzips. Tippe oben auf einen Teil, um seine Zeilen hervorzuheben.</p></div>
+    </div>
+      <aside class="ntk" data-title="EVA steckt auch in der Hardware">
+<p>Nicht nur Programme, auch der Computer selbst ist nach dem EVA-Prinzip aufgebaut:</p>
+      <ul>
+        <li><strong>Eingabe:</strong> Tastatur, Maus, Touchscreen, Mikrofon, Kamera, Sensoren</li>
+        <li><strong>Verarbeitung:</strong> der Prozessor (CPU)</li>
+        <li><strong>Ausgabe:</strong> Bildschirm, Drucker, Lautsprecher</li>
+      </ul>
+      <p>Weil Daten zwischendurch abgelegt werden – im Arbeitsspeicher oder auf der SSD –, spricht man auch vom <strong>EVAS-Prinzip</strong>, mit S für Speicherung.</p>
+      <p class="joke">Und wenn das Ergebnis Unsinn ist? Dann gilt eine der ältesten Regeln der Informatik: „Garbage in, garbage out“ – wer Müll eingibt, bekommt Müll heraus. Deshalb prüfen gute Programme ihre Eingaben.</p>
+    </aside>
+  </section>
+
+  <!-- 2 Sequenzen -->
+  <section id="sequenz" class="section">
+    <h2><span class="num">2</span> Anweisungsfolgen (Sequenzen)</h2>
+    <p>Bei einfachen Programmen werden die Anweisungen <strong>eine nach der anderen</strong> von oben nach unten ausgeführt – ohne Verzweigungen oder Wiederholungen. So eine lineare Abfolge nennt man <strong>Anweisungsfolge</strong> oder <strong>Sequenz</strong>, man spricht auch von einem <strong>sequenziellen Ablauf</strong>.</p>
+    <p>Im Struktogramm steht jede Anweisung in einem eigenen Rechteck. Die Buchstaben <span class="ns-tag tag-E">E</span> <span class="ns-tag tag-V">V</span> <span class="ns-tag tag-A">A</span> zeigen, zu welchem Teil des EVA-Prinzips sie gehören.</p>
+    <p><strong>Beispiel 1:</strong> Ein Programm berechnet die Tankkosten.</p>
+    <div class="example" data-example="tanken"></div>
+    <p><strong>Beispiel 2:</strong> Fläche und Umfang eines Rechtecks. Hier gibt es zwei Verarbeitungsschritte und zwei Ausgaben.</p>
+    <div class="example" data-example="rechteck"></div>
+  </section>
+
+  <!-- 3 Eingabe -->
+  <section id="eingabe" class="section">
+    <h2><span class="num">3</span> Eingabe mit <code>input()</code></h2>
+    <p>Mit <code>input()</code> liest ein Programm eine Eingabe des Benutzers ein. Das Programm <strong>wartet</strong>, bis der Benutzer etwas eingetippt und mit der Eingabetaste bestätigt hat – erst dann geht es mit der nächsten Zeile weiter.</p>
+    <ul class="plain">
+      <li>Damit der Benutzer weiß, was er eingeben soll, schreibt man einen <strong>Hinweistext</strong> in die Klammer: <code>input("Bitte geben Sie den Preis ein: ")</code></li>
+      <li><code>input()</code> liefert <strong>immer einen Text</strong> (<code>str</code>) – auch wenn Ziffern eingegeben werden.</li>
+      <li>Für eine <strong>Kommazahl</strong> wandelt man die Eingabe mit <code>float(input(…))</code> um, für eine <strong>ganze Zahl</strong> mit <code>int(input(…))</code>. Bei <strong>Text</strong> ist keine Umwandlung nötig.</li>
+      <li>Welcher Datentyp passt, entscheidet der Programmierer: Preise sind z. B. immer Kommazahlen, also <code>float</code>.</li>
+    </ul>
+    <div class="callout warn">
+      <strong>Achtung:</strong> Gibt der Benutzer etwas ein, das sich nicht umwandeln lässt (z. B. Buchstaben bei <code>float()</code> oder <code>1,5</code> mit Komma), bricht das Programm mit einem Fehler ab.
+    </div>
+
+    <div class="card" id="input-lab">
+      <h3>input()-Labor: Was kommt bei der Eingabe heraus?</h3>
+      <div class="presets" role="group" aria-label="Beispiele">
+        <button type="button" class="btn small" data-in="5" data-fn="">5 ohne Umwandlung</button>
+        <button type="button" class="btn small" data-in="5" data-fn="int">5 mit int()</button>
+        <button type="button" class="btn small" data-in="1.79" data-fn="float">1.79 mit float()</button>
+        <button type="button" class="btn small" data-in="1,79" data-fn="float">1,79 mit float()</button>
+        <button type="button" class="btn small" data-in="2.5" data-fn="int">2.5 mit int()</button>
+        <button type="button" class="btn small" data-in="Anna" data-fn="">Anna ohne Umwandlung</button>
+      </div>
+      <div class="tool-row">
+        <div class="field"><label for="il-in">Eingabe des Benutzers</label><input id="il-in" type="text" value="5" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+        <div class="field"><label for="il-fn">Umwandlung</label>
+          <select id="il-fn"><option value="">keine</option><option value="int">int()</option><option value="float">float()</option></select>
+        </div>
+      </div>
+      <div class="tool-result" id="il-out" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- 4 Ausgabe -->
+  <section id="ausgabe" class="section">
+    <h2><span class="num">4</span> Ausgabe mit <code>print()</code></h2>
+    <p>Auch bei der Ausgabe soll der Benutzer wissen, was er sieht. Deshalb verbindet man einen <strong>erklärenden Text</strong> mit dem <strong>Wert der Ergebnisvariablen</strong>. Dafür gibt es mehrere Möglichkeiten:</p>
+    <ul class="plain">
+      <li><strong>Mit Kommas:</strong> <code>print("Die Kosten betragen", kosten, "€.")</code> – <code>print</code> setzt automatisch Leerzeichen zwischen die Teile.</li>
+      <li><strong>Mit <code>str()</code> und <code>+</code>:</strong> Die Zahl wird mit <code>str()</code> in einen Text umgewandelt, dann werden die Texte mit <code>+</code> verbunden. Leerzeichen muss man selbst einfügen.</li>
+      <li><strong>Mit einem f-String</strong> <span class="badge-rec">empfohlen</span><strong>:</strong> Vor die Anführungszeichen kommt ein <code>f</code>. In geschweiften Klammern <code>{ }</code> steht die Variable, deren Wert eingesetzt wird.</li>
+    </ul>
+    <p>Alle drei Wege funktionieren. Auf den weiteren Lernseiten wird für Ausgaben immer der <strong>f-String</strong> verwendet, weil Text und Werte darin am übersichtlichsten zusammenstehen.</p>
+
+    <div class="card" id="out-lab">
+      <h3>Ausgabe-Baukasten</h3>
+      <div class="tool-row">
+        <div class="field"><label for="ol-in">Wert von kosten</label><input id="ol-in" type="text" inputmode="decimal" value="71.6" autocomplete="off"></div>
+      </div>
+      <div id="ol-out" class="out-variants" aria-live="polite"></div>
+    </div>
+    <div class="callout tip">
+      <strong>Runden: round() oder :.2f?</strong> Beide runden mathematisch. Der Unterschied liegt in der Anzeige:
+      <ul class="plain" style="margin:.4rem 0 0">
+        <li><code>round(kosten, 2)</code> liefert eine <strong>Zahl</strong>, mit der man weiterrechnen kann. Nullen am Ende fallen dabei weg: <code>71.6</code>.</li>
+        <li><code>{kosten:.2f}</code> wirkt nur in der <strong>Ausgabe</strong> und zeigt immer genau zwei Nachkommastellen: <code>71.60</code>.</li>
+      </ul>
+      <p style="margin:.4rem 0 0">Faustregel: Zum Rechnen <code>round()</code>, für <strong>Eurobeträge</strong> in der Ausgabe <code>:.2f</code>. Probiere im Baukasten z. B. die Werte <code>71.6</code> und <code>71.96000000000001</code>.</p>
+    </div>
+  </section>
+
+  <!-- Fehler -->
+  <section id="fehler" class="section">
+    <h2><span class="num">!</span> Typische Anfängerfehler</h2>
+    <div class="errors">
+      <div class="err-card">
+        <h3>Eingabe nicht umgewandelt</h3>
+<pre class="py bad">a = input("Zahl: ")     # 5
+print(a + a)            # 55</pre>
+<pre class="py good">a = int(input("Zahl: "))
+print(a + a)            # 10</pre>
+        <p><code>input()</code> liefert Text. <code>"5" + "5"</code> hängt die Texte aneinander: <code>"55"</code>.</p>
+      </div>
+      <div class="err-card">
+        <h3>Komma bei der Eingabe</h3>
+<pre class="py bad">preis = float(input())  # 1,79</pre>
+<pre class="py good">preis = float(input())  # 1.79</pre>
+        <p><code>float("1,79")</code> ergibt einen <code>ValueError</code>. Auch bei der Eingabe braucht Python einen Punkt.</p>
+      </div>
+      <div class="err-card">
+        <h3>str() vergessen</h3>
+<pre class="py bad">print("Kosten: " + kosten)</pre>
+<pre class="py good">print("Kosten: " + str(kosten))</pre>
+        <p>Text und Zahl kann man nicht mit <code>+</code> verbinden: <code>TypeError</code>.</p>
+      </div>
+      <div class="err-card">
+        <h3>f vergessen</h3>
+<pre class="py bad">print("Kosten: {kosten} €")</pre>
+<pre class="py good">print(f"Kosten: {kosten} €")</pre>
+        <p>Ohne <code>f</code> wird <code>{kosten}</code> einfach als Text ausgegeben, statt den Wert einzusetzen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <h2><span class="num">?</span> Teste dich selbst</h2>
+    <p>Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung.</p>
+    <div id="quiz-list" class="quiz"></div>
+    <p id="quiz-score" class="quiz-score" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Lernseite „05 Das EVA-Prinzip“ · Python · LF 12.1</p>
+    <p class="small">Hinweis: Die Programme auf dieser Seite werden im Browser simuliert.</p>
+  </div>
+</footer>
+
+<script src="js/engine.js" defer></script>
+<script src="js/seite.js" defer></script>
+<script src="js/extras.js" defer></script>
+</body>
+</html>

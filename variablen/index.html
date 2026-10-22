@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Variablen und Datentypen</title>
+  <meta name="description" content="Interaktive Lernseite zu Variablen, Bezeichnern und Datentypen in Python.">
+  <meta name="theme-color" content="#2563c9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563c9'/%3E%3Crect x='7' y='10' width='18' height='13' rx='2' fill='none' stroke='white' stroke-width='2.4'/%3E%3Cpath d='M11 10V7h10v3' fill='none' stroke='white' stroke-width='2.4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Python · Grundlagen</p>
+      <h1>Variablen und Datentypen</h1>
+      <p class="lead">Wie ein Programm sich Werte merkt: Variablen, gute Namen und die wichtigsten Datentypen <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code> und <code>complex</code>.</p>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <div class="wrap toc-inner">
+    <a href="#variablen">Variablen</a>
+    <a href="#namen">Namen</a>
+    <a href="#datentypen">Datentypen</a>
+    <a href="#beispiele">Beispiele</a>
+    <a href="#fehler">Typische Fehler</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- 1 Variablen -->
+  <section id="variablen" class="section">
+    <h2><span class="num">1</span> Variablen</h2>
+    <p>Variablen sind – wie in der Mathematik – <strong>Platzhalter für Werte</strong>, die sich ändern können. Man kann sie sich wie <strong>beschriftete Kästchen im Arbeitsspeicher</strong> vorstellen: Auf dem Kästchen steht der Name, darin liegt der Wert.</p>
+    <ul class="plain">
+      <li>Der Wert wird nur <strong>vorübergehend</strong> gespeichert – solange das Programm läuft. Danach wird der Platz im Arbeitsspeicher wieder freigegeben.</li>
+      <li>Eine Variable bekommt ihren Wert mit dem <strong>Zuweisungsoperator</strong> <code>=</code>. Links steht der Name, rechts der Wert: <code>x = 3</code></li>
+      <li>Eine Variable muss <strong>zuerst einen Wert bekommen</strong>, bevor man sie benutzen kann.</li>
+      <li>In Python muss man den <strong>Datentyp nicht angeben</strong>. Python erkennt ihn automatisch am zugewiesenen Wert.</li>
+      <li>Bekommt eine Variable einen <strong>neuen Wert</strong>, wird der alte überschrieben.</li>
+    </ul>
+    <div class="callout">
+      <strong>Wichtig:</strong> <code>=</code> bedeutet in Python nicht „ist gleich“ wie in der Mathematik, sondern <strong>„speichere“</strong>. <code>alter = alter + 1</code> heißt: Nimm den alten Wert, rechne plus 1 und speichere das Ergebnis wieder in <code>alter</code>.
+    </div>
+    <p><strong>Beispiel:</strong> Gehe das Programm mit „Schritt“ durch und beobachte, wie im Arbeitsspeicher Kästchen entstehen und sich ändern. Tippe auf eine Codezeile für eine Erklärung.</p>
+    <div class="example" data-example="speicher"></div>
+  </section>
+
+  <!-- 1.1 Namen -->
+  <section id="namen" class="section">
+    <h2><span class="num">1.1</span> Namen für Variablen (Bezeichner)</h2>
+    <p>Bei der Wahl von Variablennamen gibt es <strong>Regeln</strong>, die Python vorschreibt, und <strong>Konventionen</strong> (Vereinbarungen), an die sich alle halten sollten, damit Programme gut lesbar sind.</p>
+
+    <h3>Regeln – sonst gibt es eine Fehlermeldung</h3>
+    <ul class="plain">
+      <li>Python ist <strong>case-sensitive</strong>: Groß- und Kleinschreibung wird unterschieden. <code>alter</code> und <code>Alter</code> sind zwei verschiedene Variablen!</li>
+      <li>Namen dürfen <strong>nicht mit einer Zahl beginnen</strong>: <code>2zahl</code> geht nicht, <code>zahl2</code> schon.</li>
+      <li>Keine <strong>Leerzeichen</strong>, keine <strong>Bindestriche</strong> und keine Sonderzeichen wie <code>! ? € %</code>.</li>
+      <li><strong>Schlüsselwörter</strong> von Python (z. B. <code>False</code>, <code>if</code>, <code>while</code>) sind als Namen verboten.</li>
+    </ul>
+
+    <h3>Konventionen – so macht man es richtig</h3>
+    <ul class="plain">
+      <li>Namen beginnen mit einem <strong>Kleinbuchstaben</strong>.</li>
+      <li>Namen sollen <strong>aussagekräftig</strong> sein: <code>summe</code> statt <code>zahl23</code>.</li>
+      <li>Bei langen Namen trennt man die Wörter mit Unterstrich (<code>anzahl_monate</code>) oder mit Großbuchstaben (<code>anzahlMonate</code>).</li>
+      <li><strong>Keine Umlaute</strong> und kein <code>ß</code> – das funktioniert zwar, ist aber unüblich: <code>groesse</code> statt <code>größe</code>.</li>
+      <li>Kein <code>_</code> am Anfang – das ist für Python-interne Daten vorgesehen.</li>
+    </ul>
+
+    <div class="card" id="name-check">
+      <h3>Namens-Prüfer: Ist das ein guter Variablenname?</h3>
+      <div class="presets" role="group" aria-label="Beispiele">
+        <button type="button" class="btn small" data-name="anzahl_monate">anzahl_monate</button>
+        <button type="button" class="btn small" data-name="2zahl">2zahl</button>
+        <button type="button" class="btn small" data-name="mein-name">mein-name</button>
+        <button type="button" class="btn small" data-name="mein name">mein name</button>
+        <button type="button" class="btn small" data-name="False">False</button>
+        <button type="button" class="btn small" data-name="Alter">Alter</button>
+        <button type="button" class="btn small" data-name="größe">größe</button>
+        <button type="button" class="btn small" data-name="zahl23">zahl23</button>
+        <button type="button" class="btn small" data-name="_geheim">_geheim</button>
+      </div>
+      <div class="tool-row">
+        <div class="field"><label for="nc-in">Variablenname</label><input id="nc-in" type="text" value="anzahl_monate" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+      </div>
+      <div class="tool-result" id="nc-out" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- 2 Datentypen -->
+  <section id="datentypen" class="section">
+    <h2><span class="num">2</span> Datentypen</h2>
+    <p>Jeder Wert hat einen <strong>Datentyp</strong>. Er legt fest, was man mit dem Wert machen kann – mit Zahlen kann man rechnen, mit Texten nicht. Mit <code>type(wert)</code> kann man den Datentyp abfragen.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Datentyp</th><th>Name in Python</th><th>Beispiele</th></tr></thead>
+        <tbody>
+          <tr><td>Ganze Zahlen</td><td><code>int</code></td><td><code>x = 3</code><br><code>anzahl_monate = 12</code></td></tr>
+          <tr><td>Kommazahlen (Gleitkommazahlen)</td><td><code>float</code></td><td><code>y = 3.0</code><br><code>preis = 12.34</code> – Punkt statt Komma!</td></tr>
+          <tr><td>Komplexe Zahlen</td><td><code>complex</code></td><td><code>z = 3+4j</code></td></tr>
+          <tr><td>Wahrheitswerte (boolesche Werte)</td><td><code>bool</code></td><td><code>b = False</code><br><code>b = True</code></td></tr>
+          <tr><td>Zeichenketten (Texte)</td><td><code>str</code> (String)</td><td><code>s = 'abc'</code><br><code>s = "abc"</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <strong>Achtung:</strong> Kommazahlen schreibt man in Python mit <strong>Punkt</strong>: <code>12.34</code>. Und: <code>3</code> ist ein <code>int</code>, <code>3.0</code> ein <code>float</code> und <code>"3"</code> ein <code>str</code> – drei verschiedene Datentypen!
+    </div>
+
+    <div class="card" id="type-check">
+      <h3>Typ-Detektor: Welchen Datentyp hat dieser Wert?</h3>
+      <div class="presets" role="group" aria-label="Beispiele">
+        <button type="button" class="btn small" data-val="42">42</button>
+        <button type="button" class="btn small" data-val="3.0">3.0</button>
+        <button type="button" class="btn small" data-val="12,34">12,34</button>
+        <button type="button" class="btn small" data-val="3+4j">3+4j</button>
+        <button type="button" class="btn small" data-val="True">True</button>
+        <button type="button" class="btn small" data-val="true">true</button>
+        <button type="button" class="btn small" data-val="'abc'">'abc'</button>
+        <button type="button" class="btn small" data-val='"42"'>"42"</button>
+        <button type="button" class="btn small" data-val="Hallo">Hallo</button>
+      </div>
+      <div class="tool-row">
+        <div class="field"><label for="tc-in">Wert, wie er im Code stehen würde</label><input id="tc-in" type="text" value="3.0" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+      </div>
+      <div class="tool-result" id="tc-out" aria-live="polite"></div>
+    </div>
+
+    <h3>Datentypen umwandeln</h3>
+    <p>Mit <code>int()</code>, <code>float()</code>, <code>str()</code> und <code>bool()</code> kann man einen Wert in einen anderen Datentyp umwandeln. Das braucht man z. B., weil <code>input()</code> immer einen Text liefert. Nicht jede Umwandlung klappt!</p>
+    <div class="card" id="convert">
+      <h3>Umwandlungs-Labor</h3>
+      <div class="presets" role="group" aria-label="Beispiele">
+        <button type="button" class="btn small" data-fn="int" data-val='"12"'>int("12")</button>
+        <button type="button" class="btn small" data-fn="int" data-val='"12.5"'>int("12.5")</button>
+        <button type="button" class="btn small" data-fn="int" data-val="12.9">int(12.9)</button>
+        <button type="button" class="btn small" data-fn="float" data-val="7">float(7)</button>
+        <button type="button" class="btn small" data-fn="float" data-val='"1,5"'>float("1,5")</button>
+        <button type="button" class="btn small" data-fn="str" data-val="12.34">str(12.34)</button>
+        <button type="button" class="btn small" data-fn="bool" data-val="0">bool(0)</button>
+        <button type="button" class="btn small" data-fn="bool" data-val='"Hallo"'>bool("Hallo")</button>
+      </div>
+      <div class="tool-row">
+        <div class="field"><label for="cv-fn">Funktion</label>
+          <select id="cv-fn"><option>int</option><option>float</option><option>str</option><option>bool</option></select>
+        </div>
+        <div class="field"><label for="cv-in">Wert</label><input id="cv-in" type="text" value='"12"' autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+      </div>
+      <div class="tool-result" id="cv-out" aria-live="polite"></div>
+    </div>
+      <aside class="ntk" data-title="Warum ist 0.1 + 0.2 nicht 0.3?">
+<pre class="py">
+print(0.1 + 0.2)          # 0.30000000000000004
+print(round(18.705, 2))   # 18.7 – und nicht 18.71
+</pre>
+      <p>Der Computer speichert Kommazahlen im <strong>Binärsystem</strong>, also nur mit 0 und 1. Viele Dezimalzahlen wie 0,1 lassen sich dort nicht exakt darstellen – so wie 1/3 = 0,333… im Dezimalsystem nie aufgeht. Gespeichert wird der nächstgelegene Wert: Aus 18.705 wird intern 18.704999999999998…, und das rundet <code>round()</code> korrekt <em>ab</em>.</p>
+      <p>Für Geldbeträge, bei denen jeder Cent stimmen muss (Banken, Buchhaltung), rechnet man deshalb mit dem Modul <code>decimal</code> oder intern in ganzen Cent.</p>
+    </aside>
+  </section>
+
+  <!-- 3 Beispiele -->
+  <section id="beispiele" class="section">
+    <h2><span class="num">3</span> Beispiele für das Arbeiten mit Variablen</h2>
+    <p>Hier werden Variablen aller Datentypen angelegt und einige davon ausgegeben. Beobachte im Arbeitsspeicher, welchen Datentyp Python jeweils erkennt – und was mit <code>b</code> passiert, wenn es einen neuen Wert bekommt.</p>
+    <div class="example" data-example="alle_typen"></div>
+    <div class="callout tip">
+      <strong>Tipp:</strong> Ob man Texte in einfache <code>'abc'</code> oder doppelte Anführungszeichen <code>"abc"</code> setzt, ist egal – nur gleich müssen sie am Anfang und Ende sein.
+    </div>
+  </section>
+
+  <!-- Fehler -->
+  <section id="fehler" class="section">
+    <h2><span class="num">!</span> Typische Anfängerfehler</h2>
+    <div class="errors">
+      <div class="err-card">
+        <h3>Komma statt Punkt</h3>
+<pre class="py bad">preis = 12,34</pre>
+<pre class="py good">preis = 12.34</pre>
+        <p>Mit Komma speichert Python <strong>zwei</strong> Zahlen <code>(12, 34)</code> statt einer Kommazahl.</p>
+      </div>
+      <div class="err-card">
+        <h3>Groß-/Kleinschreibung</h3>
+<pre class="py bad">alter = 16
+print(Alter)</pre>
+<pre class="py good">alter = 16
+print(alter)</pre>
+        <p><code>Alter</code> gibt es nicht: <code>NameError: name 'Alter' is not defined</code>.</p>
+      </div>
+      <div class="err-card">
+        <h3>Ungültiger Name</h3>
+<pre class="py bad">2te-zahl = 5</pre>
+<pre class="py good">zweite_zahl = 5</pre>
+        <p>Namen dürfen nicht mit einer Zahl beginnen und keinen Bindestrich enthalten – der wird als Minus gelesen.</p>
+      </div>
+      <div class="err-card">
+        <h3>Variable ohne Wert benutzt</h3>
+<pre class="py bad">summe = summe + 5</pre>
+<pre class="py good">summe = 0
+summe = summe + 5</pre>
+        <p>Eine Variable muss zuerst einen Startwert bekommen, sonst kennt Python sie noch nicht.</p>
+      </div>
+    </div>
+      <aside class="ntk" data-title="Wenn Zahlen nicht mehr in die Variable passen">
+<p>In vielen Programmiersprachen hat eine ganze Zahl eine feste Größe, z. B. 32 Bit – der größte Wert ist dann 2 147 483 647.</p>
+      <ul>
+        <li><strong>1996:</strong> Die Rakete Ariane 5 explodierte 37 Sekunden nach ihrem ersten Start. Die Steuerungssoftware wandelte eine 64-Bit-Kommazahl in eine 16-Bit-Ganzzahl um – der Wert war zu groß, das Programm stürzte ab. Schaden: mehrere hundert Millionen US-Dollar.</li>
+        <li><strong>2014:</strong> Das Musikvideo „Gangnam Style“ überschritt 2 147 483 647 Aufrufe – mehr, als der Zähler von YouTube speichern konnte. YouTube musste auf 64 Bit umstellen.</li>
+      </ul>
+      <p>In Python kann das bei <code>int</code> nicht passieren: Ganze Zahlen dürfen beliebig groß werden. Probieren Sie <code>print(2 ** 1000)</code>.</p>
+    </aside>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <h2><span class="num">?</span> Teste dich selbst</h2>
+    <p>Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung.</p>
+    <div id="quiz-list" class="quiz"></div>
+    <p id="quiz-score" class="quiz-score" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Lernseite „03 Variablen und Datentypen“ · Python · LF 12.1</p>
+    <p class="small">Hinweis: Die Programme auf dieser Seite werden im Browser simuliert.</p>
+  </div>
+</footer>
+
+<script src="js/engine.js" defer></script>
+<script src="js/seite.js" defer></script>
+<script src="js/extras.js" defer></script>
+</body>
+</html>

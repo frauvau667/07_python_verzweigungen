@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Listen in Python</title>
+  <meta name="description" content="Interaktive Lernseite zu eindimensionalen Listen in Python: Aufbau, Index, Methoden wie append, insert, remove, pop und sort.">
+  <meta name="theme-color" content="#2563c9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563c9'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='bold' font-size='13' fill='white' text-anchor='middle'%3E%5B %5D%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Python · Datenstrukturen</p>
+      <h1>Listen in Python</h1>
+      <p class="lead">Viele Werte unter einem Namen speichern: Listen anlegen, über den Index zugreifen und mit Methoden wie <code>append()</code>, <code>remove()</code> oder <code>sort()</code> verarbeiten.</p>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <div class="wrap toc-inner">
+    <a href="#warum">Warum Listen?</a>
+    <a href="#aufbau">Aufbau</a>
+    <a href="#zugriff">Zugriff</a>
+    <a href="#verarbeitung">Verarbeitung</a>
+    <a href="#methoden">Methoden</a>
+    <a href="#suchen">Suchen mit in</a>
+    <a href="#durchlaufen">Durchlaufen</a>
+    <a href="#fehler">Typische Fehler</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- Warum -->
+  <section id="warum" class="section">
+    <h2><span class="num">i</span> Warum Listen?</h2>
+    <p>Bisher wurde jeder Wert in einer eigenen Variablen gespeichert. Das wird schnell unübersichtlich: Sollen etwa die Windstärken eines Sturmtiefs ausgewertet werden, bräuchte man für jeden Messwert eine Variable – bei mehreren hundert oder tausend Messwerten ist das nicht mehr zu verwalten.</p>
+    <div class="compare">
+      <div>
+        <div class="syntax-label">Ohne Liste</div>
+<pre class="py">
+messwert1 = 100.2
+messwert2 = 80.5
+messwert3 = 49.4
+messwert4 = 55.4
+# … für jeden Wert eine Variable
+</pre>
+      </div>
+      <div>
+        <div class="syntax-label">Mit Liste</div>
+<pre class="py">
+messwerte = [100.2, 80.5, 49.4, 55.4]
+</pre>
+        <p class="small muted-text">Ein Name für alle Werte. Die Liste kann beliebig wachsen, und man kann sie mit einer Schleife durchlaufen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1 Aufbau -->
+  <section id="aufbau" class="section">
+    <h2><span class="num">1</span> Aufbau einer Liste</h2>
+    <p>Eine (eindimensionale) Liste speichert <strong>mehrere Werte hintereinander</strong> unter einem Namen. Sie wird mit <strong>eckigen Klammern</strong> <code>[ ]</code> angelegt, die Elemente werden durch Kommas getrennt. Die Werte müssen <strong>nicht</strong> denselben Datentyp haben.</p>
+<pre class="py block">
+liste1 = [1, 3, 5, -10]
+tage = ["Montag", "Dienstag", "Mittwoch"]
+monat1 = ["Januar", 1, 31, 8.4]
+</pre>
+    <p>Jedes Element hat eine Position, den <strong>Index</strong>. Gezählt wird ab <strong>0</strong>. Das letzte Element hat deshalb den Index <em>Anzahl der Elemente − 1</em>. Zusätzlich kann man von hinten zählen: <code>-1</code> ist das letzte, <code>-2</code> das vorletzte Element usw.</p>
+    <div class="card" id="aufbau-vis">
+      <h3>Tippe auf ein Element von monat1</h3>
+      <div class="lv-wrap"><div class="lv" id="av-list"></div></div>
+      <div class="lab-call" id="av-out" aria-live="polite">Oben steht der Index von vorne, unten (orange) der Index von hinten.</div>
+    </div>
+      <aside class="ntk" data-title="Warum beginnt der Index bei 0?">
+<p>Der Index gibt an, <strong>wie weit</strong> ein Element vom Anfang der Liste entfernt ist. Das erste Element ist 0 Schritte vom Anfang entfernt, das zweite einen Schritt usw. So kann der Computer die Speicheradresse eines Elements direkt berechnen: Startadresse + Index × Größe eines Elements.</p>
+      <p>Diese Zählweise stammt aus frühen Programmiersprachen wie C und wurde von fast allen späteren übernommen.</p>
+      <p class="joke">„Es gibt nur zwei schwierige Probleme in der Informatik: Cache-Invalidierung, die Benennung von Dingen und Off-by-one-Fehler.“</p>
+      <p>Ein <strong>Off-by-one-Fehler</strong> ist ein Fehler um genau eins – etwa <code>liste[len(liste)]</code> statt <code>liste[len(liste) - 1]</code>. Der Witz macht ihn gleich selbst: Er kündigt zwei Probleme an und zählt drei auf.</p>
+    </aside>
+  </section>
+
+  <!-- 2 Zugriff -->
+  <section id="zugriff" class="section">
+    <h2><span class="num">2</span> Listen anlegen und zugreifen</h2>
+    <h3>Möglichkeiten, eine Liste anzulegen</h3>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Code</th><th>Ergebnis</th><th>Wann sinnvoll?</th></tr></thead>
+        <tbody>
+          <tr><td><code>monat2 = ["Februar", 2, 28]</code></td><td><code>['Februar', 2, 28]</code></td><td>Die Werte sind schon bekannt.</td></tr>
+          <tr><td><code>werte = []</code></td><td><code>[]</code></td><td>Leere Liste, die später mit <code>append()</code> gefüllt wird.</td></tr>
+          <tr><td><code>werte = [0] * 5</code></td><td><code>[0, 0, 0, 0, 0]</code></td><td>Feste Anzahl von Plätzen, die später per Index belegt werden.</td></tr>
+          <tr><td><code>zahlen = list(range(5))</code></td><td><code>[0, 1, 2, 3, 4]</code></td><td>Liste mit fortlaufenden Zahlen.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Lesen und Ändern über den Index</h3>
+    <p>Über <code>liste[index]</code> liest man ein Element. Mit <code>liste[index] = wert</code> bekommt es einen neuen Wert. Ein Index außerhalb der Liste führt zu einem <code>IndexError</code>.</p>
+<pre class="py block">
+monat2 = ["Februar", 2, 28]
+print(monat2[0])     # Februar
+print(monat2[-1])    # 28  (letztes Element)
+monat2[2] = 29       # Schaltjahr: Wert ändern
+</pre>
+    <div class="card" id="idx-lab">
+      <h3>Index-Tester: monat2 = ["Februar", 2, 28]</h3>
+      <div class="lv-wrap"><div class="lv" id="ix-list"></div></div>
+      <div class="lab-row">
+        <div class="field"><label for="ix-in">Index</label><input id="ix-in" type="text" inputmode="numeric" value="-1" autocomplete="off"></div>
+        <div class="presets" role="group" aria-label="Beispiele">
+          <button type="button" class="btn small" data-ix="0">0</button>
+          <button type="button" class="btn small" data-ix="2">2</button>
+          <button type="button" class="btn small" data-ix="-2">-2</button>
+          <button type="button" class="btn small" data-ix="3">3</button>
+        </div>
+      </div>
+      <div class="lab-call" id="ix-out" aria-live="polite"></div>
+    </div>
+      <aside class="ntk" data-title="Wenn niemand den Index prüft: Heartbleed">
+<p>Python passt auf: Ein Index außerhalb der Liste führt sofort zu einem <code>IndexError</code>. Programmiersprachen wie C prüfen das nicht – dort liest das Programm einfach weiter im Speicher, egal, was dort steht.</p>
+      <p>Genau das war 2014 die Sicherheitslücke <strong>„Heartbleed“</strong> in OpenSSL, einer Software, die einen großen Teil der verschlüsselten Internetverbindungen absichert. Ein Server schickte auf eine Anfrage hin so viele Daten zurück, wie der Absender <em>behauptete</em> geschickt zu haben – ohne die Länge zu prüfen. So konnten Angreifer bis zu 64 KB aus dem Arbeitsspeicher des Servers auslesen, darunter Passwörter und geheime Schlüssel. Millionen Server mussten aktualisiert und Zertifikate ausgetauscht werden.</p>
+    </aside>
+  </section>
+
+  <!-- 3 Verarbeitung -->
+  <section id="verarbeitung" class="section">
+    <h2><span class="num">3</span> Mit Listenelementen rechnen</h2>
+    <p>Mit einem einzelnen Listenelement kann man genauso arbeiten wie mit einer Variablen – rechnen, vergleichen, ausgeben.</p>
+<pre class="py block">
+monat2 = ["Februar", 2, 28]
+arbeitstage_feb = monat2[2] - 4 * 2    # 28 - 8 = 20
+print(arbeitstage_feb)                 # 20
+</pre>
+  </section>
+
+  <!-- 3.x Methoden -->
+  <section id="methoden" class="section">
+    <h2><span class="num">3.1</span> Methoden und Funktionen für Listen</h2>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Aufruf</th><th>Wirkung</th></tr></thead>
+        <tbody>
+          <tr><td><code>liste.append(wert)</code></td><td>hängt <code>wert</code> ans Ende an</td></tr>
+          <tr><td><code>liste.insert(index, wert)</code></td><td>fügt <code>wert</code> an der Stelle <code>index</code> ein, die folgenden Elemente rücken nach hinten</td></tr>
+          <tr><td><code>liste.remove(wert)</code></td><td>löscht das <strong>erste</strong> Vorkommen von <code>wert</code></td></tr>
+          <tr><td><code>liste.pop(index)</code></td><td>entfernt das Element an der Stelle <code>index</code> und gibt es zurück; ohne Index das letzte Element</td></tr>
+          <tr><td><code>liste.sort()</code></td><td>sortiert die Liste aufsteigend (verändert die Liste selbst)</td></tr>
+          <tr><td><code>liste.reverse()</code></td><td>kehrt die Reihenfolge um</td></tr>
+          <tr><td><code>liste.clear()</code></td><td>entfernt alle Elemente</td></tr>
+          <tr><td><code>liste.count(wert)</code></td><td>zählt, wie oft <code>wert</code> vorkommt</td></tr>
+          <tr><td><code>liste.index(wert)</code></td><td>liefert den Index des ersten Vorkommens</td></tr>
+          <tr><td><code>liste.copy()</code></td><td>liefert eine Kopie der Liste</td></tr>
+          <tr><td><code>len(liste)</code></td><td>Anzahl der Elemente</td></tr>
+          <tr><td><code>sum(liste)</code>, <code>min(liste)</code>, <code>max(liste)</code></td><td>Summe, kleinster und größter Wert (bei Zahlen)</td></tr>
+          <tr><td><code>wert in liste</code></td><td><code>True</code>, wenn <code>wert</code> in der Liste vorkommt</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Methoden werden mit einem Punkt an den Listennamen gehängt (<code>liste.append(5)</code>), Funktionen bekommen die Liste in die Klammer (<code>len(liste)</code>).</p>
+
+    <div class="card" id="list-lab">
+      <h3>Listen-Labor: Probiere die Methoden aus</h3>
+      <div class="lv-wrap"><div class="lv" id="ll-list"></div></div>
+      <div class="lv-meta" id="ll-meta"></div>
+      <div class="lab-row">
+        <div class="field"><label for="ll-op">Aufruf</label><select id="ll-op"></select></div>
+        <div class="field" id="ll-a1w"><label for="ll-a1" id="ll-a1l">wert</label><input id="ll-a1" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+        <div class="field" id="ll-a2w"><label for="ll-a2" id="ll-a2l">wert</label><input id="ll-a2" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+        <div class="run-buttons">
+          <button type="button" class="btn primary" id="ll-run">▶ Ausführen</button>
+          <button type="button" class="btn" id="ll-reset">Zurücksetzen</button>
+        </div>
+      </div>
+      <div class="lab-call" id="ll-call"></div>
+      <div class="lab-log" id="ll-log" aria-live="polite"></div>
+      <p class="tool-note">Texte bitte in Anführungszeichen eingeben, z. B. <code>"April"</code>, Kommazahlen mit Punkt.</p>
+    </div>
+
+    <div class="callout warn">
+      <strong>Achtung bei sort():</strong> <code>sort()</code> verändert die Liste selbst und gibt <code>None</code> zurück. <code>liste = liste.sort()</code> macht die Liste deshalb kaputt – richtig ist einfach <code>liste.sort()</code>. Wer die ursprüngliche Liste behalten will, nimmt <code>sortiert = sorted(liste)</code>. Listen mit gemischten Datentypen (Text und Zahl) lassen sich nicht sortieren.
+    </div>
+    <div class="callout warn">
+      <strong>Achtung beim Kopieren:</strong> <code>kopie = liste</code> erzeugt <strong>keine</strong> Kopie, sondern einen zweiten Namen für <strong>dieselbe</strong> Liste. Änderungen an <code>kopie</code> verändern auch <code>liste</code>. Eine echte Kopie liefert <code>kopie = liste.copy()</code>.
+    </div>
+  </section>
+
+  <!-- 3.2 in -->
+  <section id="suchen" class="section">
+    <h2><span class="num">3.2</span> Listen durchsuchen mit in</h2>
+    <p>Oft will man nur wissen, <strong>ob</strong> ein Wert in einer Liste vorkommt – etwa, ob ein Name auf der Gästeliste steht. Dafür braucht man keine Schleife: Der Operator <code>in</code> durchsucht die Liste und liefert <code>True</code> oder <code>False</code>. Mit <code>not in</code> prüft man, ob ein Wert <strong>fehlt</strong>.</p>
+    <div class="compare">
+      <div>
+        <div class="syntax-label">Mit Schleife (umständlich)</div>
+<pre class="py">
+gefunden = False
+for gast in gaeste:
+    if gast == "Ben":
+        gefunden = True
+print(gefunden)
+</pre>
+      </div>
+      <div>
+        <div class="syntax-label">Mit in (eine Zeile)</div>
+<pre class="py">
+print("Ben" in gaeste)
+</pre>
+      </div>
+    </div>
+    <p>Meist steht <code>in</code> direkt in einer Bedingung:</p>
+<pre class="py block">
+gaeste = ["Anna", "Ben", "Cem", "Dana"]
+name = input("Ihr Name: ")
+if name in gaeste:
+    print("Willkommen!")
+else:
+    print("Sie stehen leider nicht auf der Liste.")
+</pre>
+    <div class="card" id="in-lab">
+      <h3>Probier's aus: gaeste = ["Anna", "Ben", "Cem", "Dana"]</h3>
+      <div class="lv-wrap"><div class="lv" id="in-list"></div></div>
+      <div class="lab-row">
+        <div class="field wide"><label for="in-v">gesuchter Name</label><input id="in-v" type="text" value="Ben" autocomplete="off" spellcheck="false"></div>
+        <div class="field"><label for="in-op">Operator</label><select id="in-op"><option>in</option><option>not in</option></select></div>
+      </div>
+      <div class="lab-call" id="in-out" aria-live="polite"></div>
+    </div>
+    <div class="callout tip">
+      <strong>Tipp:</strong> <code>in</code> vergleicht exakt – auch Groß- und Kleinschreibung zählt: <code>"ben" in gaeste</code> ist <code>False</code>. Und wer die <strong>Position</strong> eines Werts braucht, prüft zuerst mit <code>in</code> und ruft erst dann <code>index()</code> auf – so gibt es keinen <code>ValueError</code>.
+    </div>
+  </section>
+
+  <!-- Durchlaufen -->
+  <section id="durchlaufen" class="section">
+    <h2><span class="num">3.3</span> Listen mit einer Schleife durchlaufen</h2>
+    <p>Mit <code>for wert in liste:</code> nimmt die Schleife nacheinander jedes Element. Braucht man zusätzlich den Index, läuft man mit <code>for i in range(len(liste)):</code> über alle Indizes und greift mit <code>liste[i]</code> zu.</p>
+    <p><strong>Beispiel:</strong> Die Windstärken eines Sturmtiefs werden ausgewertet. Gehe das Programm mit „Schritt“ durch und beobachte <code>summe</code> und <code>wert</code> im Arbeitsspeicher.</p>
+    <div class="example" data-example="wind"></div>
+  </section>
+
+  <!-- Fehler -->
+  <section id="fehler" class="section">
+    <h2><span class="num">!</span> Typische Fehler</h2>
+    <div class="errors">
+      <div class="err-card">
+        <h3>Index zu groß</h3>
+<pre class="py bad">tage = ["Mo", "Di", "Mi"]
+print(tage[3])</pre>
+<pre class="py good">print(tage[2])    # oder tage[-1]</pre>
+        <p>Bei 3 Elementen ist der letzte Index 2: <code>IndexError: list index out of range</code>.</p>
+      </div>
+      <div class="err-card">
+        <h3>In leere Liste schreiben</h3>
+<pre class="py bad">werte = []
+werte[0] = 5</pre>
+<pre class="py good">werte = []
+werte.append(5)</pre>
+        <p>Eine leere Liste hat noch keinen Platz mit Index 0.</p>
+      </div>
+      <div class="err-card">
+        <h3>Ergebnis von sort() speichern</h3>
+<pre class="py bad">zahlen = zahlen.sort()</pre>
+<pre class="py good">zahlen.sort()</pre>
+        <p><code>sort()</code> gibt <code>None</code> zurück – danach wäre <code>zahlen</code> leer (<code>None</code>).</p>
+      </div>
+      <div class="err-card">
+        <h3>Wert nicht vorhanden</h3>
+<pre class="py bad">tage.remove("So")</pre>
+<pre class="py good">if "So" in tage:
+    tage.remove("So")</pre>
+        <p><code>remove()</code> und <code>index()</code> melden einen <code>ValueError</code>, wenn der Wert fehlt.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <h2><span class="num">?</span> Teste dich selbst</h2>
+    <p>Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung.</p>
+    <div id="quiz-list" class="quiz"></div>
+    <p id="quiz-score" class="quiz-score" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Lernseite „10 Eindimensionale Listen“ · Python · LF 12.1</p>
+    <p class="small">Hinweis: Die Programme auf dieser Seite werden im Browser simuliert.</p>
+  </div>
+</footer>
+
+<script src="js/engine.js" defer></script>
+<script src="js/seite.js" defer></script>
+<script src="js/extras.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mehrdimensionale Listen</title>
+  <meta name="description" content="Interaktive Lernseite zu mehrdimensionalen Listen (Matrizen) in Python: anlegen, mit Schleifen und List Comprehensions füllen, über Zeile und Spalte zugreifen.">
+  <meta name="theme-color" content="#2563c9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563c9'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='bold' font-size='10' fill='white' text-anchor='middle'%3E%5B%5B %5D%5D%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Python · Datenstrukturen</p>
+      <h1>Mehrdimensionale Listen</h1>
+      <p class="lead">Listen in Listen: Tabellen und Matrizen anlegen, mit verschachtelten Schleifen oder List Comprehensions füllen und über <code>matrix[zeile][spalte]</code> zugreifen.</p>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <div class="wrap toc-inner">
+    <a href="#anlegen">Anlegen</a>
+    <a href="#schleifen">Mit Schleifen füllen</a>
+    <a href="#comprehension">List Comprehension</a>
+    <a href="#zugriff">Zugriff</a>
+    <a href="#durchlaufen">Durchlaufen</a>
+    <a href="#fehler">Typische Fehler</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- 1 Anlegen -->
+  <section id="anlegen" class="section">
+    <h2><span class="num">1</span> Mehrdimensionale Listen anlegen</h2>
+    <p>Eine mehrdimensionale Liste ist in Python einfach eine <strong>Liste, die weitere Listen enthält</strong>. Bei zwei Dimensionen kann man sie sich als <strong>Tabelle</strong> oder <strong>Matrix</strong> vorstellen: Jede innere Liste ist eine <strong>Zeile</strong>, die Positionen darin sind die <strong>Spalten</strong>.</p>
+<pre class="py block">
+zwei_d_liste = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+# [[1, 2, 3], [4, 5, 6], [7, 8, 9]]  →  3 Zeilen, 3 Spalten (3x3-Matrix)
+</pre>
+    <p>Eine leere Liste wird mehrdimensional, indem man ihr weitere Listen anhängt:</p>
+<pre class="py block">
+matrix = []
+matrix.append([1, 2, 3])
+matrix.append([4, 5, 6])
+matrix.append([7, 8, 9])
+</pre>
+    <p>Stehen die Werte schon fest, ist das unproblematisch. Wichtig ist nur, dass man weiß, welche Dimension wofür steht: die <strong>äußere</strong> Liste enthält die Zeilen, die <strong>inneren</strong> Listen die Werte einer Zeile.</p>
+  </section>
+
+  <!-- 1.1 Schleifen -->
+  <section id="schleifen" class="section">
+    <h2><span class="num">1.1</span> Mit verschachtelten Schleifen füllen</h2>
+    <p>Stehen die Werte nicht vorher fest oder ist die Matrix groß, füllt man sie mit <strong>verschachtelten Schleifen</strong>: Die <strong>äußere</strong> Schleife erzeugt die Zeilen, die <strong>innere</strong> Schleife füllt jede Zeile mit Werten.</p>
+    <p><strong>Beispiel:</strong> Gehe das Programm mit „Schritt“ durch und beobachte, wie erst <code>zeile</code> gefüllt und dann an <code>matrix</code> angehängt wird.</p>
+    <div class="example" data-example="fuellen"></div>
+    <div class="callout">
+      <strong>Wichtig:</strong> <code>zeile = []</code> muss <strong>innerhalb</strong> der äußeren Schleife stehen. So bekommt jede Zeile eine eigene, neue Liste.
+    </div>
+  </section>
+
+  <!-- 1.2 Comprehension -->
+  <section id="comprehension" class="section">
+    <h2><span class="num">1.2</span> List Comprehension</h2>
+    <p>Eine <strong>List Comprehension</strong> ist eine Kurzschreibweise, um eine Liste in einer Zeile zu erzeugen und zu füllen. Beide Varianten liefern dasselbe Ergebnis:</p>
+    <div class="compare">
+      <div>
+        <div class="syntax-label">Mit Schleife</div>
+<pre class="py">
+zahlen = []
+for x in range(5):
+    zahlen.append(x)
+</pre>
+      </div>
+      <div>
+        <div class="syntax-label">Als List Comprehension</div>
+<pre class="py">
+zahlen = [x for x in range(5)]
+# [0, 1, 2, 3, 4]
+</pre>
+      </div>
+    </div>
+    <p>Gelesen wird sie so: „Nimm <code>x</code> – für jedes <code>x</code> in <code>range(5)</code>“. Vorne kann statt <code>x</code> auch eine Berechnung stehen, z. B. <code>[x * x for x in range(5)]</code> ergibt <code>[0, 1, 4, 9, 16]</code>.</p>
+    <p>Für zwei Dimensionen setzt man eine zweite Comprehension hinein: Die <strong>innere</strong> (<code>for j in range(cols)</code>) erzeugt die Werte einer Zeile, die <strong>äußere</strong> (<code>for i in range(rows)</code>) wiederholt das für jede Zeile.</p>
+<pre class="py block">
+rows, cols = 3, 4
+matrix = [[0 for j in range(cols)] for i in range(rows)]
+# [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+</pre>
+
+    <div class="card" id="gen">
+      <h3>Matrix-Generator</h3>
+      <div class="lab-row">
+        <div class="field"><label for="gen-r">rows</label><select id="gen-r"></select></div>
+        <div class="field"><label for="gen-c">cols</label><select id="gen-c"></select></div>
+        <div class="field wide"><label for="gen-e">Wert in jeder Zelle</label>
+          <select id="gen-e">
+            <option value="0">0</option>
+            <option value="i * cols + j + 1">i * cols + j + 1</option>
+            <option value="i * j">i * j</option>
+            <option value="i + j">i + j</option>
+            <option value="(i + 1) * (j + 1)">(i + 1) * (j + 1)</option>
+            <option value="i">i</option>
+            <option value="j">j</option>
+          </select>
+        </div>
+      </div>
+      <pre class="py no-hl" id="gen-code"></pre>
+      <div class="mx-wrap"><table class="mx" id="gen-mx"></table></div>
+      <p class="tool-note" id="gen-note">Tippe auf eine Zelle, um zu sehen, wie ihr Wert berechnet wurde.</p>
+    </div>
+
+    <h3>Die Kopierfalle</h3>
+    <p>Eine Matrix voller Nullen könnte man auch scheinbar kürzer mit <code>[[0] * cols] * rows</code> anlegen. Das ist ein <strong>häufiger Fehler</strong>: Dabei wird nur <strong>eine</strong> Zeile erzeugt, und die äußere Liste enthält mehrmals <strong>dieselbe</strong> Zeile. Ändert man einen Wert, ändert er sich in allen Zeilen.</p>
+    <div class="card" id="trap">
+      <div class="seg" role="group" aria-label="Variante">
+        <button type="button" data-v="ok" aria-pressed="true">[[0 for j in range(3)] for i in range(3)]</button>
+        <button type="button" data-v="bad" aria-pressed="false">[[0] * 3] * 3</button>
+      </div>
+      <div class="lab-row">
+        <button type="button" class="btn primary" id="trap-run">matrix[0][0] = 1 ausführen</button>
+        <button type="button" class="btn" id="trap-reset">Zurücksetzen</button>
+      </div>
+      <div class="mx-wrap"><table class="mx" id="trap-mx"></table></div>
+      <p class="tool-note" id="trap-note"></p>
+    </div>
+  </section>
+
+  <!-- 2 Zugriff -->
+  <section id="zugriff" class="section">
+    <h2><span class="num">2</span> Zugriff über Zeile und Spalte</h2>
+    <p>In einer zweidimensionalen Liste braucht man <strong>zwei Indizes</strong>: <code>matrix[zeile][spalte]</code>. Der <strong>erste</strong> Index wählt die Zeile (eine innere Liste), der <strong>zweite</strong> die Spalte darin. Beide beginnen bei 0.</p>
+<pre class="py block">
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print(matrix[0][0])   # 1  (erste Zeile, erste Spalte)
+print(matrix[1][2])   # 6  (zweite Zeile, dritte Spalte)
+print(matrix[2][1])   # 8
+print(matrix[1])      # [4, 5, 6]  (die ganze zweite Zeile)
+matrix[0][1] = 99     # Wert ändern
+</pre>
+    <div class="card" id="acc">
+      <h3>Matrix-Labor: Tippe auf eine Zelle oder gib Indizes ein</h3>
+      <div class="mx-wrap"><table class="mx" id="acc-mx"></table></div>
+      <div class="lab-row">
+        <div class="field"><label for="acc-i">Zeile</label><input id="acc-i" type="text" inputmode="numeric" value="1" autocomplete="off"></div>
+        <div class="field"><label for="acc-j">Spalte (leer = ganze Zeile)</label><input id="acc-j" type="text" inputmode="numeric" value="2" autocomplete="off"></div>
+        <div class="field"><label for="acc-v">neuer Wert (optional)</label><input id="acc-v" type="text" autocomplete="off" spellcheck="false"></div>
+        <div class="run-buttons">
+          <button type="button" class="btn primary" id="acc-run">▶ Ausführen</button>
+          <button type="button" class="btn" id="acc-reset">Zurücksetzen</button>
+        </div>
+      </div>
+      <div class="lab-log" id="acc-log" aria-live="polite"></div>
+    </div>
+    <ul class="plain">
+      <li><code>len(matrix)</code> liefert die Anzahl der <strong>Zeilen</strong>.</li>
+      <li><code>len(matrix[0])</code> liefert die Anzahl der <strong>Spalten</strong> (Länge der ersten Zeile).</li>
+    </ul>
+      <aside class="ntk" data-title="Ein Foto ist eine Matrix">
+<p>Ein Digitalfoto ist eine Matrix aus Bildpunkten (Pixeln): <code>bild[zeile][spalte]</code>. Ein Smartphone-Foto mit 12 Megapixeln hat z. B. 3000 Zeilen und 4000 Spalten.</p>
+      <p>Jeder Pixel speichert drei Werte – Rot, Grün und Blau –, jeweils von 0 bis 255. Streng genommen ist ein Farbfoto also eine <strong>dreidimensionale</strong> Liste. Ein Schwarz-Weiß-Filter ist nichts anderes als zwei verschachtelte Schleifen:</p>
+      <pre class="py">
+for zeile in range(hoehe):
+    for spalte in range(breite):
+        r, g, b = bild[zeile][spalte]
+        grau = (r + g + b) // 3
+        bild[zeile][spalte] = [grau, grau, grau]
+</pre>
+      <p>Auch Tabellenkalkulationen, Spielfelder (Schach, Sudoku, Minecraft-Welten) und Sitzpläne werden intern als Matrizen gespeichert.</p>
+    </aside>
+  </section>
+
+  <!-- 3 Durchlaufen -->
+  <section id="durchlaufen" class="section">
+    <h2><span class="num">3</span> Eine Matrix durchlaufen</h2>
+    <p>Um alle Werte zu verarbeiten, braucht man wieder zwei verschachtelte Schleifen – oder man durchläuft direkt die Zeilen:</p>
+    <div class="compare">
+      <div>
+        <div class="syntax-label">Mit Indizes</div>
+<pre class="py">
+for i in range(len(matrix)):
+    for j in range(len(matrix[i])):
+        print(matrix[i][j], end=" ")
+    print()   # Zeilenumbruch
+</pre>
+      </div>
+      <div>
+        <div class="syntax-label">Direkt über die Zeilen</div>
+<pre class="py">
+for zeile in matrix:
+    print(sum(zeile))   # Zeilensumme
+# 6
+# 15
+# 24
+</pre>
+      </div>
+    </div>
+    <p class="small"><code>print(..., end=" ")</code> setzt statt eines Zeilenumbruchs ein Leerzeichen ans Ende. So stehen die Werte einer Zeile nebeneinander.</p>
+  </section>
+
+  <!-- Fehler -->
+  <section id="fehler" class="section">
+    <h2><span class="num">!</span> Typische Fehler</h2>
+    <div class="errors">
+      <div class="err-card">
+        <h3>Kopierfalle</h3>
+<pre class="py bad">matrix = [[0] * 3] * 3</pre>
+<pre class="py good">matrix = [[0] * 3 for i in range(3)]</pre>
+        <p>Mit <code>* 3</code> außen entstehen keine drei Zeilen, sondern dreimal <strong>dieselbe</strong> Zeile.</p>
+      </div>
+      <div class="err-card">
+        <h3>Indizes vertauscht</h3>
+<pre class="py bad">wert = matrix[spalte][zeile]</pre>
+<pre class="py good">wert = matrix[zeile][spalte]</pre>
+        <p>Zuerst kommt die Zeile, dann die Spalte. Bei nicht quadratischen Matrizen gibt es sonst einen <code>IndexError</code>.</p>
+      </div>
+      <div class="err-card">
+        <h3>Neue Zeile vergessen</h3>
+<pre class="py bad">zeile = []
+for i in range(2):
+    for j in range(3):
+        zeile.append(0)
+    matrix.append(zeile)</pre>
+<pre class="py good">for i in range(2):
+    zeile = []
+    for j in range(3):
+        zeile.append(0)
+    matrix.append(zeile)</pre>
+        <p><code>zeile = []</code> gehört in die äußere Schleife, sonst wird immer dieselbe Liste weiter gefüllt.</p>
+      </div>
+      <div class="err-card">
+        <h3>Eine Klammer zu wenig</h3>
+<pre class="py bad">print(matrix[1, 2])</pre>
+<pre class="py good">print(matrix[1][2])</pre>
+        <p>Jeder Index steht in eigenen eckigen Klammern.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <h2><span class="num">?</span> Teste dich selbst</h2>
+    <p>Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung.</p>
+    <div id="quiz-list" class="quiz"></div>
+    <p id="quiz-score" class="quiz-score" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Lernseite „11 Mehrdimensionale Listen“ · Python · LF 12.1</p>
+    <p class="small">Hinweis: Die Programme auf dieser Seite werden im Browser simuliert.</p>
+  </div>
+</footer>
+
+<script src="js/engine.js" defer></script>
+<script src="js/seite.js" defer></script>
+<script src="js/extras.js" defer></script>
+</body>
+</html>

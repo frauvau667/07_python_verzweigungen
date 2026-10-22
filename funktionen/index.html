@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Funktionen in Python</title>
+  <meta name="description" content="Interaktive Lernseite zu Funktionen in Python: def, Parameter, Rückgabewerte mit return, Standardwerte sowie lokale und globale Variablen.">
+  <meta name="theme-color" content="#2563c9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563c9'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='bold' font-size='11' fill='white' text-anchor='middle'%3Edef%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Python · Strukturierte Programmierung</p>
+      <h1>Funktionen in Python</h1>
+      <p class="lead">Code einmal schreiben, beliebig oft verwenden: eigene Funktionen mit <code>def</code> definieren, Werte übergeben, Ergebnisse mit <code>return</code> zurückgeben und verstehen, wo Variablen gelten.</p>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <div class="wrap toc-inner">
+    <a href="#was">Was &amp; wozu?</a>
+    <a href="#aufbau">Aufbau</a>
+    <a href="#typen">Vier Arten</a>
+    <a href="#parameter">Parameter</a>
+    <a href="#return">return</a>
+    <a href="#sichtbarkeit">Sichtbarkeit</a>
+    <a href="#fehler">Typische Fehler</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- 1/2 Was und wozu -->
+  <section id="was" class="section">
+    <h2><span class="num">1</span> Was sind Funktionen – und wozu?</h2>
+    <p>Eine <strong>Funktion</strong> ist ein benannter Programmteil, der eine bestimmte Aufgabe erledigt und bei Bedarf <strong>aufgerufen</strong> wird. Viele Funktionen kennst du schon: <code>print()</code>, <code>input()</code>, <code>int()</code>, <code>len()</code>. Wie sie intern programmiert sind, muss man nicht wissen. Für die Verwendung reicht es zu wissen:</p>
+    <ul class="plain">
+      <li>wie die Funktion <strong>heißt</strong> (Funktionsname),</li>
+      <li>welche Werte man ihr <strong>übergeben</strong> muss (Parameter),</li>
+      <li>ob und was sie <strong>zurückgibt</strong> (Rückgabewert).</li>
+    </ul>
+    <h3>Warum eigene Funktionen?</h3>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Vorteil</th><th>Bedeutung</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Wiederverwendbarkeit</strong></td><td>Eine Funktionalität wird einmal programmiert und kann beliebig oft aufgerufen werden, ohne den Code zu kopieren.</td></tr>
+          <tr><td><strong>Übersichtlichkeit</strong></td><td>Das Programm wird in kleine, verständliche Teile (Module) gegliedert, statt als ein langer Block von oben nach unten zu laufen.</td></tr>
+          <tr><td><strong>Wartbarkeit</strong></td><td>Wiederholungen (Redundanz) im Code werden vermieden. Fehler müssen nur an <strong>einer</strong> Stelle korrigiert werden.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 3 Aufbau -->
+  <section id="aufbau" class="section">
+    <h2><span class="num">2</span> Aufbau einer Funktion</h2>
+    <div class="syntax">
+      <div class="syntax-label">Syntax</div>
+<pre class="py">
+def funktions_name(parameter1, parameter2):
+    Anweisung1
+    ...
+    return ergebnis      # optional
+</pre>
+    </div>
+    <ul class="plain">
+      <li><code>def</code> leitet die <strong>Definition</strong> ein. Danach folgen der Name, runde Klammern mit den Parametern (oder leere Klammern) und ein Doppelpunkt.</li>
+      <li>Der <strong>Funktionskörper</strong> ist eingerückt.</li>
+      <li>Die Definition führt noch <strong>nichts</strong> aus. Erst der <strong>Aufruf</strong> <code>funktions_name(…)</code> startet die Funktion.</li>
+      <li>Eine Funktion muss <strong>definiert sein, bevor</strong> sie aufgerufen wird – die Definition steht also weiter oben im Code.</li>
+      <li>Funktionsnamen werden wie Variablennamen klein geschrieben und beschreiben, was die Funktion tut – am besten mit einem Verb: <code>berechne_volumen</code> oder <code>kaffee_kochen</code>.</li>
+    </ul>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Begriff</th><th>Bedeutung</th><th>Im Beispiel <code>def flaeche(laenge, breite): …</code></th></tr></thead>
+        <tbody>
+          <tr><td>Parameter</td><td>Platzhalter in der Definition, die beim Aufruf Werte bekommen</td><td><code>laenge</code>, <code>breite</code></td></tr>
+          <tr><td>Argument</td><td>konkreter Wert, der beim Aufruf übergeben wird</td><td><code>flaeche(4, 2.5)</code> → 4 und 2.5</td></tr>
+          <tr><td>Rückgabewert</td><td>Ergebnis, das die Funktion mit <code>return</code> an den Aufrufer zurückgibt</td><td><code>return laenge * breite</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Beispiel:</strong> Gehe das Programm mit „Schritt“ durch. Beachte die Reihenfolge: Erst wird die Funktion nur <em>definiert</em>, ausgeführt wird sie erst beim Aufruf in der letzten Zeile. Ihre Variablen erscheinen im Bereich „Lokal“ und verschwinden, wenn die Funktion endet.</p>
+    <div class="example" data-example="volumen"></div>
+  </section>
+
+  <!-- 3.1–3.4 Typen -->
+  <section id="typen" class="section">
+    <h2><span class="num">3</span> Die vier Arten von Funktionen</h2>
+    <p>Je nachdem, ob eine Funktion Werte <strong>bekommt</strong> (Parameter) und ob sie ein Ergebnis <strong>zurückgibt</strong> (Rückgabewert), unterscheidet man vier Arten. Tippe auf ein Feld:</p>
+    <div class="card" id="types">
+      <div class="table-wrap">
+        <table class="ops ftypes">
+          <thead><tr><th></th><th>ohne Rückgabewert</th><th>mit Rückgabewert</th></tr></thead>
+          <tbody>
+            <tr><th>ohne Parameter</th><td><button type="button" class="btn small" data-t="0">3.1 berechne_volumen()</button></td><td><button type="button" class="btn small" data-t="1">3.2 berechne_durchmesser()</button></td></tr>
+            <tr><th>mit Parametern</th><td><button type="button" class="btn small" data-t="2">3.3 berechne_gesamtkosten(anzahl, preis)</button></td><td><button type="button" class="btn small" data-t="3">3.4 berechne_gesamtpreis(preise, rabatt=0)</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <pre class="py no-hl" id="types-code"></pre>
+      <div class="info is-sel" id="types-info" aria-live="polite"></div>
+    </div>
+    <div class="callout">
+      <strong>Ausgabe oder Rückgabe?</strong> Eine Funktion mit <code>print()</code> zeigt ein Ergebnis nur auf dem Bildschirm an – weiterrechnen kann das Programm damit nicht. Mit <code>return</code> bekommt der Aufrufer das Ergebnis und kann es speichern, weiterverarbeiten oder ausgeben. Funktionen mit Rückgabewert sind deshalb meist vielseitiger.
+    </div>
+  </section>
+
+  <!-- Parameter -->
+  <section id="parameter" class="section">
+    <h2><span class="num">3.5</span> Parameter, Reihenfolge und Standardwerte</h2>
+    <p>Beim Aufruf werden die Argumente <strong>in der Reihenfolge</strong> den Parametern zugeordnet. <code>berechne_gesamtkosten(17.5, 3)</code> würde also mit einer Anzahl von 17,5 und einem Preis von 3 rechnen. Sicherer ist es, die Parameter beim Aufruf <strong>beim Namen</strong> zu nennen – dann ist die Reihenfolge egal:</p>
+<pre class="py block">
+berechne_gesamtkosten(3, 17.5)                  # anzahl = 3, preis = 17.5
+berechne_gesamtkosten(preis=17.5, anzahl=3)     # gleiche Wirkung, gut lesbar
+</pre>
+    <p>Ein Parameter kann einen <strong>Standardwert</strong> bekommen (<code>rabatt=0</code>). Wird beim Aufruf kein Wert für ihn angegeben, gilt der Standardwert. Parameter mit Standardwert stehen immer <strong>hinter</strong> den Parametern ohne Standardwert.</p>
+    <p><strong>Beispiel:</strong> Dieselbe Funktion wird zweimal aufgerufen – einmal ohne und einmal mit Rabatt. Beobachte, wie die Argumente in den lokalen Bereich übernommen werden und der Rückgabewert in der globalen Variablen landet.</p>
+    <div class="example" data-example="gesamtpreis"></div>
+  </section>
+
+  <!-- return -->
+  <section id="return" class="section">
+    <h2><span class="num">3.6</span> return beendet die Funktion</h2>
+    <p>Sobald <code>return</code> ausgeführt wird, ist die Funktion <strong>sofort beendet</strong>. Alles, was danach im Funktionsblock steht, wird nicht mehr ausgeführt (Entwicklungsumgebungen zeigen solchen Code meist grau an).</p>
+<pre class="py block">
+def pruefe_alter(alter):
+    if alter >= 18:
+        return "volljährig"     # Funktion endet hier
+    return "minderjährig"
+    print("Wird nie ausgeführt")
+</pre>
+    <p>Hat eine Funktion <strong>kein</strong> <code>return</code>, gibt sie automatisch <code>None</code> („nichts“) zurück. Speichert man das Ergebnis einer solchen Funktion, steht in der Variablen <code>None</code>.</p>
+<pre class="py block">
+def begruesse(name):
+    print(f"Hallo {name}")
+
+ergebnis = begruesse("Lea")   # gibt "Hallo Lea" aus
+print(ergebnis)               # None
+</pre>
+      <aside class="ntk" data-title="Funktionen, die sich selbst aufrufen">
+<p>Eine Funktion darf sich selbst aufrufen – das nennt man <strong>Rekursion</strong>. Ein Klassiker ist die Fakultät: 4! = 4 · 3 · 2 · 1 = 24.</p>
+      <pre class="py">
+def fakultaet(n):
+    if n &lt;= 1:
+        return 1                      # Abbruchbedingung
+    return n * fakultaet(n - 1)       # ruft sich selbst auf
+
+print(fakultaet(4))   # 24
+</pre>
+      <p>Wichtig ist die <strong>Abbruchbedingung</strong>, sonst ruft sich die Funktion endlos selbst auf. Python bricht dann nach etwa 1000 Aufrufen mit einem <code>RecursionError</code> ab.</p>
+      <p class="joke">„Um Rekursion zu verstehen, muss man zuerst Rekursion verstehen.“ – Und wer bei Google nach „recursion“ sucht, bekommt die Rückfrage: „Meinten Sie: recursion“.</p>
+    </aside>
+  </section>
+
+  <!-- 4 Sichtbarkeit -->
+  <section id="sichtbarkeit" class="section">
+    <h2><span class="num">4</span> Sichtbarkeit von Variablen</h2>
+    <p>Jede Variable hat einen <strong>Geltungsbereich</strong> (englisch <em>scope</em>), der festlegt, wo man auf sie zugreifen kann.</p>
+    <ul class="plain">
+      <li><strong>Global:</strong> Eine Variable, die außerhalb jeder Funktion angelegt wird, ist global. Man kann sie im ganzen Programm <em>lesen</em> – auch innerhalb von Funktionen.</li>
+      <li><strong>Lokal:</strong> Eine Variable, die innerhalb einer Funktion angelegt wird, ist lokal. Sie existiert nur, solange die Funktion läuft, und ist außerhalb unbekannt. Das gilt auch für die Parameter einer Funktion.</li>
+      <li><strong>Verbergen:</strong> Hat eine lokale Variable denselben Namen wie eine globale, verdeckt sie die globale innerhalb der Funktion. Die globale Variable bleibt dabei unverändert.</li>
+    </ul>
+    <p><strong>Beispiel:</strong> Gehe das Programm mit „Schritt“ durch und vergleiche den globalen und den lokalen Bereich.</p>
+    <div class="example" data-example="scope"></div>
+    <p>Weil lokale Variablen nur in ihrer Funktion gelten, dürfen verschiedene Funktionen Variablen mit demselben Namen haben, ohne sich gegenseitig zu stören. Der Versuch, eine lokale Variable außerhalb ihrer Funktion zu benutzen, führt dagegen zu einem Fehler:</p>
+<pre class="py block">
+def play_music():
+    song = "Running up that hill"
+
+play_music()
+print(song)     # NameError: name 'song' is not defined
+</pre>
+    <div class="callout tip">
+      <strong>Empfehlungen:</strong>
+      <ol style="margin:.4rem 0 0; padding-left:1.2rem">
+        <li>Achte bewusst auf globale und lokale Bereiche.</li>
+        <li>Vermeide es, in Funktionen globale Variablen zu verwenden.</li>
+        <li>Übergib Werte, die eine Funktion braucht, als <strong>Parameter</strong>, und gib Ergebnisse mit <strong>return</strong> zurück. So ist jede Funktion in sich abgeschlossen und leicht zu testen.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Fehler -->
+  <section id="fehler" class="section">
+    <h2><span class="num">!</span> Typische Fehler</h2>
+    <div class="errors">
+      <div class="err-card">
+        <h3>Aufruf vor der Definition</h3>
+<pre class="py bad">gruesse()
+def gruesse():
+    print("Hallo")</pre>
+<pre class="py good">def gruesse():
+    print("Hallo")
+gruesse()</pre>
+        <p>Python liest von oben nach unten: <code>NameError: name 'gruesse' is not defined</code>.</p>
+      </div>
+      <div class="err-card">
+        <h3>Klammern beim Aufruf vergessen</h3>
+<pre class="py bad">gruesse</pre>
+<pre class="py good">gruesse()</pre>
+        <p>Ohne Klammern wird die Funktion nicht aufgerufen – es passiert einfach nichts.</p>
+      </div>
+      <div class="err-card">
+        <h3>Rückgabewert nicht gespeichert</h3>
+<pre class="py bad">berechne_durchmesser()
+print(ergebnis)</pre>
+<pre class="py good">ergebnis = berechne_durchmesser()
+print(ergebnis)</pre>
+        <p>Der Rückgabewert muss beim Aufruf in einer Variablen gespeichert (oder direkt verwendet) werden.</p>
+      </div>
+      <div class="err-card">
+        <h3>Falsche Anzahl an Argumenten</h3>
+<pre class="py bad">berechne_gesamtkosten(3)</pre>
+<pre class="py good">berechne_gesamtkosten(3, 17.5)</pre>
+        <p><code>TypeError: … missing 1 required positional argument: 'preis'</code></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <h2><span class="num">?</span> Teste dich selbst</h2>
+    <p>Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung.</p>
+    <div id="quiz-list" class="quiz"></div>
+    <p id="quiz-score" class="quiz-score" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Lernseite „14 Funktionen“ · Python · LF 12.1</p>
+    <p class="small">Hinweis: Die Programme auf dieser Seite werden im Browser simuliert.</p>
+  </div>
+</footer>
+
+<script src="js/engine.js" defer></script>
+<script src="js/seite.js" defer></script>
+<script src="js/extras.js" defer></script>
+</body>
+</html>

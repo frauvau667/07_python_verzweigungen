@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Strings in Python</title>
+  <meta name="description" content="Interaktive Lernseite zu Strings in Python: Index, Slicing, len, in, upper, lower, strip, replace, split, join, count, find und is-Methoden.">
+  <meta name="theme-color" content="#2563c9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563c9'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='bold' font-size='11' fill='white' text-anchor='middle'%3Eabc%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Python · Textverarbeitung</p>
+      <h1>Strings in Python</h1>
+      <p class="lead">Texte auswerten und bearbeiten: einzelne Zeichen und Ausschnitte lesen, Texte durchsuchen, umwandeln, zerlegen und prüfen – mit den wichtigsten String-Methoden.</p>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <div class="wrap toc-inner">
+    <a href="#grundlagen">Grundlagen</a>
+    <a href="#zugriff">Index &amp; Slicing</a>
+    <a href="#methoden">Methoden</a>
+    <a href="#labor">String-Labor</a>
+    <a href="#durchlaufen">Durchlaufen</a>
+    <a href="#fehler">Typische Fehler</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- Grundlagen -->
+  <section id="grundlagen" class="section">
+    <h2><span class="num">1</span> Strings – Texte als Zeichenfolgen</h2>
+    <p>Bei der Arbeit mit Benutzereingaben oder Textdateien muss man Texte häufig auswerten: Wie lang ist die Eingabe? Kommt ein bestimmtes Wort vor? Besteht sie nur aus Ziffern? Dafür bietet Python zahlreiche Funktionen und Methoden.</p>
+    <p>Ein <strong>String</strong> (<code>str</code>) ist eine <strong>Folge von Zeichen</strong> – Buchstaben, Ziffern, Leerzeichen, Satzzeichen. Wie bei einer Liste hat jedes Zeichen einen <strong>Index</strong>, beginnend bei 0.</p>
+    <div class="card" id="chars">
+      <h3>text = "Hello World"</h3>
+      <div class="lv-wrap"><div class="sv" id="ch-view"></div></div>
+      <p class="tool-note">Oben der Index von vorne, unten (orange) der Index von hinten. Auch das Leerzeichen ist ein Zeichen und hat einen Index.</p>
+    </div>
+    <div class="callout warn">
+      <strong>Strings sind unveränderlich.</strong> Methoden wie <code>upper()</code> oder <code>replace()</code> verändern den ursprünglichen String nicht, sondern liefern einen <strong>neuen</strong> String. Das Ergebnis muss man speichern: <code>text = text.upper()</code>. Ein einzelnes Zeichen kann man nicht ersetzen: <code>text[0] = "h"</code> führt zu einem <code>TypeError</code>.
+    </div>
+      <aside class="ntk" data-title="Jedes Zeichen ist eine Zahl">
+<pre class="py">
+print(ord("A"))     # 65
+print(chr(65))      # A
+print(ord("a"))     # 97
+print(ord("€"))     # 8364
+print(ord("😀"))    # 128512
+</pre>
+      <p>Welche Zahl zu welchem Zeichen gehört, legt der <strong>Unicode</strong>-Standard fest – mit über 150 000 Zeichen aus fast allen Schriften der Welt, inklusive Emojis.</p>
+      <p>Deshalb kann man Strings vergleichen: <code>"Apfel" &lt; "Birne"</code> ist <code>True</code>, weil 65 &lt; 66. Aber auch <code>"Zebra" &lt; "apfel"</code> ist <code>True</code>, denn alle Großbuchstaben haben kleinere Zahlen als die Kleinbuchstaben.</p>
+    </aside>
+  </section>
+
+  <!-- Zugriff -->
+  <section id="zugriff" class="section">
+    <h2><span class="num">2</span> Index und Slicing</h2>
+    <p>Mit <code>text[index]</code> liest man ein <strong>einzelnes Zeichen</strong>. Mit <strong>Slicing</strong> <code>text[start:stop:step]</code> schneidet man einen <strong>Ausschnitt</strong> heraus. Wie bei <code>range()</code> gilt: <code>start</code> ist dabei, <code>stop</code> nicht mehr.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Ausdruck</th><th>Bedeutung</th><th>Ergebnis bei <code>text = "Hello World"</code></th></tr></thead>
+        <tbody>
+          <tr><td><code>text[0]</code></td><td>erstes Zeichen</td><td><code>'H'</code></td></tr>
+          <tr><td><code>text[-1]</code></td><td>letztes Zeichen</td><td><code>'d'</code></td></tr>
+          <tr><td><code>text[3:5]</code></td><td>Index 3 bis 4</td><td><code>'lo'</code></td></tr>
+          <tr><td><code>text[:5]</code></td><td>vom Anfang bis Index 4</td><td><code>'Hello'</code></td></tr>
+          <tr><td><code>text[6:]</code></td><td>ab Index 6 bis zum Ende</td><td><code>'World'</code></td></tr>
+          <tr><td><code>text[::2]</code></td><td>jedes 2. Zeichen</td><td><code>'HloWrd'</code></td></tr>
+          <tr><td><code>text[::-1]</code></td><td>rückwärts</td><td><code>'dlroW olleH'</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" id="slice-lab">
+      <h3>Slicing-Labor</h3>
+      <div class="lab-row">
+        <div class="field wide"><label for="sl-t">text</label><input id="sl-t" type="text" value="Hello World" autocomplete="off" spellcheck="false"></div>
+        <div class="field"><label for="sl-a">start</label><input id="sl-a" type="text" inputmode="numeric" value="0" autocomplete="off"></div>
+        <div class="field"><label for="sl-b">stop</label><input id="sl-b" type="text" inputmode="numeric" value="5" autocomplete="off"></div>
+        <div class="field"><label for="sl-c">step</label><input id="sl-c" type="text" inputmode="numeric" value="" placeholder="leer = 1" autocomplete="off"></div>
+      </div>
+      <div class="presets" role="group" aria-label="Beispiele">
+        <button type="button" class="btn small" data-s="3,5,">[3:5]</button>
+        <button type="button" class="btn small" data-s=",5,">[:5]</button>
+        <button type="button" class="btn small" data-s="6,,">[6:]</button>
+        <button type="button" class="btn small" data-s=",,2">[::2]</button>
+        <button type="button" class="btn small" data-s=",,-1">[::-1]</button>
+        <button type="button" class="btn small" data-s="-5,,">[-5:]</button>
+      </div>
+      <div class="lv-wrap"><div class="sv" id="sl-view"></div></div>
+      <div class="lab-call" id="sl-out" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Methoden -->
+  <section id="methoden" class="section">
+    <h2><span class="num">3</span> Die wichtigsten Funktionen und Methoden</h2>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Aufruf</th><th>Bedeutung</th><th>Beispiel mit <code>text = "Hello World"</code></th></tr></thead>
+        <tbody>
+          <tr><td><code>len(text)</code></td><td>Anzahl der Zeichen</td><td><code>len(text)</code> → <code>11</code></td></tr>
+          <tr><td><code>teil in text</code></td><td>ist <code>teil</code> enthalten? (auch <code>not in</code>)</td><td><code>"World" in text</code> → <code>True</code></td></tr>
+          <tr><td><code>+</code></td><td>Strings verbinden</td><td><code>"Hello" + " " + "World"</code></td></tr>
+          <tr><td><code>upper()</code> / <code>lower()</code></td><td>in Groß- bzw. Kleinbuchstaben umwandeln</td><td><code>text.upper()</code> → <code>'HELLO WORLD'</code></td></tr>
+          <tr><td><code>strip()</code></td><td>Leerzeichen und Zeilenumbrüche am Anfang und Ende entfernen</td><td><code>"  Hi \n".strip()</code> → <code>'Hi'</code></td></tr>
+          <tr><td><code>replace(alt, neu)</code></td><td>ersetzt <strong>jedes</strong> Vorkommen von <code>alt</code> durch <code>neu</code></td><td><code>text.replace("o", "0")</code> → <code>'Hell0 W0rld'</code></td></tr>
+          <tr><td><code>split(trenner)</code></td><td>zerlegt den String an <code>trenner</code> in eine <strong>Liste</strong>; ohne Angabe an Leerzeichen</td><td><code>text.split(" ")</code> → <code>['Hello', 'World']</code></td></tr>
+          <tr><td><code>trenner.join(liste)</code></td><td>Gegenstück zu <code>split()</code>: fügt eine Liste von Strings zusammen</td><td><code>"-".join(["a", "b"])</code> → <code>'a-b'</code></td></tr>
+          <tr><td><code>count(teil)</code></td><td>wie oft kommt <code>teil</code> vor?</td><td><code>text.count("l")</code> → <code>3</code></td></tr>
+          <tr><td><code>find(teil)</code></td><td>Index des ersten Vorkommens, <code>-1</code> wenn nicht gefunden</td><td><code>text.find("World")</code> → <code>6</code></td></tr>
+          <tr><td><code>startswith(teil)</code> / <code>endswith(teil)</code></td><td>beginnt / endet der Text mit <code>teil</code>?</td><td><code>text.endswith("ld")</code> → <code>True</code></td></tr>
+          <tr><td><code>isalnum()</code></td><td>nur Buchstaben und Ziffern?</td><td><code>"Abc123".isalnum()</code> → <code>True</code></td></tr>
+          <tr><td><code>isalpha()</code></td><td>nur Buchstaben?</td><td><code>text.isalpha()</code> → <code>False</code> (Leerzeichen!)</td></tr>
+          <tr><td><code>isupper()</code> / <code>islower()</code></td><td>nur Groß- bzw. nur Kleinbuchstaben?</td><td><code>"ABC".isupper()</code> → <code>True</code></td></tr>
+          <tr><td><code>isdigit()</code></td><td>nur Ziffern?</td><td><code>"2026".isdigit()</code> → <code>True</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><code>len()</code> ist eine <strong>Funktion</strong> – der String kommt in die Klammer. Alle anderen sind <strong>Methoden</strong> – sie werden mit einem Punkt an den String gehängt: <code>text.upper()</code>. Die <code>is…()</code>-Methoden liefern <code>True</code> oder <code>False</code> und eignen sich zum Prüfen von Eingaben:</p>
+<pre class="py block">
+eingabe = input("Bitte Ihr Alter eingeben: ")
+if eingabe.isdigit():
+    alter = int(eingabe)
+else:
+    print("Bitte nur Ziffern eingeben.")
+</pre>
+      <aside class="ntk" data-title="Little Bobby Tables – warum man Eingaben prüft">
+<p>Ein berühmter Informatik-Comic (xkcd) erzählt von einer Mutter, die ihren Sohn <code>Robert'); DROP TABLE Students;--</code> genannt hat – kurz „Little Bobby Tables“. Als die Schule seinen Namen in ihre Datenbank eintrug, wurde die komplette Schülertabelle gelöscht.</p>
+      <p>Dahinter steckt die <strong>SQL-Injection</strong>, eine der häufigsten Sicherheitslücken überhaupt: Ein Programm baut eine Benutzereingabe ungeprüft in einen Datenbankbefehl ein – und die Eingabe enthält selbst Befehle.</p>
+      <p>Daraus folgt eine Grundregel: <strong>Eingaben nie ungeprüft weiterverwenden.</strong> Methoden wie <code>isalnum()</code>, <code>isdigit()</code> oder <code>strip()</code> sind ein erster Schritt; Datenbanken bieten dafür zusätzlich sichere „Platzhalter“ an.</p>
+    </aside>
+  </section>
+
+  <!-- Labor -->
+  <section id="labor" class="section">
+    <h2><span class="num">4</span> String-Labor</h2>
+    <p>Probiere alle Methoden an einem eigenen Text aus. Die betroffenen Zeichen werden hervorgehoben.</p>
+    <div class="card" id="str-lab">
+      <div class="lab-row">
+        <div class="field wide"><label for="st-t">text</label><input id="st-t" type="text" value="Hello World" autocomplete="off" spellcheck="false"></div>
+        <div class="field"><label for="st-op">Aufruf</label><select id="st-op"></select></div>
+        <div class="field" id="st-aw"><label for="st-a" id="st-al">a</label><input id="st-a" type="text" autocomplete="off" spellcheck="false"></div>
+        <div class="field" id="st-bw"><label for="st-b" id="st-bl">b</label><input id="st-b" type="text" autocomplete="off" spellcheck="false"></div>
+      </div>
+      <div class="lv-wrap"><div class="sv" id="st-view"></div></div>
+      <div class="lab-call" id="st-out" aria-live="polite"></div>
+      <p class="tool-note">Argumente ohne Anführungszeichen eingeben – sie werden automatisch als String übergeben.</p>
+    </div>
+  </section>
+
+  <!-- Durchlaufen -->
+  <section id="durchlaufen" class="section">
+    <h2><span class="num">5</span> Einen String zeichenweise durchlaufen</h2>
+    <p>Mit <code>for zeichen in text:</code> nimmt die Schleife nacheinander jedes Zeichen des Strings. So kann man z. B. bestimmte Zeichen zählen.</p>
+    <p><strong>Beispiel: Ein (etwas ehrlicher) Passwort-Prüfer.</strong> Das Programm zählt Ziffern und Großbuchstaben und prüft danach, ob das Passwort mindestens 12 Zeichen lang ist. Gehe das Programm mit „Schritt“ durch und probiere verschiedene Passwörter aus, z. B. <code>Sommer2026</code>, <code>MeinPasswort123</code> oder <code>KaffeeIstLeer42</code>.</p>
+    <div class="example" data-example="vokale"></div>
+  </section>
+
+  <!-- Fehler -->
+  <section id="fehler" class="section">
+    <h2><span class="num">!</span> Typische Fehler</h2>
+    <div class="errors">
+      <div class="err-card">
+        <h3>Ergebnis nicht gespeichert</h3>
+<pre class="py bad">text.upper()
+print(text)      # unverändert</pre>
+<pre class="py good">text = text.upper()
+print(text)</pre>
+        <p>Strings sind unveränderlich – Methoden liefern einen neuen String.</p>
+      </div>
+      <div class="err-card">
+        <h3>Zeichen direkt ändern</h3>
+<pre class="py bad">text[0] = "h"</pre>
+<pre class="py good">text = "h" + text[1:]</pre>
+        <p><code>TypeError: 'str' object does not support item assignment</code></p>
+      </div>
+      <div class="err-card">
+        <h3>Index zu groß</h3>
+<pre class="py bad">text = "Hallo"
+print(text[5])</pre>
+<pre class="py good">print(text[4])   # oder text[-1]</pre>
+        <p><code>IndexError: string index out of range</code> – bei 5 Zeichen ist 4 der letzte Index. Beim Slicing gibt es dagegen keinen Fehler: <code>text[2:99]</code> liefert einfach <code>'llo'</code>.</p>
+      </div>
+      <div class="err-card">
+        <h3>Groß-/Kleinschreibung beim Suchen</h3>
+<pre class="py bad">"world" in "Hello World"   # False</pre>
+<pre class="py good">"world" in "Hello World".lower()   # True</pre>
+        <p>Vergleiche unterscheiden Groß- und Kleinschreibung. Mit <code>lower()</code> auf beiden Seiten wird sie ignoriert.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <h2><span class="num">?</span> Teste dich selbst</h2>
+    <p>Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung.</p>
+    <div id="quiz-list" class="quiz"></div>
+    <p id="quiz-score" class="quiz-score" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Lernseite „16 Strings“ · Python · LF 12.1</p>
+    <p class="small">Hinweis: Die Programme auf dieser Seite werden im Browser simuliert.</p>
+  </div>
+</footer>
+
+<script src="js/engine.js" defer></script>
+<script src="js/seite.js" defer></script>
+<script src="js/extras.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Freigegebene Themen – ein Ordnername pro Zeile.
+# Nur diese Ordner werden veröffentlicht. Zum Sperren eine Zeile löschen
+# oder ein # davorsetzen. Nach dem Speichern ist die Änderung nach etwa
+# ein bis zwei Minuten online.
+#
+# Alle verfügbaren Ordner (in Unterrichtsreihenfolge):
+#   variablen, operatoren, eva, verzweigungen, schleifen, listen,
+#   mehrdimensionale_listen, dictionaries, bibliotheken, funktionen,
+#   textdateien, strings
+
+variablen
+operatoren
+eva
+verzweigungen
+schleifen
+listen

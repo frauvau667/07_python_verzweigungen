@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bibliotheken in Python</title>
+  <meta name="description" content="Interaktive Lernseite zu Standardbibliotheken in Python: import, from … import, Alias, sowie math, statistics, random, datetime und time.">
+  <meta name="theme-color" content="#2563c9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563c9'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='bold' font-size='11' fill='white' text-anchor='middle'%3Eimp%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Python · Module</p>
+      <h1>Bibliotheken in Python</h1>
+      <p class="lead">Fertige Werkzeuge nutzen statt alles selbst zu programmieren: Module mit <code>import</code> einbinden und die wichtigsten Standardbibliotheken <code>math</code>, <code>statistics</code>, <code>random</code>, <code>datetime</code> und <code>time</code> kennenlernen.</p>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <div class="wrap toc-inner">
+    <a href="#was">Was sind Bibliotheken?</a>
+    <a href="#import">Importieren</a>
+    <a href="#math">math</a>
+    <a href="#statistics">statistics</a>
+    <a href="#random">random</a>
+    <a href="#datetime">datetime &amp; time</a>
+    <a href="#tipps">Tipps</a>
+    <a href="#fehler">Typische Fehler</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- 1 Was -->
+  <section id="was" class="section">
+    <h2><span class="num">1</span> Was sind Standardbibliotheken?</h2>
+    <p>Python wird mit einer großen Sammlung fertiger <strong>Module</strong> ausgeliefert – der <strong>Standardbibliothek</strong>. Ein Modul ist eine Python-Datei mit Funktionen (und Konstanten) zu einem Thema. Statt z. B. eine Wurzelfunktion selbst zu programmieren, nutzt man die fertige Funktion aus dem Modul <code>math</code>.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Bereich</th><th>Module (Auswahl)</th></tr></thead>
+        <tbody>
+          <tr><td>Mathematik und Statistik</td><td><code>math</code>, <code>random</code>, <code>statistics</code></td></tr>
+          <tr><td>Datum und Zeit</td><td><code>datetime</code>, <code>time</code></td></tr>
+          <tr><td>Dateien und Betriebssystem</td><td><code>os</code>, <code>shutil</code>, <code>pathlib</code></td></tr>
+          <tr><td>Datenformate</td><td><code>csv</code>, <code>json</code>, <code>xml</code></td></tr>
+          <tr><td>Netzwerk</td><td><code>socket</code>, <code>http</code></td></tr>
+          <tr><td>Textbearbeitung</td><td><code>re</code> (reguläre Ausdrücke)</td></tr>
+          <tr><td>Fehlerbehandlung und Protokolle</td><td><code>logging</code>, <code>traceback</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>Standardbibliothek oder externe Bibliothek?</strong> Module der Standardbibliothek sind in Python bereits enthalten – eine Installation ist <strong>nicht</strong> nötig. Daneben gibt es unzählige <strong>externe</strong> Bibliotheken (z. B. <code>tabulate</code>, <code>numpy</code>, <code>pandas</code>). Diese muss man zuerst im Terminal installieren, z. B. mit <code>py -m pip install tabulate</code> (Windows) bzw. <code>python3 -m pip install tabulate</code>.
+    </div>
+  </section>
+
+  <!-- 2 Import -->
+  <section id="import" class="section">
+    <h2><span class="num">2</span> Module importieren</h2>
+    <p>Bevor man ein Modul nutzen kann, muss man es mit <code>import</code> einbinden. Import-Anweisungen stehen üblicherweise <strong>ganz oben</strong> in der Programmdatei. Es gibt drei gängige Varianten:</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Variante</th><th>Aufruf danach</th><th>Wann verwenden?</th></tr></thead>
+        <tbody>
+          <tr><td><code>import math</code><br><small>ganzes Modul</small></td><td><code>math.sqrt(16)</code></td><td>Wenn man mehrere Funktionen aus dem Modul braucht. <b>Vorteil:</b> Man sieht sofort, woher eine Funktion stammt. <b>Nachteil:</b> Der Modulname muss vor jeder Funktion stehen.</td></tr>
+          <tr><td><code>from math import sqrt, pi</code><br><small>einzelne Funktionen</small></td><td><code>sqrt(16)</code></td><td>Wenn man nur wenige Funktionen braucht. <b>Vorteil:</b> kürzerer Code. <b>Nachteil:</b> Bei vielen Funktionen weiß man nicht mehr, woher sie kommen.</td></tr>
+          <tr><td><code>import datetime as dt</code><br><small>mit Alias (Kurzname)</small></td><td><code>dt.datetime.now()</code></td><td>Wenn der Modulname lang ist oder oft vorkommt. Üblich auch bei externen Bibliotheken: <code>import numpy as np</code>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <strong>Besser vermeiden:</strong> <code>from math import *</code> importiert alle Namen eines Moduls auf einmal. Dann ist nicht mehr erkennbar, woher eine Funktion stammt, und gleichnamige Funktionen können sich gegenseitig überschreiben.
+    </div>
+
+    <div class="card" id="imp-lab">
+      <h3>Import-Labor: Welcher Aufruf funktioniert nach welchem Import?</h3>
+      <div class="lab-row">
+        <div class="field wide"><label for="imp-i">Import-Anweisung</label>
+          <select id="imp-i">
+            <option value="mod">import math</option>
+            <option value="from">from math import sqrt</option>
+            <option value="from2">from math import sqrt, pi</option>
+            <option value="alias">import math as m</option>
+            <option value="none">(kein Import)</option>
+          </select>
+        </div>
+        <div class="field wide"><label for="imp-c">Aufruf</label>
+          <select id="imp-c">
+            <option value="math.sqrt">print(math.sqrt(16))</option>
+            <option value="sqrt">print(sqrt(16))</option>
+            <option value="m.sqrt">print(m.sqrt(16))</option>
+            <option value="pi">print(pi)</option>
+            <option value="math.pi">print(math.pi)</option>
+          </select>
+        </div>
+      </div>
+      <pre class="py no-hl" id="imp-code"></pre>
+      <div class="tool-result" id="imp-out" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- 3 math -->
+  <section id="math" class="section">
+    <h2><span class="num">3.1</span> Das Modul math</h2>
+    <p><code>math</code> enthält mathematische Funktionen und Konstanten – für Berechnungen in Technik, Physik oder Geometrie.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Aufruf</th><th>Bedeutung</th><th>Beispiel</th></tr></thead>
+        <tbody>
+          <tr><td><code>math.sqrt(x)</code></td><td>Quadratwurzel</td><td><code>math.sqrt(16)</code> → <code>4.0</code></td></tr>
+          <tr><td><code>math.pi</code></td><td>Kreiszahl π (Konstante, keine Klammern!)</td><td><code>3.141592653589793</code></td></tr>
+          <tr><td><code>math.ceil(x)</code> / <code>math.floor(x)</code></td><td>aufrunden / abrunden auf eine ganze Zahl</td><td><code>math.ceil(2.1)</code> → <code>3</code></td></tr>
+          <tr><td><code>math.pow(x, y)</code></td><td>Potenz als Kommazahl</td><td><code>math.pow(2, 3)</code> → <code>8.0</code></td></tr>
+          <tr><td><code>math.sin(x)</code>, <code>math.cos(x)</code></td><td>Winkelfunktionen (x im Bogenmaß)</td><td><code>math.sin(math.pi / 2)</code> → <code>1.0</code></td></tr>
+          <tr><td><code>math.radians(g)</code></td><td>Grad ins Bogenmaß umrechnen</td><td><code>math.radians(180)</code> → <code>3.141592653589793</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" id="math-lab">
+      <h3>math ausprobieren</h3>
+      <div class="lab-row">
+        <div class="field"><label for="ml-f">Funktion</label>
+          <select id="ml-f">
+            <option>sqrt</option><option>ceil</option><option>floor</option><option>sin (Grad)</option><option>cos (Grad)</option><option>log10</option>
+          </select>
+        </div>
+        <div class="field"><label for="ml-x">x</label><input id="ml-x" type="text" inputmode="decimal" value="2" autocomplete="off"></div>
+      </div>
+      <div class="tool-result" id="ml-out" aria-live="polite"></div>
+    </div>
+    <p><strong>Beispiel:</strong> Ein Programm berechnet Fläche und Umfang eines Kreises mit <code>math.pi</code>. Hier gibt es ein Struktogramm zum Anklicken.</p>
+    <div class="example" data-example="kreis"></div>
+  </section>
+
+  <!-- statistics -->
+  <section id="statistics" class="section">
+    <h2><span class="num">3.2</span> Das Modul statistics</h2>
+    <p><code>statistics</code> berechnet statistische Kennzahlen einer Liste von Zahlen – z. B. für die Auswertung von Messwerten, Noten oder Umsätzen.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Aufruf</th><th>Bedeutung</th></tr></thead>
+        <tbody>
+          <tr><td><code>statistics.mean(daten)</code></td><td>Mittelwert (Durchschnitt)</td></tr>
+          <tr><td><code>statistics.median(daten)</code></td><td>Median: der mittlere Wert der sortierten Daten</td></tr>
+          <tr><td><code>statistics.mode(daten)</code></td><td>Modus: der häufigste Wert</td></tr>
+          <tr><td><code>statistics.stdev(daten)</code></td><td>Standardabweichung (Streuung um den Mittelwert)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" id="stat-lab">
+      <h3>statistics ausprobieren</h3>
+      <div class="lab-row">
+        <div class="field wide"><label for="sl-d">daten (Zahlen mit Komma getrennt)</label><input id="sl-d" type="text" value="1, 2, 3, 4, 5" autocomplete="off"></div>
+      </div>
+      <pre class="py no-hl" id="sl-code"></pre>
+      <div class="result-grid" id="sl-out" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- random -->
+  <section id="random" class="section">
+    <h2><span class="num">3.3</span> Das Modul random</h2>
+    <p><code>random</code> liefert Zufallszahlen und zufällige Auswahlen – für Spiele, Simulationen oder Testdaten.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Aufruf</th><th>Bedeutung</th></tr></thead>
+        <tbody>
+          <tr><td><code>random.randint(a, b)</code></td><td>zufällige ganze Zahl von a bis b (<strong>beide</strong> Grenzen sind möglich)</td></tr>
+          <tr><td><code>random.uniform(a, b)</code></td><td>zufällige Kommazahl zwischen a und b</td></tr>
+          <tr><td><code>random.random()</code></td><td>zufällige Kommazahl zwischen 0 und 1</td></tr>
+          <tr><td><code>random.choice(liste)</code></td><td>zufälliges Element einer Liste</td></tr>
+          <tr><td><code>random.shuffle(liste)</code></td><td>mischt die Liste (verändert sie selbst, gibt <code>None</code> zurück)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" id="rnd-lab">
+      <h3>random ausprobieren – jeder Klick liefert ein neues Ergebnis</h3>
+      <div class="seg" role="group" aria-label="Funktion">
+        <button type="button" data-r="randint" aria-pressed="false">random.randint(1, 6)</button>
+        <button type="button" data-r="uniform" aria-pressed="false">random.uniform(1, 20)</button>
+        <button type="button" data-r="random" aria-pressed="false">random.random()</button>
+        <button type="button" data-r="choice" aria-pressed="false">random.choice(ausreden)</button>
+        <button type="button" data-r="shuffle" aria-pressed="false">random.shuffle(ausreden)</button>
+      </div>
+      <div class="lab-log" id="rnd-log" aria-live="polite"></div>
+    </div>
+      <aside class="ntk" data-title="Wie entstehen Zufallszahlen – und sind sie wirklich zufällig?">
+<p>Ein Computer arbeitet <strong>deterministisch</strong>: Gleiche Eingabe führt immer zum gleichen Ergebnis. Echter Zufall ist so nicht möglich. Python verwendet deshalb einen <strong>Pseudozufallszahlengenerator</strong> (den „Mersenne Twister“): Eine Formel berechnet aus einem <strong>Startwert</strong> (englisch <em>seed</em>) eine sehr lange Zahlenfolge, die zufällig <em>aussieht</em>.</p>
+      <p>Mit demselben Startwert entsteht immer dieselbe Folge – nach <code>random.seed(42)</code> liefert <code>random.randint(1, 6)</code> bei jedem Programmstart dieselben Würfe. Das ist zum Testen praktisch. Ohne <code>seed()</code> holt sich Python einen Startwert vom Betriebssystem, das dafür z. B. Zeitpunkte von Tastendrücken oder Hardware-Ereignissen sammelt.</p>
+      <p>Für Passwörter und Sicherheitsanwendungen ist <code>random</code> ungeeignet, weil sich die Folge mit genug Aufwand vorhersagen lässt. Dafür gibt es das Modul <code>secrets</code>. Wie gefährlich schlechter Zufall ist, zeigte 2008 ein Fehler in Debian Linux: Nach einer fehlerhaften Code-Änderung gab es für Verschlüsselungsschlüssel nur noch rund 32 000 mögliche Startwerte – alle damit erzeugten Schlüssel ließen sich in kurzer Zeit durchprobieren.</p>
+    </aside>
+  </section>
+
+  <!-- datetime/time -->
+  <section id="datetime" class="section">
+    <h2><span class="num">3.4</span> Die Module datetime und time</h2>
+    <p><code>datetime</code> arbeitet mit <strong>Datum und Uhrzeit</strong>: aktuelles Datum abfragen, mit Daten rechnen (z. B. „in 30 Tagen“) und Datumswerte formatiert ausgeben. <code>time</code> eignet sich für <strong>Zeitmessungen</strong> und Pausen.</p>
+<pre class="py block">
+import datetime as dt
+
+jetzt = dt.datetime.now()                      # aktuelles Datum und Uhrzeit
+in_30_tagen = jetzt + dt.timedelta(days=30)    # mit Daten rechnen
+print(jetzt.strftime("%d.%m.%Y %H:%M"))        # deutsches Format, z. B. 21.10.2026 14:05
+</pre>
+    <div class="card" id="dt-lab">
+      <h3>datetime ausprobieren</h3>
+      <div class="lab-row">
+        <div class="field"><label for="dt-d">days in timedelta</label><input id="dt-d" type="text" inputmode="numeric" value="30" autocomplete="off"></div>
+      </div>
+      <div class="tool-result" id="dt-out" aria-live="polite"></div>
+      <p class="tool-note">Formatkürzel: <code>%d</code> Tag, <code>%m</code> Monat, <code>%Y</code> Jahr, <code>%H</code> Stunde, <code>%M</code> Minute, <code>%S</code> Sekunde.</p>
+    </div>
+<pre class="py block">
+import time
+
+start = time.time()      # Sekunden seit dem 1.1.1970 (Zeitstempel)
+time.sleep(2)            # Programm 2 Sekunden anhalten
+ende = time.time()
+print(ende - start)      # ca. 2.0 – so misst man Laufzeiten
+</pre>
+    <div class="card" id="tm-lab">
+      <h3>time ausprobieren: Stoppuhr</h3>
+      <div class="lab-row">
+        <button type="button" class="btn primary" id="tm-start">start = time.time()</button>
+        <button type="button" class="btn" id="tm-stop" disabled>ende = time.time()</button>
+      </div>
+      <div class="lab-log" id="tm-log" aria-live="polite"></div>
+    </div>
+      <aside class="ntk" data-title="Woher kennt der PC Datum und Uhrzeit?">
+<p>Auf der Hauptplatine jedes Computers läuft eine kleine <strong>Echtzeituhr</strong>, die von einer Knopfzelle versorgt wird – auch wenn der PC ausgeschaltet ist. Sie geht allerdings ungenau. Deshalb gleicht das Betriebssystem die Uhrzeit regelmäßig über das Internet mit <strong>Zeitservern</strong> ab (Network Time Protocol, NTP). Diese erhalten ihre Zeit letztlich von Atomuhren – in Deutschland von der Physikalisch-Technischen Bundesanstalt (PTB) in Braunschweig.</p>
+      <p>Intern zählt der Computer die Sekunden seit dem <strong>1. Januar 1970, 0 Uhr</strong> (UTC) – genau diese Zahl liefert <code>time.time()</code>.</p>
+      <p><strong>Typische Probleme beim Programmieren:</strong></p>
+      <ul>
+        <li><strong>Zeitzonen:</strong> 9 Uhr in Berlin ist nicht 9 Uhr in New York. Ein Server kann in einer anderen Zeitzone laufen als der Nutzer.</li>
+        <li><strong>Sommerzeit:</strong> Am Tag der Zeitumstellung gibt es 2:30 Uhr gar nicht – oder zweimal.</li>
+        <li><strong>Schaltjahre:</strong> Der 29. Februar bringt schlecht getestete Programme immer wieder zum Absturz.</li>
+        <li><strong>Datumsformate:</strong> 03.04.2026 ist in Deutschland der 3. April, in den USA (04/03/2026) wäre dasselbe Datum anders geschrieben.</li>
+        <li><strong>Jahr-2038-Problem:</strong> Ältere Systeme speichern die Sekunden seit 1970 in einer 32-Bit-Zahl. Am 19. Januar 2038 läuft sie über – ähnlich wie beim „Millennium-Bug“ zum Jahr 2000.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- Tipps -->
+  <section id="tipps" class="section">
+    <h2><span class="num">4</span> Tipps für den Einsatz</h2>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Modul</th><th>Typische Anwendungen</th></tr></thead>
+        <tbody>
+          <tr><td><code>math</code></td><td>Berechnungen in Physik, Technik, Geometrie, Trigonometrie</td></tr>
+          <tr><td><code>statistics</code></td><td>Datenanalyse: Mittelwerte, Median, Streuung</td></tr>
+          <tr><td><code>random</code></td><td>Spiele, Simulationen, zufällige Auswahl, Testdaten</td></tr>
+          <tr><td><code>datetime</code></td><td>Kalenderfunktionen, Fristen und Laufzeiten berechnen, Zeitstempel</td></tr>
+          <tr><td><code>time</code></td><td>Laufzeiten messen, Pausen, Zeitsteuerung</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="plain">
+      <li><strong>Dokumentation nutzen:</strong> Alle Module sind unter <a href="https://docs.python.org/3/library/" target="_blank" rel="noopener">docs.python.org/3/library</a> beschrieben. Im Programm hilft <code>help(math.sqrt)</code>; <code>dir(math)</code> listet alle Namen eines Moduls auf.</li>
+      <li><strong>Gezielt importieren:</strong> Nur die Module einbinden, die man wirklich braucht – das hält den Code übersichtlich.</li>
+      <li><strong>Alias sinnvoll einsetzen:</strong> Kurznamen wie <code>dt</code> oder <code>np</code> machen langen Code lesbarer.</li>
+      <li><strong>Autovervollständigung verwenden:</strong> Nach <code>math.</code> zeigt die Entwicklungsumgebung (z. B. VS Code) alle verfügbaren Funktionen an.</li>
+    </ul>
+      <aside class="ntk" data-title="Fremder Code, fremde Risiken">
+<p>Bibliotheken sparen viel Arbeit – man holt sich damit aber auch fremden Code ins Programm, samt seiner Fehler.</p>
+      <ul>
+        <li><strong>Log4Shell (2021):</strong> In der weit verbreiteten Java-Bibliothek Log4j, die Programme zum Mitschreiben von Ereignissen nutzen, steckte eine Lücke: Eine einzige präparierte Textzeile genügte, um fremden Code auf dem Server auszuführen. Betroffen waren Hunderttausende Systeme – von Cloud-Diensten bis zum Spiel Minecraft.</li>
+        <li><strong>Typosquatting:</strong> Angreifer veröffentlichen im Python-Paketverzeichnis PyPI Schadsoftware unter Namen wie <code>reqeusts</code> statt <code>requests</code>. Wer sich bei <code>pip install</code> vertippt, installiert sie selbst.</li>
+      </ul>
+      <p>Deshalb: Paketnamen genau prüfen, nur bekannte und gepflegte Bibliotheken verwenden und sie aktuell halten.</p>
+    </aside>
+  </section>
+
+  <!-- Fehler -->
+  <section id="fehler" class="section">
+    <h2><span class="num">!</span> Typische Fehler</h2>
+    <div class="errors">
+      <div class="err-card">
+        <h3>Import vergessen</h3>
+<pre class="py bad">print(math.sqrt(16))</pre>
+<pre class="py good">import math
+print(math.sqrt(16))</pre>
+        <p>Ohne Import kennt Python das Modul nicht: <code>NameError: name 'math' is not defined</code>.</p>
+      </div>
+      <div class="err-card">
+        <h3>Modulname fehlt</h3>
+<pre class="py bad">import math
+print(sqrt(16))</pre>
+<pre class="py good">from math import sqrt
+print(sqrt(16))</pre>
+        <p>Nach <code>import math</code> muss <code>math.</code> vor der Funktion stehen.</p>
+      </div>
+      <div class="err-card">
+        <h3>Eigene Datei heißt wie das Modul</h3>
+<pre class="py bad"># Datei: random.py
+import random</pre>
+<pre class="py good"># Datei: wuerfel.py
+import random</pre>
+        <p>Heißt die eigene Datei <code>random.py</code>, importiert Python sich selbst statt der Bibliothek – es folgen rätselhafte Fehler.</p>
+      </div>
+      <div class="err-card">
+        <h3>Externe Bibliothek nicht installiert</h3>
+<pre class="py bad">import tabulate
+# ModuleNotFoundError</pre>
+<pre class="py good"># im Terminal:
+# py -m pip install tabulate</pre>
+        <p>Nur die Standardbibliothek ist vorinstalliert. Externe Pakete müssen mit <code>pip</code> installiert werden.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <h2><span class="num">?</span> Teste dich selbst</h2>
+    <p>Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung.</p>
+    <div id="quiz-list" class="quiz"></div>
+    <p id="quiz-score" class="quiz-score" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Lernseite „13 Bibliotheken“ · Python · LF 12.1</p>
+    <p class="small">Hinweis: Die Programme auf dieser Seite werden im Browser simuliert.</p>
+  </div>
+</footer>
+
+<script src="js/engine.js" defer></script>
+<script src="js/seite.js" defer></script>
+<script src="js/extras.js" defer></script>
+</body>
+</html>

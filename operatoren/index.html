@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Operatoren in Python</title>
+  <meta name="description" content="Interaktive Lernseite zu arithmetischen, Zuweisungs-, Vergleichs- und logischen Operatoren in Python.">
+  <meta name="theme-color" content="#2563c9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563c9'/%3E%3Cpath d='M9 11h6M12 8v6M18 11h6M9 21h6M18 19h6M18 23h6' stroke='white' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Python · Grundlagen</p>
+      <h1>Operatoren in Python</h1>
+      <p class="lead">Rechnen, speichern, vergleichen und verknüpfen: <code>+ - * / // % **</code>, <code>+=</code>, <code>==</code>, <code>and</code>, <code>or</code> und <code>not</code>.</p>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <div class="wrap toc-inner">
+    <a href="#start">Operatoren</a>
+    <a href="#arithmetisch">Rechnen</a>
+    <a href="#zuweisung">Zuweisung</a>
+    <a href="#vergleich">Vergleich</a>
+    <a href="#logisch">Logik</a>
+    <a href="#fehler">Typische Fehler</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- 1 Operatoren -->
+  <section id="start" class="section">
+    <h2><span class="num">1</span> Was sind Operatoren?</h2>
+    <p><strong>Operatoren</strong> sind Symbole, die eine Aktion auslösen – zum Beispiel eine Rechnung oder einen Vergleich. In einem <strong>Ausdruck</strong> (z. B. <code>2 + 3 * 4</code>) können mehrere Operatoren vorkommen. In welcher Reihenfolge gerechnet wird, bestimmen die <strong>Vorrangregeln</strong> der Mathematik („Punkt vor Strich“) und <strong>Klammern</strong>.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Rang</th><th>Operatoren</th><th>Bedeutung</th></tr></thead>
+        <tbody>
+          <tr><td>1 (zuerst)</td><td><code>( )</code></td><td>Klammern</td></tr>
+          <tr><td>2</td><td><code>**</code></td><td>Potenz</td></tr>
+          <tr><td>3</td><td><code>*  /  //  %</code></td><td>„Punktrechnung“</td></tr>
+          <tr><td>4</td><td><code>+  -</code></td><td>„Strichrechnung“</td></tr>
+          <tr><td>5</td><td><code>==  !=  &lt;  &gt;  &lt;=  &gt;=</code></td><td>Vergleiche</td></tr>
+          <tr><td>6</td><td><code>not</code></td><td>Logisches Nicht</td></tr>
+          <tr><td>7</td><td><code>and</code></td><td>Logisches Und</td></tr>
+          <tr><td>8 (zuletzt)</td><td><code>or</code></td><td>Logisches Oder</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Operatoren auf derselben Stufe werden <strong>von links nach rechts</strong> ausgewertet.</p>
+
+    <div class="card" id="eval">
+      <h3>Schritt für Schritt: Wie rechnet Python?</h3>
+      <div class="tool-row">
+        <div class="field"><label for="ev-sel">Ausdruck</label><select id="ev-sel"></select></div>
+        <div class="run-buttons">
+          <button type="button" class="btn primary" id="ev-next">Nächster Schritt</button>
+          <button type="button" class="btn" id="ev-all">Alle zeigen</button>
+        </div>
+      </div>
+      <div class="eval-steps" id="ev-out" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- 1.1 Arithmetisch -->
+  <section id="arithmetisch" class="section">
+    <h2><span class="num">1.1</span> Arithmetische Operatoren</h2>
+    <p>Arithmetische Operatoren <strong>rechnen</strong>. Sie bekommen Zahlen und liefern eine Zahl als Ergebnis.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Operator</th><th>Bedeutung</th><th>Beispiel</th><th>Ergebnis</th></tr></thead>
+        <tbody>
+          <tr><td><code>+</code></td><td>Addition</td><td><code>20 + 6</code></td><td><code>26</code></td></tr>
+          <tr><td><code>-</code></td><td>Subtraktion</td><td><code>20 - 6</code></td><td><code>14</code></td></tr>
+          <tr><td><code>*</code></td><td>Multiplikation</td><td><code>20 * 6</code></td><td><code>120</code></td></tr>
+          <tr><td><code>/</code></td><td>Division – liefert <strong>immer</strong> eine Kommazahl</td><td><code>20 / 5</code></td><td><code>4.0</code></td></tr>
+          <tr><td><code>//</code></td><td>Ganzzahlige Division – „Wie oft passt es ganz hinein?“</td><td><code>20 // 6</code></td><td><code>3</code></td></tr>
+          <tr><td><code>%</code></td><td>Modulo – der Rest der ganzzahligen Division</td><td><code>20 % 6</code></td><td><code>2</code></td></tr>
+          <tr><td><code>**</code></td><td>Potenz (2³)</td><td><code>2 ** 3</code></td><td><code>8</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Ganzzahlige Division und Modulo</h3>
+    <p><code>//</code> und <code>%</code> gehören zusammen: <code>//</code> gibt an, wie oft der Divisor <strong>vollständig</strong> in den Dividenden passt, <code>%</code> liefert den <strong>Rest</strong>, der dabei übrig bleibt.</p>
+    <div class="callout">
+      <strong>Beispiel:</strong> 20 Teilnehmende sollen in Gruppen zu je 6 Personen eingeteilt werden. Es entstehen <code>20 // 6 = 3</code> vollständige Gruppen, und <code>20 % 6 = 2</code> Personen bleiben übrig. Probe: 3 · 6 + 2 = 20.
+    </div>
+    <p>Eine typische Anwendung ist das Umrechnen von Einheiten, z. B. von Sekunden in Minuten und Sekunden:</p>
+    <div class="example" data-example="zeit"></div>
+
+    <div class="card" id="calc">
+      <h3>Rechen-Labor: alle arithmetischen Operatoren auf einmal</h3>
+      <div class="tool-row">
+        <div class="field"><label for="ca-a">a</label><input id="ca-a" type="text" inputmode="decimal" value="20" autocomplete="off"></div>
+        <div class="field"><label for="ca-b">b</label><input id="ca-b" type="text" inputmode="decimal" value="6" autocomplete="off"></div>
+      </div>
+      <div class="result-grid" id="ca-out" aria-live="polite"></div>
+      <p class="tool-note">Probiere auch Kommazahlen (mit Punkt), negative Zahlen oder 0 als b.</p>
+    </div>
+
+    <h3><code>//</code> und <code>%</code> mit Kommazahlen und negativen Zahlen</h3>
+    <p>Im Rechen-Labor fällt auf: <code>//</code> und <code>%</code> funktionieren auch mit Kommazahlen. Das liegt daran, wie Python die beiden Operatoren definiert:</p>
+    <ul class="plain">
+      <li><code>a // b</code> bedeutet: <strong>a / b berechnen und auf die nächstkleinere ganze Zahl abrunden.</strong> Das geht mit jeder Zahl, nicht nur mit ganzen Zahlen.</li>
+      <li><code>a % b</code> ist der <strong>Rest</strong>, der dabei bleibt: <code>a - (a // b) * b</code>.</li>
+      <li>Der <strong>Datentyp</strong> richtet sich nach den Operanden: Ist mindestens einer davon ein <code>float</code>, ist auch das Ergebnis ein <code>float</code> – selbst wenn es einen ganzzahligen Wert hat.</li>
+    </ul>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Ausdruck</th><th>Ergebnis</th><th>Erklärung</th></tr></thead>
+        <tbody>
+          <tr><td><code>7.5 // 2</code></td><td><code>3.0</code></td><td>7.5 / 2 = 3.75, abgerundet 3 – als <code>float</code>, weil 7.5 ein <code>float</code> ist</td></tr>
+          <tr><td><code>7.5 % 2</code></td><td><code>1.5</code></td><td>7.5 − 3 · 2 = 1.5</td></tr>
+          <tr><td><code>-7 // 2</code></td><td><code>-4</code></td><td>−7 / 2 = −3.5, abgerundet −4 (nicht −3: abgerundet wird immer zur kleineren Zahl)</td></tr>
+          <tr><td><code>-7 % 2</code></td><td><code>1</code></td><td>−7 − (−4) · 2 = 1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <strong>Praxisbeispiel:</strong> Eine Schicht dauert 2 Stunden. Wie viele vollständige Schichten passen in 7,5 Stunden? <code>7.5 // 2</code> ergibt <code>3.0</code> Schichten, und <code>7.5 % 2</code> ergibt <code>1.5</code> Stunden Restzeit.
+    </div>
+    <div class="callout warn">
+      <strong>Hinweis:</strong> Kommazahlen werden im Computer nicht immer exakt gespeichert. Deshalb können bei <code>//</code> und <code>%</code> mit Kommazahlen kleine Abweichungen entstehen, z. B. ergibt <code>0.3 % 0.1</code> nicht 0, sondern <code>0.09999999999999998</code>. In der Praxis verwendet man <code>//</code> und <code>%</code> daher meist mit ganzen Zahlen.
+    </div>
+
+    <h3>Mit Texten „rechnen“</h3>
+    <p>Auch bei Texten (Strings) gibt es zwei Operatoren: <code>+</code> <strong>verbindet</strong> Texte, <code>*</code> <strong>vervielfacht</strong> sie. <code>'ab' * 2</code> ergibt <code>'abab'</code>.</p>
+    <div class="card" id="strops">
+      <div class="tool-row">
+        <div class="field"><label for="so-t">Text</label><input id="so-t" type="text" value="ab" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+        <div class="field"><label for="so-n">Zahl</label><input id="so-n" type="text" inputmode="numeric" value="3" autocomplete="off"></div>
+      </div>
+      <div class="result-grid" id="so-out" aria-live="polite"></div>
+    </div>
+      <aside class="ntk" data-title="Modulo – vom Alltag bis zur Verschlüsselung">
+<p>Der unscheinbare Operator <code>%</code> steckt in vielen Anwendungen:</p>
+      <ul>
+        <li><strong>Gerade oder ungerade:</strong> <code>zahl % 2 == 0</code></li>
+        <li><strong>Uhrzeiten:</strong> 14 Uhr plus 12 Stunden → <code>(14 + 12) % 24</code> = 2 Uhr</li>
+        <li><strong>Prüfziffern:</strong> Bei jeder IBAN muss eine Rechnung mit <code>% 97</code> den Rest 1 ergeben. So erkennt die Bank Tippfehler, bevor Geld falsch überwiesen wird. Auch ISBN-Nummern von Büchern haben eine Prüfziffer.</li>
+        <li><strong>Caesar-Verschlüsselung:</strong> Julius Caesar verschob jeden Buchstaben um 3 Stellen im Alphabet: Aus A wird D. Damit nach Z wieder vorne begonnen wird, rechnet man mit Modulo: <code>(position + 3) % 26</code>. Z hat die Position 25 und wird zu <code>(25 + 3) % 26</code> = 2, also C.</li>
+      </ul>
+      <p>Auch moderne Verschlüsselung wie <strong>RSA</strong>, die z. B. beim Onlinebanking und bei HTTPS-Verbindungen eingesetzt wird, rechnet mit Modulo – allerdings mit Zahlen, die mehrere hundert Stellen lang sind. Ihre Sicherheit beruht darauf, dass sich so große Zahlen praktisch nicht in ihre Primfaktoren zerlegen lassen.</p>
+    </aside>
+  </section>
+
+  <!-- 1.2 Zuweisung -->
+  <section id="zuweisung" class="section">
+    <h2><span class="num">1.2</span> Zuweisungsoperatoren</h2>
+    <p>Mit einem Zuweisungsoperator wird ein Wert in einer Variablen <strong>gespeichert</strong>. Links steht die Variable, rechts der Wert, der gespeichert werden soll.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Operator</th><th>Bedeutung</th><th>entspricht</th></tr></thead>
+        <tbody>
+          <tr><td><code>=</code></td><td>Zuweisung</td><td><code>x = 5</code></td></tr>
+          <tr><td><code>+=</code></td><td>addieren</td><td><code>x = x + 2</code></td></tr>
+          <tr><td><code>-=</code></td><td>subtrahieren</td><td><code>x = x - 2</code></td></tr>
+          <tr><td><code>*=</code></td><td>multiplizieren</td><td><code>x = x * 2</code></td></tr>
+          <tr><td><code>/=</code></td><td>dividieren</td><td><code>x = x / 2</code></td></tr>
+          <tr><td><code>//=</code>, <code>%=</code>, <code>**=</code></td><td>ganzzahlig dividieren, Modulo bilden, potenzieren</td><td><code>x = x // 2</code> usw.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Beispiel:</strong> Gehe das Programm mit „Schritt“ durch und beobachte die Variable <code>punkte</code> im Arbeitsspeicher. Achte auf die letzte Zeile: Was passiert mit dem Datentyp?</p>
+    <div class="example" data-example="punkte"></div>
+  </section>
+
+  <!-- 1.3 Vergleich -->
+  <section id="vergleich" class="section">
+    <h2><span class="num">1.3</span> Vergleichsoperatoren</h2>
+    <p>Vergleichsoperatoren <strong>vergleichen</strong> zwei Werte und liefern einen Wahrheitswert: <code>True</code> oder <code>False</code>.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Operator</th><th>Bedeutung</th><th>Beispiel</th><th>Ergebnis</th></tr></thead>
+        <tbody>
+          <tr><td><code>==</code></td><td>gleich</td><td><code>5 == 5</code></td><td class="t">True</td></tr>
+          <tr><td><code>!=</code></td><td>ungleich</td><td><code>5 != 5</code></td><td class="f">False</td></tr>
+          <tr><td><code>&lt;</code></td><td>kleiner</td><td><code>3 &lt; 7</code></td><td class="t">True</td></tr>
+          <tr><td><code>&gt;</code></td><td>größer</td><td><code>3 &gt; 7</code></td><td class="f">False</td></tr>
+          <tr><td><code>&lt;=</code></td><td>kleiner oder gleich</td><td><code>7 &lt;= 7</code></td><td class="t">True</td></tr>
+          <tr><td><code>&gt;=</code></td><td>größer oder gleich</td><td><code>6 &gt;= 7</code></td><td class="f">False</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <strong>Nicht verwechseln:</strong> <code>=</code> ist eine <em>Zuweisung</em> (speichern), <code>==</code> ist ein <em>Vergleich</em> (fragen).
+    </div>
+    <div class="card tester" id="tester">
+      <h3>Bedingungs-Tester</h3>
+      <div class="tester-row">
+        <input type="number" id="t-a" value="7" aria-label="Linker Wert">
+        <select id="t-op" aria-label="Operator">
+          <option>==</option><option>!=</option><option selected>&lt;</option><option>&gt;</option><option>&lt;=</option><option>&gt;=</option>
+        </select>
+        <input type="number" id="t-b" value="7" aria-label="Rechter Wert">
+        <span class="arrow">→</span>
+        <output id="t-out" class="bool">False</output>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1.4 Logisch -->
+  <section id="logisch" class="section">
+    <h2><span class="num">1.4</span> Logische Operatoren</h2>
+    <p>Logische Operatoren stammen aus der <strong>booleschen Algebra</strong>. Mit ihnen verknüpft man mehrere Vergleiche zu einer Bedingung – zum Beispiel, wenn etwas nur passieren soll, wenn <strong>zwei Bedingungen gleichzeitig</strong> wahr sind: <code>x == 4 and y == 5</code>.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Operator</th><th>Bedeutung</th></tr></thead>
+        <tbody>
+          <tr><td><code>and</code></td><td>Und: ergibt <code>True</code>, wenn <strong>beide</strong> Aussagen True sind</td></tr>
+          <tr><td><code>or</code></td><td>Oder: ergibt <code>True</code>, wenn <strong>mindestens eine</strong> Aussage True ist</td></tr>
+          <tr><td><code>not</code></td><td>Nicht: <strong>dreht</strong> die Aussage um</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card logic" id="logic">
+      <h3>Tippe auf A oder B – oder auf eine Zeile der Wahrheitstabellen</h3>
+      <div class="logic-toggles">
+        <button type="button" class="bool-btn" data-var="A" aria-pressed="true">A = <b>True</b></button>
+        <button type="button" class="bool-btn" data-var="B" aria-pressed="false">B = <b>False</b></button>
+      </div>
+      <div class="logic-results">
+        <div><code>A and B</code><output class="bool" data-expr="and"></output></div>
+        <div><code>A or B</code><output class="bool" data-expr="or"></output></div>
+        <div><code>not A</code><output class="bool" data-expr="not"></output></div>
+      </div>
+      <div class="truth-wrap">
+        <table class="truth">
+          <caption>Wahrheitstabelle and</caption>
+          <thead><tr><th>A</th><th>B</th><th>A and B</th></tr></thead>
+          <tbody>
+            <tr data-a="false" data-b="false"><td class="f">False</td><td class="f">False</td><td class="f">False</td></tr>
+            <tr data-a="false" data-b="true"><td class="f">False</td><td class="t">True</td><td class="f">False</td></tr>
+            <tr data-a="true" data-b="false"><td class="t">True</td><td class="f">False</td><td class="f">False</td></tr>
+            <tr data-a="true" data-b="true"><td class="t">True</td><td class="t">True</td><td class="t">True</td></tr>
+          </tbody>
+        </table>
+        <table class="truth">
+          <caption>Wahrheitstabelle or</caption>
+          <thead><tr><th>A</th><th>B</th><th>A or B</th></tr></thead>
+          <tbody>
+            <tr data-a="false" data-b="false"><td class="f">False</td><td class="f">False</td><td class="f">False</td></tr>
+            <tr data-a="false" data-b="true"><td class="f">False</td><td class="t">True</td><td class="t">True</td></tr>
+            <tr data-a="true" data-b="false"><td class="t">True</td><td class="f">False</td><td class="t">True</td></tr>
+            <tr data-a="true" data-b="true"><td class="t">True</td><td class="t">True</td><td class="t">True</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="tool-note">In der Digitaltechnik schreibt man statt False und True oft <strong>0</strong> und <strong>1</strong>.</p>
+    </div>
+
+    <div class="card" id="combo">
+      <h3>Probier's aus: x == 4 and y == 5</h3>
+      <div class="tool-row">
+        <div class="field"><label for="cb-x">x</label><input id="cb-x" type="text" inputmode="numeric" value="4" autocomplete="off"></div>
+        <div class="field"><label for="cb-y">y</label><input id="cb-y" type="text" inputmode="numeric" value="3" autocomplete="off"></div>
+      </div>
+      <div class="tool-result" id="cb-out" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Fehler -->
+  <section id="fehler" class="section">
+    <h2><span class="num">!</span> Typische Anfängerfehler</h2>
+    <div class="errors">
+      <div class="err-card">
+        <h3>^ statt ** für Potenzen</h3>
+<pre class="py bad">print(2 ^ 3)    # ergibt 1 !</pre>
+<pre class="py good">print(2 ** 3)   # ergibt 8</pre>
+        <p><code>^</code> ist in Python <strong>keine</strong> Potenz, sondern ein ganz anderer Operator. Potenzen schreibt man mit <code>**</code>.</p>
+      </div>
+      <div class="err-card">
+        <h3>Klammern vergessen</h3>
+<pre class="py bad">schnitt = 2 + 4 / 2   # 4.0</pre>
+<pre class="py good">schnitt = (2 + 4) / 2 # 3.0</pre>
+        <p>Punkt vor Strich gilt auch in Python. Für den Durchschnitt müssen Klammern gesetzt werden.</p>
+      </div>
+      <div class="err-card">
+        <h3>= statt ==</h3>
+<pre class="py bad">if x = 5:</pre>
+<pre class="py good">if x == 5:</pre>
+        <p>Ein Gleichheitszeichen speichert, zwei vergleichen.</p>
+      </div>
+      <div class="err-card">
+        <h3>/ statt //</h3>
+<pre class="py bad">gruppen = 20 / 6    # 3.3333333333333335</pre>
+<pre class="py good">gruppen = 20 // 6   # 3</pre>
+        <p><code>/</code> liefert immer eine Kommazahl. Wer nur ganze Gruppen zählen will, braucht <code>//</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <h2><span class="num">?</span> Teste dich selbst</h2>
+    <p>Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung.</p>
+    <div id="quiz-list" class="quiz"></div>
+    <p id="quiz-score" class="quiz-score" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Lernseite „04 Operatoren“ · Python · LF 12.1</p>
+    <p class="small">Hinweis: Die Programme auf dieser Seite werden im Browser simuliert.</p>
+  </div>
+</footer>
+
+<script src="js/engine.js" defer></script>
+<script src="js/seite.js" defer></script>
+<script src="js/extras.js" defer></script>
+</body>
+</html>

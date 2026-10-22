@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Textdateien in Python</title>
+  <meta name="description" content="Interaktive Lernseite zu Textdateien in Python: Dateien öffnen, lesen, schreiben, Dateimodi, with-Anweisung, strip(), split() und CSV-Dateien mit tabulate und csv.">
+  <meta name="theme-color" content="#2563c9">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563c9'/%3E%3Ctext x='16' y='21.5' font-family='Arial' font-weight='bold' font-size='11' fill='white' text-anchor='middle'%3Etxt%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div>
+      <p class="eyebrow">Python · Dateien</p>
+      <h1>Textdateien in Python</h1>
+      <p class="lead">Daten dauerhaft speichern: Textdateien mit <code>open()</code> und <code>with</code> öffnen, lesen und schreiben – und CSV-Dateien mit <code>split()</code> oder dem Modul <code>csv</code> einlesen, auswerten und als ganze Tabellen speichern.</p>
+    </div>
+    <button class="theme-toggle" type="button" aria-label="Hell/Dunkel umschalten" title="Hell/Dunkel umschalten">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Inhalt">
+  <div class="wrap toc-inner">
+    <a href="#was">Was sind Textdateien?</a>
+    <a href="#oeffnen">Öffnen &amp; Modi</a>
+    <a href="#lesen">Lesen</a>
+    <a href="#schreiben">Schreiben</a>
+    <a href="#csv">CSV-Dateien</a>
+    <a href="#csv-modul">Modul csv</a>
+    <a href="#ganz-schreiben">Ganze Dateien schreiben</a>
+    <a href="#fehler">Typische Fehler</a>
+    <a href="#quiz">Quiz</a>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- 1 Was -->
+  <section id="was" class="section">
+    <h2><span class="num">1</span> Was sind Textdateien?</h2>
+    <p>Bisher lagen alle Daten – Eingaben des Benutzers ebenso wie berechnete Ergebnisse – nur im <strong>Arbeitsspeicher</strong>. Dieser ist flüchtig: Nach dem Programmende sind die Daten verloren.</p>
+    <p><strong>Textdateien</strong> speichern Daten <strong>dauerhaft</strong> auf der Festplatte. Sie bestehen aus Zeichen, die in <strong>Zeilen</strong> angeordnet sind und nacheinander (sequenziell) gelesen werden. Am Ende jeder Zeile steht ein unsichtbares Zeilenumbruch-Zeichen, in Python <code>\n</code> geschrieben.</p>
+    <h3>Die drei Schritte beim Dateizugriff</h3>
+    <ol class="plain" style="padding-left:1.4rem">
+      <li><strong>Öffnen</strong> der Datei und Zuweisen zu einer Variablen</li>
+      <li><strong>Zugreifen:</strong> aus der Datei lesen oder in die Datei schreiben</li>
+      <li><strong>Schließen</strong> der Datei</li>
+    </ol>
+  </section>
+
+  <!-- 2.1 Öffnen -->
+  <section id="oeffnen" class="section">
+    <h2><span class="num">2</span> Dateien öffnen – mit with</h2>
+    <p>Die Funktion <code>open()</code> öffnet eine Datei. Sie bekommt den <strong>Dateinamen</strong> und den <strong>Modus</strong>. Liegt die Datei nicht im selben Ordner wie das Programm, muss der Pfad mit angegeben werden. Am einfachsten ist es, Datei und Python-Programm im selben Ordner zu speichern.</p>
+    <p>Weil das Schließen leicht vergessen wird, verwendet man die <strong>with-Anweisung</strong>: Sobald der eingerückte with-Block verlassen wird, schließt Python die Datei automatisch – auch wenn ein Fehler auftritt.</p>
+<pre class="py block">
+with open("notizen.txt", "w", encoding="utf-8") as datei:
+    datei.write("Hallo Welt!")
+# hier ist die Datei bereits wieder geschlossen
+</pre>
+    <p><code>datei</code> ist der Name, unter dem die geöffnete Datei im with-Block angesprochen wird (oft auch <code>file</code> oder <code>f</code>).</p>
+    <div class="callout tip">
+      <strong>Tipp: encoding="utf-8" angeben.</strong> Ohne diese Angabe verwendet Python die Standardkodierung des Betriebssystems. Unter Windows werden Umlaute wie ä, ö, ü dann oft falsch gespeichert oder gelesen. Mit <code>encoding="utf-8"</code> funktioniert es auf allen Systemen gleich.
+    </div>
+
+    <h3>Die wichtigsten Modi</h3>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Modus</th><th>Bedeutung</th><th>Lesen</th><th>Schreiben</th><th>Datei fehlt</th><th>Datei vorhanden</th></tr></thead>
+        <tbody>
+          <tr><td><code>"r"</code></td><td>read – nur lesen (Standard)</td><td>✓</td><td>✗</td><td>Fehler</td><td>wird gelesen</td></tr>
+          <tr><td><code>"w"</code></td><td>write – nur schreiben</td><td>✗</td><td>✓</td><td>wird erstellt</td><td><strong>Inhalt wird gelöscht!</strong></td></tr>
+          <tr><td><code>"a"</code></td><td>append – anhängen</td><td>✗</td><td>✓ (am Ende)</td><td>wird erstellt</td><td>bleibt erhalten, Neues kommt ans Ende</td></tr>
+          <tr><td><code>"r+"</code></td><td>lesen und schreiben</td><td>✓</td><td>✓ (ab Anfang)</td><td>Fehler</td><td>bleibt erhalten, wird ab Beginn überschrieben</td></tr>
+          <tr><td><code>"w+"</code></td><td>schreiben und lesen</td><td>✓</td><td>✓</td><td>wird erstellt</td><td><strong>Inhalt wird gelöscht!</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" id="file-lab">
+      <h3>Datei-Labor: Was passiert mit notizen.txt?</h3>
+      <div class="file" id="fl-file">
+        <div class="file-head"><span>📄 notizen.txt</span><button type="button" class="btn small" id="fl-del">Datei löschen</button></div>
+        <div class="file-body" id="fl-body"></div>
+      </div>
+      <div class="lab-row">
+        <div class="field"><label for="fl-mode">Modus</label>
+          <select id="fl-mode"><option>r</option><option selected>w</option><option>a</option><option>r+</option><option>w+</option></select>
+        </div>
+        <div class="field"><label for="fl-act">Aktion</label>
+          <select id="fl-act"><option value="write">write(text)</option><option value="read">read()</option></select>
+        </div>
+        <div class="field wide" id="fl-tw"><label for="fl-text">text</label><input id="fl-text" type="text" value="Einkaufen\n" autocomplete="off" spellcheck="false"></div>
+        <div class="run-buttons">
+          <button type="button" class="btn primary" id="fl-run">▶ Ausführen</button>
+          <button type="button" class="btn" id="fl-reset">Zurücksetzen</button>
+        </div>
+      </div>
+      <pre class="py no-hl" id="fl-code"></pre>
+      <div class="lab-log" id="fl-log" aria-live="polite"></div>
+      <p class="tool-note"><span class="nl" style="color:#d97706;font-weight:700">↵</span> markiert einen Zeilenumbruch <code>\n</code>. Im Textfeld kannst du <code>\n</code> eintippen.</p>
+    </div>
+      <aside class="ntk" data-title="Warum wird aus „ä“ manchmal „Ã¤“?">
+<p>Eine Datei enthält keine Buchstaben, sondern nur Bytes – also Zahlen. Welche Zahl für welches Zeichen steht, legt die <strong>Zeichenkodierung</strong> fest. In UTF-8 wird „ä“ als zwei Bytes gespeichert. Liest ein Programm die Datei mit einer anderen Kodierung (z. B. der alten Windows-Kodierung), deutet es jedes Byte einzeln als Zeichen – und aus „ä“ wird „Ã¤“, aus „ü“ wird „Ã¼“.</p>
+      <p>Solchen Zeichensalat nennt man <strong>Mojibake</strong> (japanisch für „verwandelte Zeichen“). Deshalb steht in allen Beispielen <code>encoding="utf-8"</code>: beim Schreiben und beim Lesen dieselbe Kodierung.</p>
+    </aside>
+  </section>
+
+  <!-- 2.2 Lesen -->
+  <section id="lesen" class="section">
+    <h2><span class="num">2.1</span> Aus einer Datei lesen</h2>
+    <p>Eine geöffnete Datei kann man mit einer <code>for</code>-Schleife <strong>zeilenweise</strong> durchlaufen. Jede Zeile ist ein String – <strong>einschließlich</strong> des Zeilenumbruchs <code>\n</code> am Ende. Weil <code>print()</code> selbst noch einen Zeilenumbruch anhängt, entstehen in der Ausgabe Leerzeilen.</p>
+    <p><strong>Beispiel:</strong> Achte im Arbeitsspeicher auf das <code>\n</code> am Ende von <code>zeile</code> und auf die Leerzeilen in der Ausgabe.</p>
+    <div class="example" data-example="lesen1"></div>
+    <p>Abhilfe schafft <code>strip()</code>: Es entfernt Leerzeichen, Tabulatoren und Zeilenumbrüche am <strong>Anfang und Ende</strong> eines Strings.</p>
+    <div class="example" data-example="lesen2"></div>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Methode</th><th>Liefert</th></tr></thead>
+        <tbody>
+          <tr><td><code>datei.read()</code></td><td>den gesamten Inhalt als <strong>einen</strong> String</td></tr>
+          <tr><td><code>datei.readline()</code></td><td>die <strong>nächste</strong> Zeile als String (z. B. für eine Überschriftenzeile)</td></tr>
+          <tr><td><code>datei.readlines()</code></td><td>alle Zeilen als <strong>Liste</strong> von Strings</td></tr>
+          <tr><td><code>for zeile in datei:</code></td><td>die Zeilen nacheinander – speichersparend auch bei großen Dateien</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 2.3 Schreiben -->
+  <section id="schreiben" class="section">
+    <h2><span class="num">2.2</span> In eine Datei schreiben</h2>
+    <p>Zum Schreiben wird die Datei im Modus <code>"w"</code> (überschreiben) oder <code>"a"</code> (anhängen) geöffnet. Die Methode <code>write(text)</code> schreibt einen String in die Datei. Dabei gilt:</p>
+    <ul class="plain">
+      <li><code>write()</code> akzeptiert <strong>nur Strings</strong>. Zahlen müssen vorher mit <code>str()</code> umgewandelt werden.</li>
+      <li><code>write()</code> fügt <strong>keinen</strong> Zeilenumbruch hinzu. Soll eine neue Zeile beginnen, muss <code>\n</code> angehängt werden.</li>
+    </ul>
+    <div class="compare">
+      <div>
+        <div class="syntax-label">Text schreiben</div>
+<pre class="py">
+with open("notizen.txt", "w", encoding="utf-8") as datei:
+    datei.write("Hallo Welt!\n")
+    datei.write("Noch eine Zeile.\n")
+</pre>
+      </div>
+      <div>
+        <div class="syntax-label">Zahlen schreiben</div>
+<pre class="py">
+with open("zahlen.txt", "w", encoding="utf-8") as datei:
+    for i in range(1, 101):
+        datei.write(str(i) + "\n")
+</pre>
+      </div>
+    </div>
+    <p class="small">Die zweite Datei enthält danach die Zahlen 1 bis 100, jede in einer eigenen Zeile. Beim Einlesen erhält man sie wieder als Strings und muss sie mit <code>int()</code> zurückwandeln, um damit zu rechnen.</p>
+      <aside class="ntk" data-title="Passwörter gehören nie im Klartext in eine Datei">
+<p>2009 wurde der Spieleanbieter RockYou gehackt. Er hatte die Passwörter von rund <strong>32 Millionen</strong> Nutzern im Klartext gespeichert – lesbar wie eine normale Textdatei. Die Liste ist bis heute eines der wichtigsten Werkzeuge beim Passwortknacken. Das häufigste Passwort darin: <code>123456</code>.</p>
+      <p>Richtig ist es, Passwörter nur als <strong>Hashwert</strong> zu speichern: eine Art Fingerabdruck, aus dem sich das Passwort nicht zurückrechnen lässt. Beim Anmelden wird das eingegebene Passwort ebenso umgerechnet und nur der Fingerabdruck verglichen. In Python helfen dabei Module wie <code>hashlib</code>.</p>
+    </aside>
+  </section>
+
+  <!-- 3 CSV -->
+  <section id="csv" class="section">
+    <h2><span class="num">3</span> CSV-Dateien lesen und darstellen</h2>
+    <p><strong>CSV-Dateien</strong> (<em>comma-separated values</em>) sind Textdateien, die Tabellen speichern: Jede Zeile ist ein Datensatz, die Werte darin sind durch ein <strong>Trennzeichen</strong> getrennt. In Deutschland ist das meist ein Semikolon <code>;</code>, im englischsprachigen Raum ein Komma <code>,</code>. Die erste Zeile enthält in der Regel die <strong>Spaltenüberschriften</strong>. CSV-Dateien lassen sich auch mit Excel öffnen – jedes Semikolon trennt dort eine Spalte.</p>
+    <h3>Vorgehen</h3>
+    <ol class="plain" style="padding-left:1.4rem">
+      <li>Datei zum Lesen öffnen.</li>
+      <li>Die erste Zeile mit <code>readline()</code> lesen, mit <code>strip()</code> säubern und mit <code>split(";")</code> in eine Liste der Überschriften zerlegen.</li>
+      <li>Die übrigen Zeilen in einer Schleife ebenso mit <code>strip()</code> und <code>split(";")</code> zerlegen und an eine Liste anhängen. Hier kann man die Werte auch gleich <strong>auswerten</strong>.</li>
+      <li>Die entstandene zweidimensionale Liste ausgeben – z. B. als Tabelle mit <code>tabulate</code>.</li>
+    </ol>
+    <div class="card" id="csv-lab">
+      <h3>CSV-Labor: wetter.csv</h3>
+      <div class="lab-row">
+        <div class="field wide" style="flex:1 1 100%"><label for="csv-in">Inhalt der Datei (bearbeitbar)</label>
+          <textarea id="csv-in" rows="6" spellcheck="false" style="width:100%;font-family:var(--mono);font-size:.9rem;border:1px solid var(--border);border-radius:8px;padding:.5rem;background:var(--surface);color:var(--text)"></textarea>
+        </div>
+      </div>
+      <div class="lab-row">
+        <div class="field"><label for="csv-line">Zeile untersuchen</label><select id="csv-line"></select></div>
+        <div class="field"><label for="csv-col">Spalte auswerten</label><select id="csv-col"></select></div>
+      </div>
+      <div class="tool-result" id="csv-steps" aria-live="polite"></div>
+      <div class="syntax-label" style="margin-top:.8rem">Ausgabe von print(tabulate.tabulate(tabelle, headers=ueberschrift))</div>
+      <div class="ascii" id="csv-table"></div>
+      <div class="syntax-label" style="margin-top:1rem">Quellcode zum Auswerten der gewählten Spalte</div>
+      <pre class="py no-hl" id="csv-eval-code"></pre>
+      <div class="syntax-label" style="margin-top:.6rem">Ausgabe</div>
+      <div class="console" id="csv-eval-out" style="min-height:0"></div>
+      <p class="tool-note">Die Werte kommen als Strings aus der Datei. Zum Rechnen werden sie mit <code>float()</code> umgewandelt. Wähle oben eine andere Spalte – der Index im Code passt sich an.</p>
+    </div>
+    <div class="syntax-label">Der vollständige Code</div>
+<pre class="py block">
+import tabulate     # externe Bibliothek, vorher installieren: py -m pip install tabulate
+
+tabelle = []        # leere Liste für die Datensätze
+
+with open("wetter.csv", "r", encoding="utf-8") as datei:
+    # erste Zeile: Überschriften
+    ueberschrift = datei.readline().strip().split(";")
+
+    # restliche Zeilen: Datensätze
+    for zeile in datei:
+        werte = zeile.strip().split(";")
+        tabelle.append(werte)
+        # hier kann jede Zeile ausgewertet werden
+
+print(tabulate.tabulate(tabelle, headers=ueberschrift))
+</pre>
+    <div class="callout">
+      <strong>tabulate ist eine externe Bibliothek.</strong> Sie wird einmalig im Terminal (z. B. in VS Code) installiert: <code>py -m pip install tabulate</code> unter Windows bzw. <code>python3 -m pip install tabulate</code>. In einem Jupyter-Notebook genügt eine Zelle mit <code>%pip install tabulate</code>.
+    </div>
+
+  </section>
+
+
+  <!-- 3.1 csv-Modul -->
+  <section id="csv-modul" class="section">
+    <h2><span class="num">3.1</span> CSV-Dateien lesen mit dem Modul csv</h2>
+    <p>Das Zerlegen mit <code>strip()</code> und <code>split(";")</code> funktioniert, hat aber Grenzen: Enthält ein Wert selbst ein Semikolon (z. B. <code>"Müller; Söhne"</code> in Anführungszeichen), wird falsch getrennt. Die Standardbibliothek enthält deshalb das Modul <code>csv</code>, das solche Fälle korrekt behandelt. Eine Installation ist nicht nötig.</p>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Werkzeug</th><th>Liefert pro Zeile</th><th>Zugriff auf die Temperatur</th></tr></thead>
+        <tbody>
+          <tr><td><code>split(";")</code></td><td>eine Liste von Strings</td><td><code>werte[1]</code></td></tr>
+          <tr><td><code>csv.reader</code></td><td>eine Liste von Strings – Zeilenumbruch schon entfernt</td><td><code>werte[1]</code></td></tr>
+          <tr><td><code>csv.DictReader</code></td><td>ein Dictionary – die Überschriften sind die Schlüssel</td><td><code>zeile["Temperatur"]</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="compare">
+      <div>
+        <div class="syntax-label">csv.reader</div>
+<pre class="py">
+import csv
+
+with open("wetter.csv", "r", encoding="utf-8", newline="") as datei:
+    leser = csv.reader(datei, delimiter=";")
+    ueberschrift = next(leser)      # erste Zeile
+    for werte in leser:             # jede Zeile ist eine Liste
+        print(f"{werte[0]}: {werte[1]} °C")
+</pre>
+      </div>
+      <div>
+        <div class="syntax-label">csv.DictReader</div>
+<pre class="py">
+import csv
+
+with open("wetter.csv", "r", encoding="utf-8", newline="") as datei:
+    leser = csv.DictReader(datei, delimiter=";")
+    for zeile in leser:             # jede Zeile ist ein Dictionary
+        print(f"{zeile['Stadt']}: {zeile['Temperatur']} °C")
+</pre>
+      </div>
+    </div>
+    <ul class="plain">
+      <li><code>delimiter=";"</code> gibt das Trennzeichen an. Ohne diese Angabe erwartet das Modul ein Komma.</li>
+      <li><code>newline=""</code> beim Öffnen überlässt die Zeilenumbrüche dem Modul <code>csv</code>. So wird alles korrekt gelesen – und beim Schreiben entstehen unter Windows keine zusätzlichen Leerzeilen.</li>
+      <li><code>next(leser)</code> holt die nächste Zeile – hier die Überschriften. Beim <code>DictReader</code> ist das nicht nötig, er liest die Überschriften selbst.</li>
+      <li>Auch hier sind alle Werte <strong>Strings</strong>. Zum Rechnen: <code>float(zeile["Temperatur"])</code>.</li>
+    </ul>
+    <div class="card" id="csv-compare">
+      <h3>Was liefert die Schleife? (Inhalt aus dem CSV-Labor)</h3>
+      <div class="seg" role="group" aria-label="Werkzeug">
+        <button type="button" data-m="split" aria-pressed="true">split(";")</button>
+        <button type="button" data-m="reader" aria-pressed="false">csv.reader</button>
+        <button type="button" data-m="dict" aria-pressed="false">csv.DictReader</button>
+      </div>
+      <div class="lab-log" id="csv-compare-out" aria-live="polite"></div>
+    </div>
+    <div class="callout tip">
+      <strong>Welche Variante?</strong> Für einfache, selbst erzeugte Dateien genügt <code>split()</code>. Für Dateien aus anderen Programmen (z. B. ein Export aus Excel) ist das Modul <code>csv</code> sicherer. <code>DictReader</code> macht den Code besonders gut lesbar, weil man Spalten über ihren Namen statt über einen Index anspricht.
+    </div>
+  </section>
+
+  <!-- 4 Ganze Dateien schreiben -->
+  <section id="ganz-schreiben" class="section">
+    <h2><span class="num">4</span> Ganze Dateien schreiben</h2>
+    <p>Meist schreibt man nicht nur einzelne Einträge, sondern ganze Listen oder Tabellen in eine Datei – zum Beispiel Messwerte oder die Ergebnisse einer Auswertung. Die Daten liegen dann in einer (zweidimensionalen) Liste und werden in einer Schleife Zeile für Zeile geschrieben.</p>
+    <p><strong>Beispiel:</strong> Eine Tabelle wird nur mit <code>open(…, "w")</code> und <code>write()</code> als CSV-Datei gespeichert. Gehe das Programm mit „Schritt“ durch und beobachte, wie die Datei wächst.</p>
+    <div class="example" data-example="schreiben_csv"></div>
+    <h3>Vier Wege im Vergleich</h3>
+    <div class="card" id="write-compare">
+      <div class="seg" role="group" aria-label="Variante">
+        <button type="button" data-w="txt" aria-pressed="true">Textdatei mit write()</button>
+        <button type="button" data-w="csvw" aria-pressed="false">CSV mit write()</button>
+        <button type="button" data-w="writer" aria-pressed="false">csv.writer</button>
+        <button type="button" data-w="dictwriter" aria-pressed="false">csv.DictWriter</button>
+      </div>
+      <pre class="py no-hl" id="wc-code" style="margin-top:.8rem"></pre>
+      <div class="file" style="margin-top:.6rem">
+        <div class="file-head"><span id="wc-name"></span></div>
+        <div class="file-body" id="wc-file"></div>
+      </div>
+      <p class="tool-note" id="wc-note"></p>
+    </div>
+    <div class="table-wrap">
+      <table class="ops">
+        <thead><tr><th>Methode</th><th>Wirkung</th></tr></thead>
+        <tbody>
+          <tr><td><code>datei.write(text)</code></td><td>schreibt einen String – Zeilenumbruch <code>\n</code> selbst anhängen</td></tr>
+          <tr><td><code>schreiber.writerow(liste)</code></td><td>schreibt eine Zeile; Zahlen werden automatisch umgewandelt</td></tr>
+          <tr><td><code>schreiber.writerows(tabelle)</code></td><td>schreibt alle Zeilen einer zweidimensionalen Liste auf einmal</td></tr>
+          <tr><td><code>dict_schreiber.writeheader()</code></td><td>schreibt die Überschriftenzeile (aus <code>fieldnames</code>)</td></tr>
+          <tr><td><code>dict_schreiber.writerows(liste_von_dicts)</code></td><td>schreibt eine Liste von Dictionaries</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Fehler -->
+  <section id="fehler" class="section">
+    <h2><span class="num">!</span> Typische Fehler</h2>
+    <div class="errors">
+      <div class="err-card">
+        <h3>Datei nicht gefunden</h3>
+<pre class="py bad">open("daten.txt", "r")
+# FileNotFoundError</pre>
+<pre class="py good"># Datei in denselben Ordner wie das
+# Programm legen oder Pfad angeben</pre>
+        <p>Im Lesemodus muss die Datei existieren. Häufige Ursachen: Tippfehler im Namen oder falscher Ordner.</p>
+      </div>
+      <div class="err-card">
+        <h3>Zahl statt String schreiben</h3>
+<pre class="py bad">datei.write(42)</pre>
+<pre class="py good">datei.write(str(42) + "\n")</pre>
+        <p><code>TypeError: write() argument must be str, not int</code></p>
+      </div>
+      <div class="err-card">
+        <h3>Daten versehentlich gelöscht</h3>
+<pre class="py bad">open("log.txt", "w")   # zum Ergänzen</pre>
+<pre class="py good">open("log.txt", "a")</pre>
+        <p>Modus <code>"w"</code> leert eine vorhandene Datei sofort beim Öffnen. Zum Ergänzen nimmt man <code>"a"</code>.</p>
+      </div>
+      <div class="err-card">
+        <h3>Leerzeilen in der CSV-Datei</h3>
+<pre class="py bad">open("daten.csv", "w", encoding="utf-8")</pre>
+<pre class="py good">open("daten.csv", "w", encoding="utf-8", newline="")</pre>
+        <p>Schreibt man mit dem Modul <code>csv</code>, entstehen unter Windows ohne <code>newline=""</code> zusätzliche Leerzeilen zwischen den Datensätzen.</p>
+      </div>
+      <div class="err-card">
+        <h3>Mit eingelesenen Zahlen rechnen</h3>
+<pre class="py bad">summe = summe + zeile</pre>
+<pre class="py good">summe = summe + float(zeile.strip())</pre>
+        <p>Aus Dateien kommen immer Strings. Zum Rechnen müssen sie umgewandelt werden.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <section id="quiz" class="section">
+    <h2><span class="num">?</span> Teste dich selbst</h2>
+    <p>Wähle jeweils eine Antwort. Du bekommst sofort eine Rückmeldung.</p>
+    <div id="quiz-list" class="quiz"></div>
+    <p id="quiz-score" class="quiz-score" aria-live="polite"></p>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <p>Lernseite „15 Textdateien“ · Python · LF 12.1</p>
+    <p class="small">Hinweis: Die Programme auf dieser Seite werden im Browser simuliert.</p>
+  </div>
+</footer>
+
+<script src="js/engine.js" defer></script>
+<script src="js/seite.js" defer></script>
+<script src="js/extras.js" defer></script>
+</body>
+</html>
