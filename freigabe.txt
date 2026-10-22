@@ -14,3 +14,8 @@ eva
 verzweigungen
 schleifen
 listen
+# mehrdimensionale listen
+# dictionaries
+# funktionen
+# textdateien
+# strings
