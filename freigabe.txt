@@ -15,7 +15,7 @@ verzweigungen
 schleifen
 listen
 # mehrdimensionale listen
-# dictionaries
+dictionaries
 # funktionen
 # textdateien
 # strings
