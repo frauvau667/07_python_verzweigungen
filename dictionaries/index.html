@@ -51,7 +51,7 @@
         <thead><tr><th></th><th>Liste</th><th>Dictionary</th></tr></thead>
         <tbody>
           <tr><td>Klammern</td><td><code>[ ]</code></td><td><code>{ }</code></td></tr>
-          <tr><td>Zugriff über</td><td>Index (Position): <code>liste[2]</code></td><td>Schlüssel (Name): <code>telefonbuch["Ada Lovelace"]</code></td></tr>
+          <tr><td>Zugriff über</td><td>Index (Position): <code>liste[2]</code></td><td>Schlüssel (Name): <code>telefonbuch["Anna Berg"]</code></td></tr>
           <tr><td>Reihenfolge</td><td>wichtig, bestimmt den Index</td><td>bleibt erhalten, ist für den Zugriff aber egal</td></tr>
           <tr><td>Geeignet für</td><td>gleichartige Werte in einer Reihe (Messwerte)</td><td>Zuordnungen (Name → Nummer, Merkmal → Wert)</td></tr>
         </tbody>
@@ -65,32 +65,19 @@
     <p>Ein Dictionary wird mit <strong>geschweiften Klammern</strong> <code>{ }</code> angelegt. Darin stehen Schlüssel-Wert-Paare in der Form <code>schlüssel: wert</code>, getrennt durch Kommas.</p>
 <pre class="py block">
 telefonbuch = {
-    "Ada Lovelace": "0681 1815",
-    "Alan Turing": "06831 1912",
-    "Grace Hopper": "0176 1906"
+    "Anna Berg": "0681 123456",
+    "Jonas Klein": "06831 987654",
+    "Lea Wolf": "0176 11342555"
 }
-print(telefonbuch["Alan Turing"])     # 06831 1912
+print(telefonbuch["Jonas Klein"])     # 06831 987654
 </pre>
     <p>Auf einen Wert greift man zu, indem man den <strong>Schlüssel in eckige Klammern</strong> hinter den Namen des Dictionarys schreibt. Ein Zugriff über einen Index wie <code>telefonbuch[2]</code> ist <strong>nicht</strong> möglich – Python sucht dann nach dem Schlüssel <code>2</code> und meldet einen <code>KeyError</code>, weil es ihn nicht gibt.</p>
     <div class="callout tip">
-      <strong>Sicherer Zugriff mit get():</strong> <code>telefonbuch.get("Hedy Lamarr")</code> liefert <code>None</code> statt eines Fehlers, wenn der Schlüssel fehlt. Mit <code>telefonbuch.get("Hedy Lamarr", "unbekannt")</code> legt man fest, was dann zurückgegeben wird.
+      <strong>Sicherer Zugriff mit get():</strong> <code>telefonbuch.get("Tom Hahn")</code> liefert <code>None</code> statt eines Fehlers, wenn der Schlüssel fehlt. Mit <code>telefonbuch.get("Tom Hahn", "unbekannt")</code> legt man fest, was dann zurückgegeben wird.
     </div>
     <div class="callout">
       <strong>Warum stehen die Telefonnummern als Text in Anführungszeichen?</strong> Als Zahl gespeichert würde die führende 0 verschwinden (<code>0681</code> wäre ungültig). Mit Telefonnummern, Postleitzahlen oder Kundennummern rechnet man nicht – sie gehören deshalb als <code>str</code> gespeichert.
     </div>
-      <aside class="ntk" data-title="Wer steckt hinter den Namen?">
-<p>Die Namen in den Beispielen gehören Menschen, die die Informatik geprägt haben:</p>
-      <ul>
-        <li><strong>Ada Lovelace</strong> (1815) schrieb das erste Computerprogramm der Welt – für eine Rechenmaschine, die nie gebaut wurde.</li>
-        <li><strong>Alan Turing</strong> (1912) legte die theoretischen Grundlagen der Informatik und half im Zweiten Weltkrieg, die Verschlüsselungsmaschine Enigma zu knacken.</li>
-        <li><strong>Grace Hopper</strong> (1906) entwickelte einen der ersten Compiler. Sie machte auch den Begriff „Bug“ bekannt: 1947 fand ihr Team eine Motte in einem Rechner und klebte sie ins Logbuch – „first actual case of bug being found“.</li>
-        <li><strong>Konrad Zuse</strong> (1910) baute 1941 in Berlin mit der Z3 den ersten funktionsfähigen programmierbaren Computer.</li>
-        <li><strong>Margaret Hamilton</strong> (1936) leitete die Entwicklung der Software für die Apollo-Mondlandung und prägte maßgeblich den Begriff „Software Engineering“.</li>
-        <li><strong>Hedy Lamarr</strong> (1914) war Hollywood-Schauspielerin und Erfinderin: Ihr Frequenzsprungverfahren gilt als Vorläufer heutiger Funktechniken wie WLAN und Bluetooth.</li>
-        <li><strong>Guido van Rossum</strong> (1956) erfand Python. Benannt hat er die Sprache nach der Comedy-Gruppe Monty Python – nicht nach der Schlange.</li>
-      </ul>
-      <p>Die Personalnummern in den Beispielen sind übrigens ihre Geburtsjahre.</p>
-    </aside>
   </section>
 
   <!-- 4,5,8 Ändern -->
@@ -123,7 +110,7 @@ print(telefonbuch["Alan Turing"])     # 06831 1912
       </div>
       <div class="lab-call" id="dl-call"></div>
       <div class="lab-log" id="dl-log" aria-live="polite"></div>
-      <p class="tool-note">Texte in Anführungszeichen eingeben, z. B. <code>"Konrad Zuse"</code>.</p>
+      <p class="tool-note">Texte in Anführungszeichen eingeben, z. B. <code>"Tom Hahn"</code>.</p>
     </div>
   </section>
 
@@ -133,13 +120,13 @@ print(telefonbuch["Alan Turing"])     # 06831 1912
     <p>Die <strong>Werte</strong> dürfen jeden Datentyp haben – auch Listen oder andere Dictionaries. Innerhalb eines Dictionarys dürfen die Datentypen gemischt werden.</p>
 <pre class="py block">
 mitarbeiter = {
-    "name": "Zuse",
-    "personalnummer": 1910,
+    "name": "Berg",
+    "alter": 34,
     "gehalt": 3850.50,
     "teilzeit": False,
-    "projekte": ["Z1", "Z3", "Plankalkül"]
+    "sprachen": ["Deutsch", "Englisch", "Französisch"]
 }
-print(mitarbeiter["projekte"][1])     # Z3
+print(mitarbeiter["sprachen"][1])     # Englisch
 </pre>
     <p>Die <strong>Schlüssel</strong> dagegen müssen <strong>unveränderlich</strong> sein. Erlaubt sind z. B. Zahlen (<code>int</code>), Texte (<code>str</code>) und Tupel. Listen sind <strong>nicht</strong> erlaubt, weil man sie verändern kann:</p>
 <pre class="py block">
@@ -157,14 +144,14 @@ d = {[1, 2]: "a"}     # TypeError: unhashable type: 'list'
         <div class="syntax-label">Über die Schlüssel</div>
 <pre class="py">
 for name in telefonbuch:
-    print(f"{name}: {telefonbuch[name]}")
+    print(name, telefonbuch[name])
 </pre>
       </div>
       <div>
         <div class="syntax-label">Mit items()</div>
 <pre class="py">
 for name, nummer in telefonbuch.items():
-    print(f"{name}: {nummer}")
+    print(name, nummer)
 </pre>
       </div>
     </div>
@@ -179,29 +166,28 @@ for name, nummer in telefonbuch.items():
     <h3>Ein Datensatz: Merkmale eines Objekts</h3>
     <p>Ein Dictionary kann die Daten <strong>einer Person</strong> (oder eines Produkts, eines Fahrzeugs …) beschreiben. Jeder Schlüssel ist ein Merkmal. Man muss sich keine Indizes merken, und Merkmale können jederzeit hinzukommen.</p>
 <pre class="py block">
-mitarbeiterin = {"name": "Hopper", "vorname": "Grace", "email": "grace.hopper@example.de", "abteilung": "Compilerbau"}
-print(mitarbeiterin["email"])
-mitarbeiterin["telefon"] = "0176 1906"     # neues Merkmal
+kunde = {"name": "Wolf", "vorname": "Lea", "email": "lea.wolf@example.de", "ort": "Saarlouis"}
+print(kunde["email"])
+kunde["telefon"] = "06831 4711"     # neues Merkmal
 </pre>
     <h3>Eindeutige Kennung als Schlüssel</h3>
     <p>Haben Daten eine eindeutige Nummer (Kundennummer, Personalnummer, Matrikelnummer), eignet sie sich als Schlüssel:</p>
 <pre class="py block">
-personal = {
-    1815: "Ada Lovelace",
-    1906: "Grace Hopper",
-    1910: "Konrad Zuse",
-    1912: "Alan Turing"
+kunden = {
+    1001: "Anna Berg",
+    1002: "Jonas Klein",
+    1003: "Lea Wolf"
 }
-print(personal[1912])     # Alan Turing
+print(kunden[1002])     # Jonas Klein
 </pre>
     <h3>Beides kombiniert</h3>
     <p>Die Werte können selbst Dictionaries sein. So entsteht eine kleine Datenbank – mit zwei Schlüsseln nacheinander greift man auf ein Merkmal zu:</p>
 <pre class="py block">
-personal = {
-    1936: {"name": "Hamilton", "abteilung": "Raumfahrt"},
-    1956: {"name": "van Rossum", "abteilung": "Python"}
+kunden = {
+    1001: {"name": "Berg", "ort": "Saarlouis"},
+    1002: {"name": "Klein", "ort": "Dillingen"}
 }
-print(personal[1956]["abteilung"])     # Python
+print(kunden[1002]["ort"])     # Dillingen
 </pre>
   </section>
 
@@ -212,20 +198,20 @@ print(personal[1956]["abteilung"])     # Python
       <div class="err-card">
         <h3>Zugriff über einen Index</h3>
 <pre class="py bad">print(telefonbuch[0])</pre>
-<pre class="py good">print(telefonbuch["Ada Lovelace"])</pre>
+<pre class="py good">print(telefonbuch["Anna Berg"])</pre>
         <p>Dictionaries haben keinen Index: <code>KeyError: 0</code>.</p>
       </div>
       <div class="err-card">
         <h3>Schlüssel existiert nicht</h3>
-<pre class="py bad">print(telefonbuch["Hedy Lamarr"])</pre>
-<pre class="py good">if "Hedy Lamarr" in telefonbuch:
-    print(telefonbuch["Hedy Lamarr"])</pre>
+<pre class="py bad">print(telefonbuch["Tom Hahn"])</pre>
+<pre class="py good">if "Tom Hahn" in telefonbuch:
+    print(telefonbuch["Tom Hahn"])</pre>
         <p>Vorher mit <code>in</code> prüfen oder <code>get()</code> verwenden.</p>
       </div>
       <div class="err-card">
         <h3>Groß-/Kleinschreibung im Schlüssel</h3>
-<pre class="py bad">mitarbeiter["Name"]</pre>
-<pre class="py good">mitarbeiter["name"]</pre>
+<pre class="py bad">kunde["Name"]</pre>
+<pre class="py good">kunde["name"]</pre>
         <p>Schlüssel müssen exakt übereinstimmen – <code>"Name"</code> und <code>"name"</code> sind verschiedene Schlüssel.</p>
       </div>
       <div class="err-card">
@@ -256,6 +242,5 @@ print(personal[1956]["abteilung"])     # Python
 
 <script src="js/engine.js" defer></script>
 <script src="js/seite.js" defer></script>
-<script src="js/extras.js" defer></script>
 </body>
 </html>

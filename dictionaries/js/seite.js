@@ -36,7 +36,7 @@
   /* ==========================================================
      Dictionary-Labor
      ========================================================== */
-  const START = [['"Ada Lovelace"', '"0681 1815"'], ['"Alan Turing"', '"06831 1912"'], ['"Grace Hopper"', '"0176 1906"']];
+  const START = [['"Anna Berg"', '"0681 123456"'], ['"Jonas Klein"', '"06831 987654"'], ['"Lea Wolf"', '"0176 11342555"']];
 
   const OPS = {
     get: { label: 'd[schlüssel]', k: true, call: (k) => 'telefonbuch[' + k + ']',
@@ -61,7 +61,7 @@
     items: { label: 'd.items()', call: () => 'telefonbuch.items()', run(d) { return { raw: 'dict_items([' + d.map(([k, v]) => '(' + py.repr(k) + ', ' + py.repr(v) + ')').join(', ') + '])' }; } },
     clear: { label: 'd.clear()', call: () => 'telefonbuch.clear()', run(d) { d.splice(0, d.length); return { mut: true }; } }
   };
-  const DEF = { get: ['"Alan Turing"'], set: ['"Konrad Zuse"', '"06861 1910"'], del: ['"Grace Hopper"'], pop: ['"Ada Lovelace"'], getm: ['"Hedy Lamarr"', '"unbekannt"'], in: ['"Grace Hopper"'] };
+  const DEF = { get: ['"Jonas Klein"'], set: ['"Tom Hahn"', '"0681 555"'], del: ['"Lea Wolf"'], pop: ['"Anna Berg"'], getm: ['"Max Muster"', '"unbekannt"'], in: ['"Lea Wolf"'] };
 
   function initLab() {
     const table = document.getElementById('dl-table');
@@ -137,7 +137,7 @@ zaehler = {}
 for farbe in farben:
     zaehler[farbe] = zaehler.get(farbe, 0) + 1
 print(zaehler)
-print(f"rot kam {zaehler['rot']} mal vor.")`,
+print("rot kam", zaehler["rot"], "mal vor.")`,
       lineNotes: {
         1: '<b>Liste</b> mit den Werten, die gezählt werden sollen.',
         2: '<b>Leeres Dictionary:</b> Für jede Farbe wird später ein Paar <i>Farbe → Anzahl</i> angelegt.',
@@ -174,11 +174,11 @@ print(f"rot kam {zaehler['rot']} mal vor.")`,
      Quiz
      ========================================================== */
   L.setQuiz([
-    { q: 'Wie greift man auf die Nummer von Grace Hopper zu?', code: 'telefonbuch = {"Ada Lovelace": "0681 1815", "Grace Hopper": "0176 1906"}',
-      opts: ['telefonbuch[1]', 'telefonbuch["Grace Hopper"]', 'telefonbuch.Grace Hopper', 'telefonbuch("Grace Hopper")'], a: 1,
+    { q: 'Wie greift man auf die Nummer von Lea Wolf zu?', code: 'telefonbuch = {"Anna Berg": "0681 123456", "Lea Wolf": "0176 1134"}',
+      opts: ['telefonbuch[1]', 'telefonbuch["Lea Wolf"]', 'telefonbuch.Lea Wolf', 'telefonbuch("Lea Wolf")'], a: 1,
       ex: 'Der Schlüssel steht in eckigen Klammern hinter dem Namen des Dictionarys.' },
-    { q: 'Was passiert bei dieser Zeile, wenn es "Ada Lovelace" schon gibt?', code: 'telefonbuch["Ada Lovelace"] = "0681 999"',
-      opts: ['Ein zweiter Eintrag "Ada Lovelace" entsteht', 'Der alte Wert wird überschrieben', 'KeyError', 'Nichts'], a: 1,
+    { q: 'Was passiert bei dieser Zeile, wenn es "Anna Berg" schon gibt?', code: 'telefonbuch["Anna Berg"] = "0681 999"',
+      opts: ['Ein zweiter Eintrag "Anna Berg" entsteht', 'Der alte Wert wird überschrieben', 'KeyError', 'Nichts'], a: 1,
       ex: 'Jeder Schlüssel kommt nur einmal vor. Eine Zuweisung an einen vorhandenen Schlüssel überschreibt den Wert.' },
     { q: 'Was liefert d.get("x", 0), wenn es den Schlüssel "x" nicht gibt?', opts: ['KeyError', 'None', '0', '"x"'], a: 2,
       ex: '<code>get()</code> liefert den angegebenen Standardwert statt eines Fehlers.' },
@@ -188,7 +188,7 @@ print(f"rot kam {zaehler['rot']} mal vor.")`,
       ex: '<code>len()</code> zählt die Schlüssel-Wert-Paare.' },
     { q: 'Was liefert die Schleife in name?', code: 'for name in telefonbuch:\n    print(name)', opts: ['Die Werte (Nummern)', 'Die Schlüssel (Namen)', 'Paare (Name, Nummer)', 'Die Indizes 0, 1, 2 …'], a: 1,
       ex: 'Eine <code>for</code>-Schleife über ein Dictionary liefert die Schlüssel. Für Paare nimmt man <code>items()</code>.' },
-    { q: 'Wie löscht man den Eintrag "Alan Turing"?', opts: ['telefonbuch.remove("Alan Turing")', 'del telefonbuch["Alan Turing"]', 'telefonbuch["Alan Turing"] = 0', 'telefonbuch.clear("Alan Turing")'], a: 1,
+    { q: 'Wie löscht man den Eintrag "Lea Wolf"?', opts: ['telefonbuch.remove("Lea Wolf")', 'del telefonbuch["Lea Wolf"]', 'telefonbuch["Lea Wolf"] = 0', 'telefonbuch.clear("Lea Wolf")'], a: 1,
       ex: 'Mit <code>del</code> (oder <code>pop()</code>) wird ein Paar gelöscht. <code>remove()</code> gibt es nur bei Listen.' }
   ]);
 })();
