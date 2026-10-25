@@ -71,6 +71,24 @@ window.Lernseite = (function () {
     return String(x);
   }
 
+  // round(x, n) genau wie in Python: gerundet wird der tatsächlich gespeicherte Wert,
+  // bei einem exakten Gleichstand (…5) zur geraden Ziffer
+  function pyRound(x, n) {
+    n = n || 0;
+    if (!Number.isFinite(x)) return x;
+    const exact = Math.abs(x).toFixed(Math.min(100, n + 60));
+    const cut = exact.indexOf('.') + 1 + n;
+    const rest = exact.slice(cut);
+    let r = Number(x.toFixed(n));
+    if (/^50*$/.test(rest)) {
+      const down = Number((Math.sign(x) * Number(exact.slice(0, n ? cut : cut - 1))).toFixed(n));
+      const up = Number((down + Math.sign(x) * Math.pow(10, -n)).toFixed(n));
+      const lastDigit = (v) => Math.round(Math.abs(v) * Math.pow(10, n)) % 2;
+      r = lastDigit(down) === 0 ? down : up;
+    }
+    return r;
+  }
+
   function el(tag, cls, html) {
     const e = document.createElement(tag);
     if (cls) e.className = cls;
@@ -905,6 +923,6 @@ window.Lernseite = (function () {
     addExamples(obj) { Object.assign(EXAMPLES, obj); },
     setQuiz(list) { QUIZ = list; },
     onInit(fn) { HOOKS.push(fn); },
-    util: { el, esc, highlight, B, q, pyFloat, setBool, reducedMotion, py }
+    util: { el, esc, highlight, B, q, pyFloat, pyRound, setBool, reducedMotion, py }
   };
 })();
