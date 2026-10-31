@@ -161,7 +161,7 @@
         <div class="field wide"><label for="sl-d">daten (Zahlen mit Komma getrennt)</label><input id="sl-d" type="text" value="1, 2, 3, 4, 5" autocomplete="off"></div>
       </div>
       <pre class="py no-hl" id="sl-code"></pre>
-      <div class="result-grid" id="sl-out" aria-live="polite"></div>
+      <div class="result-grid stacked" id="sl-out" aria-live="polite"></div>
     </div>
   </section>
 
@@ -191,6 +191,7 @@
         <button type="button" data-r="shuffle" aria-pressed="false">random.shuffle(ausreden)</button>
       </div>
       <div class="lab-log" id="rnd-log" aria-live="polite"></div>
+      <div class="run-buttons"><button type="button" class="btn" id="rnd-reset">Zurücksetzen</button></div>
     </div>
       <aside class="ntk" data-title="Wie entstehen Zufallszahlen – und sind sie wirklich zufällig?">
 <p>Ein Computer arbeitet <strong>deterministisch</strong>: Gleiche Eingabe führt immer zum gleichen Ergebnis. Echter Zufall ist so nicht möglich. Python verwendet deshalb einen <strong>Pseudozufallszahlengenerator</strong> (den „Mersenne Twister“): Eine Formel berechnet aus einem <strong>Startwert</strong> (englisch <em>seed</em>) eine sehr lange Zahlenfolge, die zufällig <em>aussieht</em>.</p>

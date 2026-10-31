@@ -137,10 +137,18 @@
   function initRandom() {
     const log = document.getElementById('rnd-log');
     if (!log) return;
-    let ausreden = ['Bei mir funktioniert es.', 'Das ist kein Bug, das ist ein Feature.', 'Das war schon so.', 'Das muss am Compiler liegen.'];
+    const START = ['Bei mir funktioniert es.', 'Das ist kein Bug, das ist ein Feature.', 'Das war schon so.', 'Das muss am Compiler liegen.'];
+    let ausreden;
     const line = (cls, t) => { const d = el('div', cls); d.textContent = t; log.appendChild(d); log.scrollTop = log.scrollHeight; };
-    line('c-muted', '>>> import random');
-    line('c-muted', '>>> ausreden = ' + py.repr(ausreden));
+    const reset = () => {
+      ausreden = START.slice();
+      log.innerHTML = '';
+      line('c-muted', '>>> import random');
+      line('c-muted', '>>> ausreden = ' + py.repr(ausreden));
+    };
+    reset();
+    const rb = document.getElementById('rnd-reset');
+    if (rb) rb.addEventListener('click', reset);
     document.querySelectorAll('#rnd-lab [data-r]').forEach((b) => b.addEventListener('click', () => {
       const r = b.dataset.r;
       line('c-in', '>>> ' + b.textContent);

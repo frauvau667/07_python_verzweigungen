@@ -879,6 +879,8 @@ pre.code {
 .result-grid .res { font-weight: 700; text-align: right; overflow-wrap: anywhere; }
 .result-grid .res.bad { color: var(--false); font-size: .8rem; }
 .result-grid .ty { font-size: .7rem; margin-left: .3rem; }
+.result-grid.stacked > div { flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: .25rem; }
+.result-grid.stacked .res { text-align: left; font-size: 1rem; }
 
 /* Auswertungs-Schritte */
 .eval-steps { display: flex; flex-direction: column; gap: .35rem; font-family: var(--mono); font-size: 1rem; }
